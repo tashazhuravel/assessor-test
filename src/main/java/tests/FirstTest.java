@@ -16,6 +16,9 @@ public class FirstTest {
 
     WebDriver webDriver;
 
+    private static final String LOGIN = "krug";
+    private static final String PASSWORD = "krug";
+
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
@@ -27,10 +30,10 @@ public class FirstTest {
         System.out.println("Step 1: Authorization");
 
         AssessorSite assessorSite = new AssessorSite(webDriver);
-        AuthorizationPage authorizationPage = assessorSite.getAutorizationPage();
-        authorizationPage.setLogin("krug");
-        authorizationPage.setPassword("krug");
-        authorizationPage.clickLogining();
+        AuthorizationPage authorizationPage = assessorSite.getAuthorizationPage();
+        authorizationPage.setLogin(LOGIN);
+        authorizationPage.setPassword(PASSWORD);
+        authorizationPage.clickLoginButton();
     }
 
     @Test

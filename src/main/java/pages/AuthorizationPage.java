@@ -33,7 +33,7 @@ public class AuthorizationPage {
         inputPassword.sendKeys(password);
     }
 
-    public void clickLogining() {
+    public void clickLoginButton() {
         buttonLogining.click();
     }
 

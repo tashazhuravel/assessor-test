@@ -9,7 +9,7 @@ public class AssessorSite {
         this.webDriver = webDriver;
     }
 
-    public AuthorizationPage getAutorizationPage() {
+    public AuthorizationPage getAuthorizationPage() {
         return new AuthorizationPage(webDriver);
     }
 }
