@@ -29,6 +29,7 @@ public class FirstTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        System.setProperty("webdriver.chrome.driver", "C:/Install/chromedriver/chromedriver.exe");
         webDriver = new ChromeDriver(options);
         webDriver.get("http://assessor-demo.isida.by/assessor_nbrb");
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
