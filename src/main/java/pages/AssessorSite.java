@@ -12,4 +12,12 @@ public class AssessorSite {
     public AuthorizationPage getAuthorizationPage() {
         return new AuthorizationPage(webDriver);
     }
+
+    public MainPage getMainPage() {
+        return new MainPage(webDriver);
+    }
+
+    public PlanningTabPage getPlanningPage() {
+        return new PlanningTabPage(webDriver);
+    }
 }

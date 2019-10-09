@@ -34,7 +34,7 @@ public class AuthorizationPage {
     }
 
     public void clickLoginButton() {
-        buttonLogining.click();
+        buttonLogining.submit();
     }
 
     public WebElement getInputLogin() {

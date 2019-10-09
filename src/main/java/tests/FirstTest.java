@@ -9,15 +9,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.AssessorSite;
 import pages.AuthorizationPage;
+import pages.MainPage;
+import pages.PlanningTabPage;
 
 import java.util.concurrent.TimeUnit;
 
 public class FirstTest {
 
     WebDriver webDriver;
+    AuthorizationPage authorizationPage;
+    PlanningTabPage planningTabPage;
 
     private static final String LOGIN = "krug";
     private static final String PASSWORD = "krug";
+    private boolean authorization;
 
     @Before
     public void setUp() {
@@ -30,15 +35,25 @@ public class FirstTest {
         System.out.println("Step 1: Authorization");
 
         AssessorSite assessorSite = new AssessorSite(webDriver);
-        AuthorizationPage authorizationPage = assessorSite.getAuthorizationPage();
+        planningTabPage = assessorSite.getPlanningPage();
+        authorizationPage = assessorSite.getAuthorizationPage();
         authorizationPage.setLogin(LOGIN);
         authorizationPage.setPassword(PASSWORD);
         authorizationPage.clickLoginButton();
     }
 
     @Test
-    public void testUrl() {
-        Assert.assertTrue(webDriver.getCurrentUrl().equals("http://assessor-demo.isida.by/assessor_nbrb/index.php?title=%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0#tab-planning"));
+    public void testUrl() throws Exception {
+        authorization = webDriver.getCurrentUrl().equals("http://assessor-demo.isida.by/assessor_nbrb/index.php?title=%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0#tab-planning");
+        Assert.assertTrue(authorization);
+        if (!authorization) {
+            throw new Exception();
+        }
+    }
+
+    @Test
+    public void clickTab() {
+        planningTabPage.clickPlanningEventButton();
     }
 
     @After
