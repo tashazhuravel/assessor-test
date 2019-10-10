@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import pages.AssessorSite;
 import pages.AuthorizationPage;
 import pages.MainPage;
@@ -54,7 +55,8 @@ public class FirstTest {
 
     @Test
     public void clickTab() {
-        planningTabPage.clickPlanningEventButton();
+        planningTabPage.clickTab(MainPage.ETab.MANAGER);
+       // planningTabPage.clickPlanningEventButton();
     }
 
     @After

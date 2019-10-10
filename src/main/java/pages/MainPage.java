@@ -2,20 +2,21 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class MainPage {
 
-    private WebDriver webDriver;
+    protected WebDriver webDriver;
 
-    @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a")
+    @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a[2]")
     WebElement planningTab;
 
-    @FindBy(xpath = "//ul/li[@id='layoutTabs__archivesearch']/a")
+    @FindBy(xpath = "//ul/li[@id='layoutTabs__archivesearch']/a[2]")
     WebElement archiveSearchTab;
 
-    @FindBy(xpath = "//ul/li[@id='layoutTabs__manage']/a")
+    @FindBy(xpath = "//ul/li[@id='layoutTabs__manage']/a[2]")
     WebElement manageTab;
 
     public MainPage(WebDriver webDriver) {
@@ -24,20 +25,21 @@ public class MainPage {
     }
 
     public void clickTab(ETab eTab) {
+        Actions actions = new Actions(webDriver);
         switch (eTab) {
             case PLANNING:
-                planningTab.click();
+                actions.moveToElement(planningTab).click().perform();
                 break;
             case ARCHIVE:
-                archiveSearchTab.click();
+                actions.moveToElement(archiveSearchTab).click().perform();
                 break;
             case MANAGER:
-                manageTab.click();
+                actions.moveToElement(manageTab).click().perform();
                 break;
         }
     }
 
-    public static enum ETab {
+    public enum ETab {
         PLANNING, ARCHIVE, MANAGER
     }
 }
