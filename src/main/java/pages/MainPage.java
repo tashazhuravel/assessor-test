@@ -24,19 +24,22 @@ public class MainPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public void clickTab(ETab eTab) {
+    public MainPage clickTab(ETab eTab) {
         Actions actions = new Actions(webDriver);
         switch (eTab) {
             case PLANNING:
                 actions.moveToElement(planningTab).click().perform();
-                break;
+                return new PlanningTabPage(webDriver);
             case ARCHIVE:
                 actions.moveToElement(archiveSearchTab).click().perform();
-                break;
+                //Todo тоже сделать return
+                return null;
             case MANAGER:
                 actions.moveToElement(manageTab).click().perform();
-                break;
+                //Todo тоже сделать return
+                return null;
         }
+        return null;
     }
 
     public enum ETab {

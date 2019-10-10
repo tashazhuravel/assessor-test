@@ -5,9 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AuthorizationPage {
+import java.util.List;
 
-    private WebDriver webDriver;
+public class AuthorizationPage {
 
     @FindBy(id = "wpName")
     WebElement inputLogin;
@@ -18,8 +18,10 @@ public class AuthorizationPage {
     @FindBy(id = "wpLoginattempt")
     WebElement buttonLogining;
 
+    @FindBy(xpath = "//div[@id='layoutTabs']")
+    List<WebElement> elements;
+
     public AuthorizationPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
@@ -35,6 +37,10 @@ public class AuthorizationPage {
 
     public void clickLoginButton() {
         buttonLogining.submit();
+    }
+
+    public boolean checkAuthorization() {
+        return elements.isEmpty();
     }
 
     public WebElement getInputLogin() {
