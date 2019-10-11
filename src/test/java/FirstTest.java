@@ -7,16 +7,18 @@ import pages.MainPage;
 import pages.PlanningTabPage;
 
 public class FirstTest {
+    private static SeleniumExample seleniumExample;
     private static AssessorSite assessorSite;
     private PlanningTabPage planningTabPage;
     private static AuthorizationPage authorizationPage;
-    private final static String LOGIN = "krug2";
+    private final static String LOGIN = "krug";
     private final static String PASSWORD = "krug";
-    private static WebDriver webDriver = StartTest.webDriver;
+    private static WebDriver webDriver;
 
     @BeforeClass
     public static void authorization() {
-        webDriver.get("http://assessor-demo.isida.by/assessor_nbrb");
+        seleniumExample = new SeleniumExample();
+        webDriver = seleniumExample.getWebDriver();
         assessorSite = PageFactory.initElements(webDriver, AssessorSite.class);
         authorizationPage = assessorSite.getAuthorizationPage();
         System.out.println("Step 1: Authorization");
@@ -27,7 +29,7 @@ public class FirstTest {
 
     @Before
     public void setUp() {
-        webDriver.get("http://assessor-demo.isida.by/assessor_nbrb");
+        webDriver.get(seleniumExample.getUrl());
     }
 
     @Test
@@ -46,10 +48,7 @@ public class FirstTest {
 
     @AfterClass
     public static void tearDown() {
-        if (webDriver != null) {
-            assessorSite.getMainPage().logOut();
-            webDriver.quit();
-        }
-
+        assessorSite.getMainPage().logOut();
+        seleniumExample.closeWindow();
     }
 }
