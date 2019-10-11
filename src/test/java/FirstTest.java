@@ -10,7 +10,7 @@ public class FirstTest {
     private static AssessorSite assessorSite;
     private PlanningTabPage planningTabPage;
     private static AuthorizationPage authorizationPage;
-    private final static String LOGIN = "krug";
+    private final static String LOGIN = "krug2";
     private final static String PASSWORD = "krug";
     private static WebDriver webDriver = StartTest.webDriver;
 
