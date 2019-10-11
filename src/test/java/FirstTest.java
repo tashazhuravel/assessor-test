@@ -1,14 +1,10 @@
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
 import pages.AssessorSite;
 import pages.AuthorizationPage;
 import pages.MainPage;
 import pages.PlanningTabPage;
-
-import java.util.concurrent.TimeUnit;
 
 public class FirstTest {
     private static AssessorSite assessorSite;
@@ -16,17 +12,10 @@ public class FirstTest {
     private static AuthorizationPage authorizationPage;
     private final static String LOGIN = "krug";
     private final static String PASSWORD = "krug";
-    private boolean authorization;
-    private static WebDriver webDriver;
+    private static WebDriver webDriver = StartTest.webDriver;
 
     @BeforeClass
     public static void authorization() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        //System.setProperty("webdriver.chrome.driver", "C:/Install/chromedriver/chromedriver.exe");
-        webDriver = new ChromeDriver(options);
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.get("http://assessor-demo.isida.by/assessor_nbrb");
         assessorSite = PageFactory.initElements(webDriver, AssessorSite.class);
         authorizationPage = assessorSite.getAuthorizationPage();
@@ -47,6 +36,7 @@ public class FirstTest {
     }
 
     @Test
+    @Ignore
     public void createPlanning() {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -57,6 +47,7 @@ public class FirstTest {
     @AfterClass
     public static void tearDown() {
         if (webDriver != null) {
+            assessorSite.getMainPage().logOut();
             webDriver.quit();
         }
 

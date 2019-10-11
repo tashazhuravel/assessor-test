@@ -19,9 +19,17 @@ public class MainPage {
     @FindBy(xpath = "//ul/li[@id='layoutTabs__manage']/a[2]")
     WebElement manageTab;
 
+    @FindBy(xpath = "//button[text()='Завершение сеанса']")
+    WebElement logOutButton;
+
     public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
+    }
+
+    public void logOut() {
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(logOutButton).click().perform();
     }
 
     public MainPage clickTab(ETab eTab) {

@@ -9,7 +9,6 @@ import java.util.List;
 public class PlanningTabPage extends MainPage {
 
     public PlanningTabPage(WebDriver webDriver) {
-
         super(webDriver);
     }
 
