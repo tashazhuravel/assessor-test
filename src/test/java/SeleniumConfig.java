@@ -1,40 +1,43 @@
-import org.junit.Test;
 import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumConfig {
     public WebDriver webDriver;
+    private DriverType driverType = DriverType.CHROME;
+    private String CHROME_PATH = "C:/Install/chromedriver/chromedriver.exe";
+    private String FIREFOX_PATH = "";
+    private String IE_PATH = "";
 
     public SeleniumConfig() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        webDriver = new ChromeDriver(options);
-        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        JUnitCore junit = new JUnitCore();
-        junit.addListener(new ScreenShotListener((TakesScreenshot) webDriver));
-        junit.addListener(new TextListener(System.out));
-    }
-
-    static {
-       // System.setProperty("webdriver.chrome.driver", findFile("chromedriver.exe"));
-    }
-
-    static private String findFile(String filename) {
-        String[] paths = {"", "C:/Install/chromedriver"};
-        for (String path : paths) {
-            if (new File(path + filename).exists())
-                return path + filename;
+        switch (driverType) {
+            case CHROME:
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                webDriver = new ChromeDriver(chromeOptions);
+                break;
+            case IE:
+                InternetExplorerOptions iEOptions = new InternetExplorerOptions();
+                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                webDriver = new InternetExplorerDriver(iEOptions);
+                break;
+            case FIREFOX:
+                FirefoxOptions fFOptions = new FirefoxOptions();
+                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                webDriver = new FirefoxDriver(fFOptions);
+                break;
         }
-        return "";
     }
 
     public WebDriver getWebDriver() {
@@ -44,4 +47,5 @@ public class SeleniumConfig {
     public void setWebDriver(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
+
 }

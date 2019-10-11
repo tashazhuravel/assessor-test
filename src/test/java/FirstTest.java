@@ -1,40 +1,24 @@
-import org.junit.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import pages.AssessorSite;
-import pages.AuthorizationPage;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.openqa.selenium.Dimension;
 import pages.MainPage;
-import pages.PlanningTabPage;
 
-public class FirstTest {
-    private static SeleniumExample seleniumExample;
-    private static AssessorSite assessorSite;
-    private PlanningTabPage planningTabPage;
-    private static AuthorizationPage authorizationPage;
-    private final static String LOGIN = "krug";
-    private final static String PASSWORD = "krug";
-    private static WebDriver webDriver;
+import java.util.concurrent.TimeUnit;
 
-    @BeforeClass
-    public static void authorization() {
-        seleniumExample = new SeleniumExample();
-        webDriver = seleniumExample.getWebDriver();
-        assessorSite = PageFactory.initElements(webDriver, AssessorSite.class);
-        authorizationPage = assessorSite.getAuthorizationPage();
-        System.out.println("Step 1: Authorization");
-        authorizationPage.setLogin(LOGIN);
-        authorizationPage.setPassword(PASSWORD);
-        authorizationPage.clickLoginButton();
-    }
+import static org.junit.Assert.assertFalse;
 
+public class FirstTest extends BaseWebDriverTest {
     @Before
     public void setUp() {
-        webDriver.get(seleniumExample.getUrl());
+        driver.get(seleniumExample.getUrl());
+        driver.manage().window().setSize(new Dimension(1600, 1000));
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
     public void authorizationAccept() {
-        Assert.assertFalse(authorizationPage.checkAuthorization());
+        assertFalse(authorizationPage.checkAuthorization());
     }
 
     @Test
@@ -46,9 +30,5 @@ public class FirstTest {
         planningTabPage.savePlanning();
     }
 
-    @AfterClass
-    public static void tearDown() {
-        assessorSite.getMainPage().logOut();
-        seleniumExample.closeWindow();
-    }
+
 }
