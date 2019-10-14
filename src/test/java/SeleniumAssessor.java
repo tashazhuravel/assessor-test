@@ -1,11 +1,11 @@
 import org.openqa.selenium.WebDriver;
 
-public class SeleniumExample {
+public class SeleniumAssessor {
     private SeleniumConfig config;
     private WebDriver webDriver;
     private String url = "http://assessor-demo.isida.by/assessor_nbrb";
 
-    public SeleniumExample() {
+    public SeleniumAssessor() {
         config = new SeleniumConfig();
         config.getWebDriver().get(url);
         webDriver = config.getWebDriver();

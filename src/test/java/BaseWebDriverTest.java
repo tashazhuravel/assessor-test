@@ -1,6 +1,5 @@
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.MethodRule;
@@ -18,11 +17,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public abstract class BaseWebDriverTest {
-    protected static SeleniumExample seleniumExample;
+    protected static SeleniumAssessor seleniumAssessor;
     protected static AssessorSite assessorSite;
     protected PlanningTabPage planningTabPage;
     protected static AuthorizationPage authorizationPage;
@@ -35,9 +35,12 @@ public abstract class BaseWebDriverTest {
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     @BeforeClass
-    public static void authorization() {
-        seleniumExample = new SeleniumExample();
-        driver = seleniumExample.getWebDriver();
+    public static void authorization() throws Exception {
+        seleniumAssessor = new SeleniumAssessor();
+        driver = seleniumAssessor.getWebDriver();
+        driver.get(seleniumAssessor.getUrl());
+        driver.manage().window().setSize(new Dimension(1600, 1000));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         assessorSite = PageFactory.initElements(driver, AssessorSite.class);
         authorizationPage = assessorSite.getAuthorizationPage();
         System.out.println("Step 1: Authorization");
@@ -76,17 +79,24 @@ public abstract class BaseWebDriverTest {
 
     @AfterClass
     public static void tearDown() {
-        seleniumExample.closeWindow();
+        seleniumAssessor.closeWindow();
     }
 
     /**
      * Для dropDown списков проверки элементов
      **/
-    private void verifySelectOptions(Select select, String... optionsNames) {
+    protected void verifySelectOptions(Select select, String... optionsNames) {
         List<WebElement> options = select.getOptions();
         assertEquals("Options", optionsNames.length, options.size());
         for (int i = 0; i < optionsNames.length; i++) {
             assertEquals("Wrong options text", optionsNames[i], options.get(i).getText().trim());
+        }
+    }
+
+    protected void verifyAutocompleteOptions(List<WebElement> webElements, List<String> optionsNames) {
+        assertEquals("Options", optionsNames.size(), webElements.size());
+        for (int i = 0; i < optionsNames.size(); i++) {
+            assertEquals("Wrong options text", optionsNames.get(i), webElements.get(i).getText());
         }
     }
 
