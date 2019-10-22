@@ -21,6 +21,10 @@ public class MainPage {
 
     @FindBy(xpath = "//button[text()='Завершение сеанса']")
     WebElement logOutButton;
+    @FindBy(xpath = "//button [@id=\"ext-gen21\"]")
+    WebElement userFIOButton;
+    @FindBy(xpath = "//button[text()='О системе']")
+    WebElement aboutSystemButton;
 
     public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -52,5 +56,14 @@ public class MainPage {
 
     public enum ETab {
         PLANNING, ARCHIVE, MANAGER
+    }
+    public void userAccount (){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(userFIOButton).click().perform();
+    }
+
+    public void aboutSystem (){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(aboutSystemButton).click().perform();
     }
 }

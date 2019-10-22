@@ -28,6 +28,11 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif']")
     WebElement inputPlanningPlaceDropDown;
 
+    @FindBy(xpath = "//input[@id='number_sittings']")
+    WebElement inputSittingNumber;
+
+  //  @FindBy (xpath = "")
+
     public void clickPlanningEventButton() {
         planningEventButton.click();
     }
@@ -49,5 +54,8 @@ public class PlanningTabPage extends MainPage {
             e.printStackTrace();
         }
         return selectPlanningPlace;
+    }
+    public void getSittingNumber(int num){
+
     }
 }

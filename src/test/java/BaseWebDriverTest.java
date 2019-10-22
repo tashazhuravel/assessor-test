@@ -69,7 +69,8 @@ public abstract class BaseWebDriverTest {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
         String formattedDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(date);
-        String path = String.format("/work/screen/scr_%s_%s.png", name, formattedDate);
+       // String path = String.format("/work/screen/scr_%s_%s.png", name, formattedDate);
+        String path = String.format("C:\\Задание\\AutoTestScreenshots\\scr_%s_%s.png", name, formattedDate);
         try {
             FileUtils.copyFile(scrFile, new File(path));
         } catch (IOException e) {
