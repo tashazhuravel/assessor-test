@@ -21,8 +21,10 @@ public class MainPage {
 
     @FindBy(xpath = "//button[text()='Завершение сеанса']")
     WebElement logOutButton;
-    @FindBy(xpath = "//button [@id=\"ext-gen21\"]")
+
+    @FindBy(xpath = "//table/tbody//td//table//em/button")
     WebElement userFIOButton;
+
     @FindBy(xpath = "//button[text()='О системе']")
     WebElement aboutSystemButton;
 
@@ -44,19 +46,15 @@ public class MainPage {
                 return new PlanningTabPage(webDriver);
             case ARCHIVE:
                 actions.moveToElement(archiveSearchTab).click().perform();
-                //Todo тоже сделать return
-                return null;
+                return new ArchiveTabPage(webDriver);
             case MANAGER:
                 actions.moveToElement(manageTab).click().perform();
-                //Todo тоже сделать return
-                return null;
+                return  new ManageTabPage(webDriver);
         }
         return null;
     }
 
-    public enum ETab {
-        PLANNING, ARCHIVE, MANAGER
-    }
+
     public void userAccount (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(userFIOButton).click().perform();
@@ -65,5 +63,9 @@ public class MainPage {
     public void aboutSystem (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(aboutSystemButton).click().perform();
+    }
+
+    public enum ETab {
+        PLANNING, ARCHIVE, MANAGER
     }
 }

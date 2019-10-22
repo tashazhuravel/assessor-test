@@ -55,7 +55,7 @@ public class PlanningTabPage extends MainPage {
         }
         return selectPlanningPlace;
     }
-    public void getSittingNumber(int num){
+    public void getSittingNumber(){
 
     }
 }

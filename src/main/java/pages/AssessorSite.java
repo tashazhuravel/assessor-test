@@ -17,7 +17,20 @@ public class AssessorSite {
         return new MainPage(webDriver);
     }
 
-    public PlanningTabPage getPlanningPage() {
-        return new PlanningTabPage(webDriver);
+    public PlanningTabPage getPlanningPage() { return new PlanningTabPage(webDriver);
     }
+
+    public ArchiveTabPage getArchiveTabPage() {
+        return new ArchiveTabPage(webDriver);
+    }
+
+    public ManageTabPage getManageTabPage() {
+        return new ManageTabPage(webDriver);
+    }
+
+    public CurrentMeetingPage geyCurrentMeetingPage() {
+        return new CurrentMeetingPage(webDriver);
+    }
+
+
 }
