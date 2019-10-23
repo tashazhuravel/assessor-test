@@ -38,6 +38,7 @@ public class MainPage {
         actions.moveToElement(logOutButton).click().perform();
     }
 
+    //Выбор вкладок
     public MainPage clickTab(ETab eTab) {
         Actions actions = new Actions(webDriver);
         switch (eTab) {
@@ -54,13 +55,13 @@ public class MainPage {
         return null;
     }
 
-
+// Кнопка Учетная запись пользователя
     public void userAccount (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(userFIOButton).click().perform();
     }
 
-
+//Кнопка О системе
     public void aboutSystem (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(aboutSystemButton).click().perform();
