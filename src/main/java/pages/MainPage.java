@@ -67,8 +67,6 @@ public class MainPage {
         actions.moveToElement(aboutSystemButton).click().perform();
     }
 
-
-
     public enum ETab {
         PLANNING, ARCHIVE, MANAGER
     }
