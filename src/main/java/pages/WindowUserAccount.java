@@ -48,6 +48,11 @@ public class WindowUserAccount {
         actions.moveToElement(saveButton).click().perform();
     }
 
+    public closingUserAccount(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(closeButton).click().perform();
+    }
+
 
     }
 
