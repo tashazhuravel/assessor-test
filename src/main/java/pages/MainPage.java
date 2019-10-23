@@ -60,10 +60,13 @@ public class MainPage {
         actions.moveToElement(userFIOButton).click().perform();
     }
 
+
     public void aboutSystem (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(aboutSystemButton).click().perform();
     }
+
+
 
     public enum ETab {
         PLANNING, ARCHIVE, MANAGER

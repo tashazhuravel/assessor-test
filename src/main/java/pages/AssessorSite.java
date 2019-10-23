@@ -17,7 +17,8 @@ public class AssessorSite {
         return new MainPage(webDriver);
     }
 
-    public PlanningTabPage getPlanningPage() { return new PlanningTabPage(webDriver);
+    public PlanningTabPage getPlanningPage() {
+        return new PlanningTabPage(webDriver);
     }
 
     public ArchiveTabPage getArchiveTabPage() {
@@ -30,6 +31,18 @@ public class AssessorSite {
 
     public CurrentMeetingPage geyCurrentMeetingPage() {
         return new CurrentMeetingPage(webDriver);
+    }
+
+    public WindowUserAccount getWindowUserAccount() {
+        return new WindowUserAccount(webDriver);
+    }
+
+    public WindowAboutSystem getWindowAboutSystem() {
+        return new WindowAboutSystem(webDriver);
+    }
+
+    public WindowMeetingScheduling getWindowMeetingScheduling() {
+        return new WindowMeetingScheduling(webDriver);
     }
 
 
