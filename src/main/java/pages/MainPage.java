@@ -62,9 +62,10 @@ public class MainPage {
     }
 
 //Кнопка О системе
-    public void aboutSystem (){
+    public WindowAboutSystem aboutSystem (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(aboutSystemButton).click().perform();
+        return new WindowAboutSystem(webDriver);
     }
 
     public enum ETab {
