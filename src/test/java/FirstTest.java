@@ -28,8 +28,9 @@ public class FirstTest extends BaseWebDriverTest {
         clickButton.aboutSystem();
         WindowAboutSystem aboutSystem = assessorSite.getWindowAboutSystem();
         assertFalse(aboutSystem.checkWindowAboutSystem());
-        clickButton.aboutSystem();
         aboutSystem.closingWindowAboutSystem();
+        clickButton.aboutSystem();
+        aboutSystem.closeWindowAboutSystem();
     }
 
 
