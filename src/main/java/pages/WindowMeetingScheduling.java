@@ -66,6 +66,18 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     WebElement closeButton;
 
+    @FindBy(xpath = "(//div[@class='x-window x-window-plain x-window-dlg'])[2]//span")
+    List<WebElement> errorMessage;
+
+    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon'])[3]//button")
+    WebElement errorOkButton;
+
+    @FindBy(xpath = "//div[@class=' x-window x-window-plain x-window-dlg']//div[@class='x-tool x-tool-close']")
+    WebElement errorCloseButton;
+
+
+
+
     public WindowMeetingScheduling(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);

@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pages.MainPage;
+import pages.WindowAboutSystem;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,12 @@ public class FirstTest extends BaseWebDriverTest {
     public void authorizationAccept() {
         assertFalse(authorizationPage.checkAuthorization());
         takeScreenshot("authorization");
+    }
+
+    @Test
+    public void clickUserAccountButton(){
+        assertFalse(assessorSite.getWindowAboutSystem());
+
     }
 
     @Test
