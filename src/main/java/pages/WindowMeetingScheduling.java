@@ -86,6 +86,11 @@ public class WindowMeetingScheduling {
     public List<WebElement> getSelectPlanningPlace() {
         Actions action = new Actions(webDriver);
         action.moveToElement(inputPlanningPlaceDropDown).click().perform();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return selectPlanningPlace;
     }
     public void getSittingNumber(){

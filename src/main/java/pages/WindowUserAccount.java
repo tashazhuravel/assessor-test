@@ -57,11 +57,6 @@ public class WindowUserAccount {
     }
 
     public void closingWindowUserAccount(){
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         Actions actions = new Actions(webDriver);
         actions.moveToElement(closeWindowButton).click().perform();
     }
