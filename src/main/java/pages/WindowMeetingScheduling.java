@@ -13,7 +13,7 @@ public class WindowMeetingScheduling {
     protected WebDriver webDriver;
 
     @FindBy(xpath = "//input[@id='number_sittings']")
-    WebElement inputSittingNumber;
+    List<WebElement> inputSittingNumber;
 
     @FindBy(xpath = "//div[@class = 'x-combo-list-inner']/div")
     List<WebElement> selectPlanningPlace;
@@ -60,7 +60,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "//button[text()='Сохранить']")
     WebElement buttonSave;
 
-    @FindBy (xpath = "//button[text()='Отмена']")
+    @FindBy(xpath = "//button[text()='Отмена']")
     WebElement cancelButton;
 
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
@@ -76,11 +76,16 @@ public class WindowMeetingScheduling {
     WebElement errorCloseButton;
 
 
-
-
     public WindowMeetingScheduling(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
+    }
+
+    public boolean emptySittingNumber() {
+        return inputSittingNumber.isEmpty();
+    }
+    public String getSittingNumberText(){
+        return inputSittingNumber.get(0).getText();
     }
 
     public List<WebElement> getSelectPlanningPlace() {
@@ -93,7 +98,8 @@ public class WindowMeetingScheduling {
         }
         return selectPlanningPlace;
     }
-    public void getSittingNumber(){
+
+    public void getSittingNumber() {
 
     }
 

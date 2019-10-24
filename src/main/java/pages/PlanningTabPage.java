@@ -16,6 +16,9 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//div[@id=64]")
     WebElement nameCommittee;
 
+    @FindBy(xpath = "//fieldset[last()]/div/div/table//span[@class='btnSittingNum']")
+    List<WebElement> allNumberCommitteeButton;
+
     @FindBy(xpath = "(//fieldset[last()]/div/div/table)[last()-2]")
     List<WebElement> committeeButton;
 
@@ -36,6 +39,10 @@ public class PlanningTabPage extends MainPage {
 
     public boolean checkWindowPlanningCreate() {
         return windowCreatePlanning.isEmpty();
+    }
+
+    public List<WebElement> getAllNumberSittingCommittee(){
+        return allNumberCommitteeButton;
     }
 
 
