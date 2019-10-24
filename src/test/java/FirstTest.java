@@ -4,10 +4,12 @@ import org.junit.Test;
 import pages.MainPage;
 import pages.WindowAboutSystem;
 import pages.WindowMeetingScheduling;
+import pages.WindowUserAccount;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class FirstTest extends BaseWebDriverTest {
@@ -22,8 +24,8 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    //проверка модального окна О системе
-    public void clickUserAccountButton(){
+    //проверка модального окна "О системе"
+    public void clickAboutSystemButton() {
         MainPage clickButton = assessorSite.getMainPage();
         clickButton.aboutSystem();
         WindowAboutSystem aboutSystem = assessorSite.getWindowAboutSystem();
@@ -33,14 +35,30 @@ public class FirstTest extends BaseWebDriverTest {
         aboutSystem.closeWindowAboutSystem();
     }
 
+    @Test
+    //проверка модального окна "Учетная запись пользователя"
+    public void checkWindowUserAccount() {
+        MainPage clickButton = assessorSite.getMainPage();
+        clickButton.userAccount();
+        WindowUserAccount userAccount = assessorSite.getWindowUserAccount();
+        assertFalse(userAccount.checkWindowUserAccount());
+        assertFalse(userAccount.emptyUserFIOFieldText());
+        String getFieldFIO = userAccount.getUserFIOFieldText();
+        assertEquals(FIO_USER_ACCOUNT, getFieldFIO);
+        userAccount.saveUserAccount();
+        clickButton.userAccount();
+        userAccount.closeUserAccount();
+        clickButton.userAccount();
+        //userAccount.closingWindowUserAccount();
+    }
+
 
     @Test
     @Ignore
     public void createPlanning() {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
-       WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-
+        WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
 
 
     }
@@ -56,7 +74,7 @@ public class FirstTest extends BaseWebDriverTest {
                 "Переговорная", "переговорная 1", "Переговорная комната");
        // verifyAutocompleteOptions(planningTabPage.getSelectPlanningPlace(), select);
        }*/
-    }
+}
 
 
 

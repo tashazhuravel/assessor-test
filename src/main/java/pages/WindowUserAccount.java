@@ -16,7 +16,7 @@ public class WindowUserAccount {
     @FindBy(xpath = "//div/span[text()='Учётная запись пользователя']")
     List<WebElement> windowUserAccount;
 
-    @FindBy(xpath = "//fieldset[@class=' x-fieldset x-form-label-left']/div/div/div/div/div/div/div")
+    @FindBy(xpath = "//div[contains(text(),'Секретарева')]")
     List<WebElement> userFIOFieldText;
 
     @FindBy(xpath = "//button[text()='Сохранить']")
@@ -25,7 +25,7 @@ public class WindowUserAccount {
     @FindBy(xpath = "//button[text()='Закрыть']")
     WebElement closeButton;
 
-    @FindBy(css = "div[@class='x-tool-close']")
+    @FindBy(xpath = "(//div[@class='x-tool x-tool-close'])[2]")
     WebElement closeWindowButton;
 
     public WindowUserAccount(WebDriver webDriver) {
@@ -39,8 +39,11 @@ public class WindowUserAccount {
     }
 
     //Проверка поля ФИО
-    public boolean getUserFIOFieldText() {
+    public boolean emptyUserFIOFieldText() {
         return userFIOFieldText.isEmpty();
+    }
+    public String getUserFIOFieldText(){
+        return userFIOFieldText.get(0).getText();
     }
 
     public void saveUserAccount(){

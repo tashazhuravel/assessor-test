@@ -30,7 +30,7 @@ public abstract class BaseWebDriverTest {
     protected final static String PASSWORD = "krug";
     protected static WebDriver driver;
     protected boolean acceptNextAlert = true;
-
+    protected final static String FIO_USER_ACCOUNT = "Секретарева И.О.";
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 
