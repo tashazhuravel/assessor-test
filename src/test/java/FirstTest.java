@@ -22,12 +22,14 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
+    //проверка модального окна О системе
     public void clickUserAccountButton(){
-        MainPage mainPage = assessorSite.getMainPage();
-        mainPage.aboutSystem();
+        MainPage clickButton = assessorSite.getMainPage();
+        clickButton.aboutSystem();
         WindowAboutSystem aboutSystem = assessorSite.getWindowAboutSystem();
         assertFalse(aboutSystem.checkWindowAboutSystem());
-
+        clickButton.aboutSystem();
+        aboutSystem.closingWindowAboutSystem();
     }
 
 
