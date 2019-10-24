@@ -49,7 +49,7 @@ public class FirstTest extends BaseWebDriverTest {
         clickButton.userAccount();
         userAccount.closeUserAccount();
         clickButton.userAccount();
-        //userAccount.closingWindowUserAccount();
+        userAccount.closingWindowUserAccount();
     }
 
 

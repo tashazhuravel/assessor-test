@@ -25,7 +25,7 @@ public class WindowUserAccount {
     @FindBy(xpath = "//button[text()='Закрыть']")
     WebElement closeButton;
 
-    @FindBy(xpath = "(//div[@class='x-tool x-tool-close'])[2]")
+    @FindBy(xpath = "//span[text()='Учётная запись пользователя']/parent::div/child::div")
     WebElement closeWindowButton;
 
     public WindowUserAccount(WebDriver webDriver) {
@@ -57,6 +57,11 @@ public class WindowUserAccount {
     }
 
     public void closingWindowUserAccount(){
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Actions actions = new Actions(webDriver);
         actions.moveToElement(closeWindowButton).click().perform();
     }
