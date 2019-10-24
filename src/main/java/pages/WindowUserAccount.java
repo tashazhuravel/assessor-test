@@ -43,17 +43,17 @@ public class WindowUserAccount {
         return userFIOFieldText.isEmpty();
     }
 
-    public savingUserAccount(){
+    public void saveUserAccount(){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(saveButton).click().perform();
     }
 
-    public closingUserAccount(){
+    public void closeUserAccount(){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(closeButton).click().perform();
     }
 
-    public closingWindowUserAccount(){
+    public void closingWindowUserAccount(){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(closeWindowButton).click().perform();
     }
@@ -61,4 +61,4 @@ public class WindowUserAccount {
     }
 
 
-}
+

@@ -28,13 +28,16 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//span[text()='Планирование заседания']")
     List<WebElement> windowCreatePlanning;
 
-    public void clickPlanningEventButton() {
+
+    public WindowMeetingScheduling clickPlanningEventButton() {
         planningEventButton.click();
+        return new WindowMeetingScheduling(webDriver);
     }
 
     public boolean checkWindowPlanningCreate() {
         return windowCreatePlanning.isEmpty();
     }
+
 
 
 }

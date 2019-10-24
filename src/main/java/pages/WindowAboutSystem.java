@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -25,10 +26,21 @@ public class WindowAboutSystem {
         PageFactory.initElements(webDriver,this);
     }
 
+    public boolean checkWindowAboutSystem() {
+        return windowAboutSystem.isEmpty();
+    }
+
     public WindowAboutSystem closeWindowAboutSystem (){
         Actions actions = new Actions(webDriver);
         actions.moveToElement(closeButton).click().perform();
     return this;
     }
+
+    public WindowAboutSystem closingWindowAboutSystem(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(closeWindowButton).click().perform();
+        return this;
+    }
+
 
 }

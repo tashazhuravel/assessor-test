@@ -3,6 +3,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import pages.MainPage;
 import pages.WindowAboutSystem;
+import pages.WindowMeetingScheduling;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,20 +23,27 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Test
     public void clickUserAccountButton(){
-        assertFalse(assessorSite.getWindowAboutSystem());
+        MainPage mainPage = assessorSite.getMainPage();
+        mainPage.aboutSystem();
+        WindowAboutSystem aboutSystem = assessorSite.getWindowAboutSystem();
+        assertFalse(aboutSystem.checkWindowAboutSystem());
 
     }
+
 
     @Test
     @Ignore
     public void createPlanning() {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
-        planningTabPage.clickPlanningEventButton();
-        planningTabPage.savePlanning();
+       WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
+
+
+
     }
 
-    @Test
+  /*  @Test
+    @Ignore
     public void checkSelectPlanningPlace() {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -43,8 +51,9 @@ public class FirstTest extends BaseWebDriverTest {
         List<String> select = Arrays.asList("", "Small meeting room", "Большой кабинет",
                 "Зал для совещаний Главного корпуса", "Зал заседаний", "Кабинет", "Комната для заседаний",
                 "Переговорная", "переговорная 1", "Переговорная комната");
-        verifyAutocompleteOptions(planningTabPage.getSelectPlanningPlace(), select);
+       // verifyAutocompleteOptions(planningTabPage.getSelectPlanningPlace(), select);
+       }*/
     }
 
 
-}
+
