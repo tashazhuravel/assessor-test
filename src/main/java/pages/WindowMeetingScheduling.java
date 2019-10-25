@@ -7,6 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import javax.xml.xpath.XPath;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class WindowMeetingScheduling {
@@ -14,6 +17,9 @@ public class WindowMeetingScheduling {
 
     @FindBy(xpath = "//input[@id='number_sittings']")
     List<WebElement> inputSittingNumber;
+
+    @FindBy(xpath = "//input[@id='helper_sitting_place']")
+    List<WebElement> inputSittingPlace;
 
     @FindBy(xpath = "//div[@class = 'x-combo-list-inner']/div")
     List<WebElement> selectPlanningPlace;
@@ -25,13 +31,13 @@ public class WindowMeetingScheduling {
     WebElement cityField;
 
     @FindBy(xpath = "//input[@id='helper_planningControlAttributesDate']")
-    WebElement dateField;
+    List<WebElement> dateField;
 
     @FindBy(xpath = "(//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif'])[2]")
     WebElement calendarButton;
 
-    @FindBy(xpath = "//div[@class='x-date-picker x-unselectable']")
-    WebElement calendarTable;
+    @FindBy(xpath = "//table[@class='x-date-inner']/tbody/tr/td")
+    List<WebElement> calendarTable;
 
     @FindBy(xpath = "//button[text()='Сегодня']")
     WebElement todayButton;
@@ -43,10 +49,10 @@ public class WindowMeetingScheduling {
     WebElement selectSittingTimeStartDropDown;
 
     @FindBy(xpath = "//div[@class='x-layer x-combo-list ']/div")
-    WebElement selectSittingTimeStart;
+    List<WebElement> selectSittingTimeStart;
 
     @FindBy(xpath = "//input[@id='sittingTimeEnd']")
-    WebElement sittingTimeEndField;
+    List<WebElement> sittingTimeEndField;
 
     @FindBy(xpath = "(//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif'])[4]")
     WebElement sittingTimeEndDropDown;
@@ -81,11 +87,45 @@ public class WindowMeetingScheduling {
         PageFactory.initElements(webDriver, this);
     }
 
+    public void getDateAsString() {
+        Date date = new Date();
+        String formattedDate = new SimpleDateFormat("dd.MM.yyyy").format(date);
+    }
+   /* public void getTimeAsString(){
+        Time time = new Time();
+     //todo решить как задать формат времени
+
+    }*/
+
+    //проверки поля Номер
     public boolean emptySittingNumber() {
         return inputSittingNumber.isEmpty();
     }
-    public String getSittingNumberText(){
+
+    public String getSittingNumberText() {
         return inputSittingNumber.get(0).getText();
+    }
+
+    public void setSittingNumber(String number) {
+        inputSittingNumber.get(0).sendKeys(number);
+
+    }
+
+  /*  public boolean checkUnique(List<WebElement> webElementList) {
+        //TOdo должена быть проверка на уникальность
+    }*/
+
+    public void typeSittingNumber(String number) {
+        inputSittingNumber.get(0).sendKeys(number);
+    }
+
+    // проверки поля Место заседания
+    public boolean emptySittingPlace() {
+        return inputSittingPlace.isEmpty();
+    }
+
+    public void typeSittingPlace(String place) {
+        inputSittingPlace.get(0).sendKeys(place);
     }
 
     public List<WebElement> getSelectPlanningPlace() {
@@ -99,9 +139,98 @@ public class WindowMeetingScheduling {
         return selectPlanningPlace;
     }
 
-    public void getSittingNumber() {
+//проверка поля Город
 
+    public void typeCityField(String city){
+        cityField.sendKeys(city);
     }
+
+    public String getCityFieldText(){
+        return cityField.getText();
+    }
+
+//проверка  Дата и Время
+
+    public boolean emptyDateField(){
+        return dateField.isEmpty();
+    }
+
+   public void typeDate(String dateSitting){
+        dateField.get(0).sendKeys(dateSitting);
+    }
+
+    public WindowMeetingScheduling clickCalendarButton (){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(calendarButton).click().perform();
+        return this;
+    }
+
+    public boolean emptyCalendar(){
+        return calendarTable.isEmpty();
+    }
+
+    public WindowMeetingScheduling clickTodayButton(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(todayButton).click().perform();
+        return this;
+    }
+
+
+//Время Начала заседания
+    public boolean emptySittingTimeStart(){
+        return sittingTimeStartField.isEmpty();
+    }
+
+    public List<WebElement> getSelectSittingTimeStart() {
+        Actions action = new Actions(webDriver);
+        action.moveToElement(selectSittingTimeStartDropDown).click().perform();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return selectSittingTimeStart;
+    }
+
+    public void typeTimeEnd(String time){
+        sittingTimeEndField.get(0).sendKeys(time);
+    }
+    //Время Окончания заседания
+    public boolean emptySittingTimeEnd(){
+        return sittingTimeEndField.isEmpty();
+    }
+
+    public List<WebElement> getSelectSittingTimeEnd() {
+        Actions action = new Actions(webDriver);
+        action.moveToElement(selectSittingTimeEnd).click().perform();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return selectSittingTimeEnd;
+    }
+
+    public void typeTimeStart(String time){
+        sittingTimeStartField.get(0).sendKeys(time);
+    }
+
+
+
+    //Работа с сообщениями об ошибках
+
+    public String getErrorMassageText(){
+        return errorMessage.get(0).getText();
+    }
+
+
+
+
+
+
+
+
+
 
 
     public void savePlanning() {

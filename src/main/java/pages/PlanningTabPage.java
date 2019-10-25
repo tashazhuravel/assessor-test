@@ -45,6 +45,4 @@ public class PlanningTabPage extends MainPage {
         return allNumberCommitteeButton;
     }
 
-
-
 }
