@@ -97,7 +97,7 @@ public class WindowMeetingScheduling {
 
     }*/
 
-    //проверки поля Номер
+    //-----------------------проверки поля Номер
     public boolean emptySittingNumber() {
         return inputSittingNumber.isEmpty();
     }
@@ -119,7 +119,7 @@ public class WindowMeetingScheduling {
         inputSittingNumber.get(0).sendKeys(number);
     }
 
-    // проверки поля Место заседания
+    //-----------------------проверки поля Место заседания
     public boolean emptySittingPlace() {
         return inputSittingPlace.isEmpty();
     }
@@ -139,7 +139,7 @@ public class WindowMeetingScheduling {
         return selectPlanningPlace;
     }
 
-//проверка поля Город
+//--------------------проверка поля Город
 
     public void typeCityField(String city){
         cityField.sendKeys(city);
@@ -149,7 +149,7 @@ public class WindowMeetingScheduling {
         return cityField.getText();
     }
 
-//проверка  Дата и Время
+//--------------------проверка  Дата и Время
 
     public boolean emptyDateField(){
         return dateField.isEmpty();
@@ -176,7 +176,8 @@ public class WindowMeetingScheduling {
     }
 
 
-//Время Начала заседания
+//-------------------------Время Начала заседания
+
     public boolean emptySittingTimeStart(){
         return sittingTimeStartField.isEmpty();
     }
@@ -192,17 +193,19 @@ public class WindowMeetingScheduling {
         return selectSittingTimeStart;
     }
 
-    public void typeTimeEnd(String time){
-        sittingTimeEndField.get(0).sendKeys(time);
+    public void typeTimeStart(String time){
+        sittingTimeStartField.get(0).sendKeys(time);
     }
-    //Время Окончания заседания
+
+    //----------------------------Время Окончания заседания
+
     public boolean emptySittingTimeEnd(){
         return sittingTimeEndField.isEmpty();
     }
 
     public List<WebElement> getSelectSittingTimeEnd() {
         Actions action = new Actions(webDriver);
-        action.moveToElement(selectSittingTimeEnd).click().perform();
+        action.moveToElement(sittingTimeEndDropDown).click().perform();
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
@@ -211,29 +214,40 @@ public class WindowMeetingScheduling {
         return selectSittingTimeEnd;
     }
 
-    public void typeTimeStart(String time){
-        sittingTimeStartField.get(0).sendKeys(time);
+    public void typeTimeEnd(String time){
+        sittingTimeEndField.get(0).sendKeys(time);
     }
 
 
 
-    //Работа с сообщениями об ошибках
+    //----------------Работа с сообщениями об ошибках
 
     public String getErrorMassageText(){
         return errorMessage.get(0).getText();
     }
-
-
-
-
-
-
-
-
-
-
+    public WindowMeetingScheduling clickOkErrorButton(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(errorOkButton).click().perform();
+        return this;
+    }
+    public WindowMeetingScheduling clickCloseErrorButton(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(errorCloseButton).click().perform();
+        return this;
+    }
 
     public void savePlanning() {
         buttonSave.click();
+    }
+    public WindowMeetingScheduling clickCancelButtonPlanningSitting(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(cancelButton).click().perform();
+        return this;
+    }
+
+    public WindowMeetingScheduling clickCloseButtonPlanningSitting(){
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(closeButton).click().perform();
+        return this;
     }
 }
