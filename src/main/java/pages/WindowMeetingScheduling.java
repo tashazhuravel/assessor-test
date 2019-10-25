@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+
 import javax.xml.xpath.XPath;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -139,6 +140,7 @@ public class WindowMeetingScheduling {
         return selectPlanningPlace;
     }
 
+
 //--------------------проверка поля Город
 
     public void typeCityField(String city){
@@ -182,7 +184,11 @@ public class WindowMeetingScheduling {
         return sittingTimeStartField.isEmpty();
     }
 
-    public List<WebElement> getSelectSittingTimeStart() {
+    public void typeTimeStart(String time){
+        sittingTimeStartField.get(0).sendKeys(time);
+    }
+
+    public List<WebElement> openSelectSittingTimeStart() {
         Actions action = new Actions(webDriver);
         action.moveToElement(selectSittingTimeStartDropDown).click().perform();
         try {
@@ -193,9 +199,7 @@ public class WindowMeetingScheduling {
         return selectSittingTimeStart;
     }
 
-    public void typeTimeStart(String time){
-        sittingTimeStartField.get(0).sendKeys(time);
-    }
+
 
     //----------------------------Время Окончания заседания
 
@@ -203,7 +207,7 @@ public class WindowMeetingScheduling {
         return sittingTimeEndField.isEmpty();
     }
 
-    public List<WebElement> getSelectSittingTimeEnd() {
+    public List<WebElement> openSelectSittingTimeEnd() {
         Actions action = new Actions(webDriver);
         action.moveToElement(sittingTimeEndDropDown).click().perform();
         try {
@@ -218,7 +222,14 @@ public class WindowMeetingScheduling {
         sittingTimeEndField.get(0).sendKeys(time);
     }
 
+    //----------------Список участников
 
+    public void getParticipantList(){
+        List<WebElement> participants = participantsList;
+        for (WebElement participant : participants){
+            participant.getText();
+        }
+    }
 
     //----------------Работа с сообщениями об ошибках
 

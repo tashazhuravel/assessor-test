@@ -11,9 +11,12 @@ public class UnllocatedQuestions {
     WebElement statusField;
 
 
-            public UnllocatedQuestions(WebDriver webDriver) {
+    public UnllocatedQuestions(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
+    public void getTextStatusField(){
+
+    }
 
 }
