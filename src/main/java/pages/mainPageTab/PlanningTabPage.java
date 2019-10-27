@@ -1,9 +1,10 @@
-package pages;
+package pages.mainPageTab;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import pages.MainPage;
+import pages.window.WindowMeetingScheduling;
 
 import java.util.List;
 
@@ -14,34 +15,30 @@ public class PlanningTabPage extends MainPage {
     }
 
     @FindBy(xpath = "//div[@id=64]")
-    WebElement nameCommittee;
+    private WebElement nameCommittee;
 
     @FindBy(xpath = "//fieldset[last()]/div/div/table//span[@class='btnSittingNum']")
-    List<WebElement> allNumberCommitteeButton;
+    private List<WebElement> allNumberCommitteeButton;
 
     @FindBy(xpath = "(//fieldset[last()]/div/div/table)[last()-2]")
-    List<WebElement> committeeButton;
+    private WebElement committeeButton;
 
     @FindBy(xpath = "(//button[contains(text(),'Нераспределённые вопросы')])[last()]")
-    WebElement unllocatedQuestions;
+    private WebElement unllocatedQuestions;
 
     @FindBy(xpath = "(//button[contains(text(),'Планировать новое заседание')])[last()]")
-    WebElement planningEventButton;
+    private WebElement planningEventButton;
 
+    //TODO переделать на By
     @FindBy(xpath = "//span[text()='Планирование заседания']")
     List<WebElement> windowCreatePlanning;
-
 
     public WindowMeetingScheduling clickPlanningEventButton() {
         planningEventButton.click();
         return new WindowMeetingScheduling(webDriver);
     }
 
-    public boolean checkWindowPlanningCreate() {
-        return windowCreatePlanning.isEmpty();
-    }
-
-    public List<WebElement> getAllNumberSittingCommittee(){
+    public List<WebElement> getAllNumberSittingCommittee() {
         return allNumberCommitteeButton;
     }
 

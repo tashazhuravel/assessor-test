@@ -29,12 +29,12 @@ public class SeleniumConfig {
                 break;
             case IE:
                 InternetExplorerOptions iEOptions = new InternetExplorerOptions();
-                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                System.setProperty("", IE_PATH);
                 webDriver = new InternetExplorerDriver(iEOptions);
                 break;
             case FIREFOX:
                 FirefoxOptions fFOptions = new FirefoxOptions();
-                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                System.setProperty("", FIREFOX_PATH);
                 webDriver = new FirefoxDriver(fFOptions);
                 break;
         }

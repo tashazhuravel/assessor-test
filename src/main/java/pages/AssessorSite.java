@@ -1,9 +1,16 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
+import pages.mainPageTab.ArchiveTabPage;
+import pages.mainPageTab.ManageTabPage;
+import pages.mainPageTab.PlanningTabPage;
+import pages.window.WindowAboutSystem;
+import pages.window.WindowMeetingScheduling;
+import pages.window.WindowUserAccount;
 
 public class AssessorSite {
-    WebDriver webDriver;
+
+    private WebDriver webDriver;
 
     public AssessorSite(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -45,9 +52,8 @@ public class AssessorSite {
         return new WindowMeetingScheduling(webDriver);
     }
 
-    public UnllocatedQuestions getUnllocatedQuestions(){
+    public UnllocatedQuestions getUnllocatedQuestions() {
         return new UnllocatedQuestions(webDriver);
     }
-
 
 }

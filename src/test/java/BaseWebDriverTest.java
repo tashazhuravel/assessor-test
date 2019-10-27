@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import pages.AssessorSite;
 import pages.AuthorizationPage;
-import pages.PlanningTabPage;
+import pages.mainPageTab.PlanningTabPage;
 
 import java.io.File;
 import java.io.IOException;

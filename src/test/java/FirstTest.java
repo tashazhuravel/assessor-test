@@ -2,12 +2,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pages.MainPage;
-import pages.WindowAboutSystem;
-import pages.WindowMeetingScheduling;
-import pages.WindowUserAccount;
-
-import java.util.Arrays;
-import java.util.List;
+import pages.errorWindow.ErrorByMeetingScheduling;
+import pages.errorWindow.ErrorType;
+import pages.window.WindowAboutSystem;
+import pages.window.WindowMeetingScheduling;
+import pages.window.WindowUserAccount;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,40 +17,37 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    public void authorizationAccept() {
-        assertFalse(authorizationPage.checkAuthorization());
+    public void authorizationAcceptTest() {
+        assertEquals(authorizationPage.getElementsFromMainPage().size(), 1);
         takeScreenshot("authorization");
     }
 
     @Test
     //проверка модального окна "О системе"
-    public void clickAboutSystemButton() {
-        MainPage clickButton = assessorSite.getMainPage();
-        clickButton.aboutSystem();
-        WindowAboutSystem aboutSystem = assessorSite.getWindowAboutSystem();
-        assertFalse(aboutSystem.checkWindowAboutSystem());
-        aboutSystem.closingWindowAboutSystem();
-        clickButton.aboutSystem();
-        aboutSystem.closeWindowAboutSystem();
+    public void checkWindowAboutSystemTest() {
+        MainPage mainPage = assessorSite.getMainPage();
+        WindowAboutSystem windowAboutSystem = mainPage.clickButtonAboutSystem();
+        isElementPresent(windowAboutSystem.getHeaderWindowAboutSystem());
+        windowAboutSystem.closeWindowAboutSystemByX();
+        mainPage.clickButtonAboutSystem();
+        windowAboutSystem.closeWindowAboutSystemByButton();
     }
 
     @Test
     //проверка модального окна "Учетная запись пользователя"
-    public void checkWindowUserAccount() {
-        MainPage clickButton = assessorSite.getMainPage();
-        clickButton.userAccount();
-        WindowUserAccount userAccount = assessorSite.getWindowUserAccount();
-        assertFalse(userAccount.checkWindowUserAccount());
-        assertFalse(userAccount.emptyUserFIOFieldText());
-        String getFieldFIO = userAccount.getUserFIOFieldText();
-        assertEquals(FIO_USER_ACCOUNT, getFieldFIO);
-        userAccount.saveUserAccount();
-        clickButton.userAccount();
-        userAccount.closeUserAccount();
-        clickButton.userAccount();
-        userAccount.closingWindowUserAccount();
-    }
+    public void checkWindowUserAccountTest() {
+        MainPage mainPage = assessorSite.getMainPage();
+        WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
+        isElementPresent(windowUserAccount.getHeaderWindowUserAccount());
+        assertEquals(windowUserAccount.getUserFIOFieldText().size(), 1);
+        assertEquals(FIO_USER_ACCOUNT, windowUserAccount.getTextByUserFIOField());
+        windowUserAccount.saveUserAccount();
+        mainPage.clickButtonUserAccount();
+        windowUserAccount.closeWindowUserAccountByButton();
+        mainPage.clickButtonUserAccount();
+        windowUserAccount.closeWindowUserAccountByX();
+    }
 
     @Test
     @Ignore
@@ -59,7 +55,12 @@ public class FirstTest extends BaseWebDriverTest {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-
+        isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling());
+        //--ошибочные данные
+        windowMeetingScheduling.savePlanning();
+        //isElementPresent(windowMeetingScheduling.)
+        ErrorByMeetingScheduling errorByMeetingScheduling = windowMeetingScheduling.getErrorByMeetingScheduling();
+        assertEquals(errorByMeetingScheduling.getErrorMassageText(), ErrorType.NUMBER_SITTING_EXIST.getLabel());
 
     }
 

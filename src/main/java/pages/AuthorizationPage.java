@@ -9,6 +9,8 @@ import java.util.List;
 
 public class AuthorizationPage {
 
+    private WebDriver webDriver;
+
     @FindBy(id = "wpName")
     WebElement inputLogin;
 
@@ -19,9 +21,10 @@ public class AuthorizationPage {
     WebElement buttonLogining;
 
     @FindBy(xpath = "//div[@id='layoutTabs']")
-    List<WebElement> elements;
+    List<WebElement> elementsFromMainPage;
 
     public AuthorizationPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
@@ -39,10 +42,6 @@ public class AuthorizationPage {
         buttonLogining.submit();
     }
 
-    public boolean checkAuthorization() {
-        return elements.isEmpty();
-    }
-
     public WebElement getInputLogin() {
         return inputLogin;
     }
@@ -53,5 +52,9 @@ public class AuthorizationPage {
 
     public WebElement getButtonLogining() {
         return buttonLogining;
+    }
+
+    public List<WebElement> getElementsFromMainPage() {
+        return elementsFromMainPage;
     }
 }
