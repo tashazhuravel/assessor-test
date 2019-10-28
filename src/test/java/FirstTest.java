@@ -79,10 +79,11 @@ public class FirstTest extends BaseWebDriverTest {
 
         assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", "переговорная 1", windowMeetingScheduling.getSittingPlaceText());
         windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
-        List<String> select = Arrays.asList("", "Small meeting room", "Большой кабинет",
+       /* List<String> select = Arrays.asList("", "Small meeting room", "Большой кабинет",
                 "Зал для совещаний Главного корпуса", "Зал заседаний", "Кабинет", "Комната для заседаний",
                 "Переговорная", "переговорная 1", "Переговорная комната");
-        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
+        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);*/
+        assertEquals("Поле Город содержит текст", "",windowMeetingScheduling.getCityFieldText());
     }
 
 
