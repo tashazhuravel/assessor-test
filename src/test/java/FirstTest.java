@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -83,7 +84,7 @@ public class FirstTest extends BaseWebDriverTest {
                 "Зал для совещаний Главного корпуса", "Зал заседаний", "Кабинет", "Комната для заседаний",
                 "Переговорная", "переговорная 1", "Переговорная комната");
         verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);*/
-        assertEquals("Поле Город содержит текст", "",windowMeetingScheduling.getCityFieldText());
+        assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
     }
 
 
