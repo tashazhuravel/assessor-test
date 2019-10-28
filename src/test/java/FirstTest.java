@@ -10,8 +10,10 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
 import pages.window.WindowUserAccount;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class FirstTest extends BaseWebDriverTest {
     @Before
@@ -20,7 +22,7 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Test
     public void authorizationAcceptTest() {
-        assertEquals(authorizationPage.getElementsFromMainPage().size(), 1);
+        assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
         takeScreenshot("authorization");
     }
 
@@ -30,7 +32,7 @@ public class FirstTest extends BaseWebDriverTest {
     public void checkWindowAboutSystemTest() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowAboutSystem windowAboutSystem = mainPage.clickButtonAboutSystem();
-        isElementPresent(windowAboutSystem.getHeaderWindowAboutSystem());
+        assertTrue("Не открылось диалоговое окно 'О системе'.", isElementPresent(windowAboutSystem.getHeaderWindowAboutSystem()));
         windowAboutSystem.closeWindowAboutSystemByX();
         mainPage.clickButtonAboutSystem();
         windowAboutSystem.closeWindowAboutSystemByButton();
@@ -43,9 +45,9 @@ public class FirstTest extends BaseWebDriverTest {
         MainPage mainPage = assessorSite.getMainPage();
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
-        isElementPresent(windowUserAccount.getHeaderWindowUserAccount());
-        assertEquals(windowUserAccount.getUserFIOFieldText().size(), 1);
-        assertEquals(FIO_USER_ACCOUNT, windowUserAccount.getTextByUserFIOField());
+        assertTrue("Не открылось диалоговое окно 'Учетная запись пользователя'.", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
+        assertEquals("Пустое поле ФИО", windowUserAccount.getUserFIOFieldText().size(), 1);
+        assertEquals("Неверное ФИО пользователя.", FIO_USER_ACCOUNT, windowUserAccount.getTextByUserFIOField());
         windowUserAccount.saveUserAccount();
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByButton();
@@ -54,28 +56,46 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
+    @Ignore
     //проверка кнопки "Нераспределенные вопросы"
-    public void checkUnllocatedQuestionsTest(){
+    public void checkUnllocatedQuestionsTest() {
         PlanningTabPage planningTabPage = assessorSite.getPlanningPage();
         UnllocatedQuestions unllocatedQuestions = planningTabPage.clickUnllocatedQuestionsButton();
 
-        assertEquals(UNLLOCATED_QUESTIONS,unllocatedQuestions.getTextStatusField());
+        assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", UNLLOCATED_QUESTIONS_STATUS_FIELD, unllocatedQuestions.getTextStatusField());
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void createPlanning() {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
         isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling());
-        //--ошибочные данные
+
+        //--проверка номера заседания
+        // assertNotSame(planningTabPage.getAllNumberSittingCommittee(), windowMeetingScheduling.getSittingNumberText());
+        assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> windowMeetingScheduling.getSittingNumberText().equals(item.getText())));
+
+        assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", "переговорная 1", windowMeetingScheduling.getSittingPlaceText());
+        windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
+        List<String> select = Arrays.asList("", "Small meeting room", "Большой кабинет",
+                "Зал для совещаний Главного корпуса", "Зал заседаний", "Кабинет", "Комната для заседаний",
+                "Переговорная", "переговорная 1", "Переговорная комната");
+        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
+    }
+
+
+
+
+
+       /* //--ошибочные данные
         windowMeetingScheduling.savePlanning();
         //isElementPresent(windowMeetingScheduling.)
         ErrorByMeetingScheduling errorByMeetingScheduling = windowMeetingScheduling.getErrorByMeetingScheduling();
-        assertEquals(errorByMeetingScheduling.getErrorMassageText(), ErrorType.NUMBER_SITTING_EMPTY_AND_EXIST.getLabel());
+        assertEquals(errorByMeetingScheduling.getErrorMassageText(), ErrorType.NUMBER_SITTING_EMPTY_AND_EXIST.getLabel());}*/
 
-    }
+
 
   /*  @Test
     @Ignore
@@ -83,13 +103,8 @@ public class FirstTest extends BaseWebDriverTest {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         planningTabPage.clickPlanningEventButton();
+}*/
 
-        List<String> select = Arrays.asList("", "Small meeting room", "Большой кабинет",
-                "Зал для совещаний Главного корпуса", "Зал заседаний", "Кабинет", "Комната для заседаний",
-                "Переговорная", "переговорная 1", "Переговорная комната");
-       // verifyAutocompleteOptions(planningTabPage.getSelectPlanningPlace(), select);
-       }*/
 }
-
 
 

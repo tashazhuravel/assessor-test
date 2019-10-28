@@ -44,8 +44,11 @@ public class PlanningTabPage extends MainPage {
         return new UnllocatedQuestions(webDriver);
     }
 
-    public List<WebElement> getAllNumberSittingCommittee() {
-        return allNumberCommitteeButton;
+    public String getAllNumberSittingCommittee() {
+        return allNumberCommitteeButton.iterator().next().getText();
     }
 
+    public List<WebElement> getAllNumberCommitteeButton() {
+        return allNumberCommitteeButton;
+    }
 }

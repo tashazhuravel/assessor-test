@@ -31,7 +31,8 @@ public abstract class BaseWebDriverTest {
     protected static WebDriver driver;
     protected boolean acceptNextAlert = true;
     protected final static String FIO_USER_ACCOUNT = "Секретарева И.О.";
-    protected final static String UNLLOCATED_QUESTIONS = "Тестовая комиссия. Нераспределённые вопросы";
+    protected final static String UNLLOCATED_QUESTIONS_STATUS_FIELD = "Тестовая комиссия. Нераспределённые вопросы";
+    protected final static String CURRENT_MEETING_STATUS_FIELD = "Тестовая комиссия. Секретарь: Секретарева И.О.";//todo Подумать как передать дату, номер, вид заседания
 
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();

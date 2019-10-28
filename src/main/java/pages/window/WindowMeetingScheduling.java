@@ -1,6 +1,7 @@
 package pages.window;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -25,7 +26,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "//input[@id='number_sittings']")
     private WebElement inputSittingNumber;
 
-    @FindBy(xpath = "//input[@id='helper_sitting_place']")
+    @FindBy(xpath = "//input[@name='place_id']")
     private WebElement inputSittingPlace;
 
     @FindBy(xpath = "//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif']")
@@ -107,18 +108,27 @@ public class WindowMeetingScheduling {
 
     //-----------------------проверки поля Место заседания
 
+    public String getSittingPlaceText() {
+        return inputSittingPlace.getAttribute("value");
+    }
+
     public void typeSittingPlace(String place) {
         inputSittingPlace.sendKeys(place);
     }
 
-    public List<WebElement> getSelectPlanningPlace() {
+    public List<WebElement> clickAndOpenSelectDropDownPlanningPlace() {
         actions.moveToElement(inputPlanningPlaceDropDown).click().perform();
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(2000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return selectPlanningPlace;
+    }
+
+    public void setSelectPlanningPlace(String id){
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript(String.format("document.getElementByName('place_id').setAttribute('value', %s)", id));
     }
 
 //--------------------проверка поля Город
