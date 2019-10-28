@@ -4,15 +4,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import pages.MainPage;
 import pages.UnllocatedQuestions;
-import pages.errorWindow.ErrorByMeetingScheduling;
-import pages.errorWindow.ErrorType;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
 import pages.window.WindowUserAccount;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
