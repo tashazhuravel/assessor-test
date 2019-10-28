@@ -2,8 +2,10 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import pages.MainPage;
+import pages.UnllocatedQuestions;
 import pages.errorWindow.ErrorByMeetingScheduling;
 import pages.errorWindow.ErrorType;
+import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
 import pages.window.WindowUserAccount;
@@ -23,6 +25,7 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
+    @Ignore
     //проверка модального окна "О системе"
     public void checkWindowAboutSystemTest() {
         MainPage mainPage = assessorSite.getMainPage();
@@ -34,6 +37,7 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
+    @Ignore
     //проверка модального окна "Учетная запись пользователя"
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
@@ -50,6 +54,15 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
+    //проверка кнопки "Нераспределенные вопросы"
+    public void checkUnllocatedQuestionsTest(){
+        PlanningTabPage planningTabPage = assessorSite.getPlanningPage();
+        UnllocatedQuestions unllocatedQuestions = planningTabPage.clickUnllocatedQuestionsButton();
+
+        assertEquals(UNLLOCATED_QUESTIONS,unllocatedQuestions.getTextStatusField());
+    }
+
+    @Test
     @Ignore
     public void createPlanning() {
         planningTabPage = assessorSite.getPlanningPage();
@@ -60,7 +73,7 @@ public class FirstTest extends BaseWebDriverTest {
         windowMeetingScheduling.savePlanning();
         //isElementPresent(windowMeetingScheduling.)
         ErrorByMeetingScheduling errorByMeetingScheduling = windowMeetingScheduling.getErrorByMeetingScheduling();
-        assertEquals(errorByMeetingScheduling.getErrorMassageText(), ErrorType.NUMBER_SITTING_EXIST.getLabel());
+        assertEquals(errorByMeetingScheduling.getErrorMassageText(), ErrorType.NUMBER_SITTING_EMPTY_AND_EXIST.getLabel());
 
     }
 

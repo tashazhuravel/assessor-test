@@ -31,6 +31,8 @@ public abstract class BaseWebDriverTest {
     protected static WebDriver driver;
     protected boolean acceptNextAlert = true;
     protected final static String FIO_USER_ACCOUNT = "Секретарева И.О.";
+    protected final static String UNLLOCATED_QUESTIONS = "Тестовая комиссия. Нераспределённые вопросы";
+
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 

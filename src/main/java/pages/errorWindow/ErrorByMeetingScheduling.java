@@ -1,5 +1,6 @@
 package pages.errorWindow;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -15,7 +16,7 @@ public class ErrorByMeetingScheduling {
 
     private Actions actions;
 
-    //TODO создать поле заголовок типа By для проверки открытия окна
+    private By headerErrorByMeetingScheduling = By.xpath("//span[text()='Ошибка']");
 
     @FindBy(xpath = "(//div[@class='x-window x-window-plain x-window-dlg'])[2]//span")
     private List<WebElement> errorMessage;

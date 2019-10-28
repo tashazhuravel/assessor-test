@@ -15,7 +15,7 @@ public class UnllocatedQuestions {
         this.webDriver = webDriver;
     }
 
-    public void getTextStatusField(){
-
+    public String getTextStatusField() {
+        return statusField.getText();
     }
 }

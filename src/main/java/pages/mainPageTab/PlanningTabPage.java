@@ -1,9 +1,11 @@
 package pages.mainPageTab;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
+import pages.UnllocatedQuestions;
 import pages.window.WindowMeetingScheduling;
 
 import java.util.List;
@@ -29,13 +31,17 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "(//button[contains(text(),'Планировать новое заседание')])[last()]")
     private WebElement planningEventButton;
 
-    //TODO переделать на By
-    @FindBy(xpath = "//span[text()='Планирование заседания']")
-    List<WebElement> windowCreatePlanning;
+    private By windowCreatePlanning = By.xpath("//span[text()='Планирование заседания']");
+
 
     public WindowMeetingScheduling clickPlanningEventButton() {
         planningEventButton.click();
         return new WindowMeetingScheduling(webDriver);
+    }
+
+    public UnllocatedQuestions clickUnllocatedQuestionsButton(){
+        unllocatedQuestions.click();
+        return new UnllocatedQuestions(webDriver);
     }
 
     public List<WebElement> getAllNumberSittingCommittee() {
