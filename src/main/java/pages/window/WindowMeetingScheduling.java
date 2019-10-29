@@ -68,7 +68,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "(//div[@class='x-layer x-combo-list '])[2]/div")
     private List<WebElement> selectSittingTimeEnd;
 
-    @FindBy(xpath = "//div[@class='x-grid3-body']")
+    @FindBy(xpath = "//div[@class='x-grid3-cell-inner x-grid3-col-0']")
     private List<WebElement> participantsList;
 
     @FindBy(xpath = "//button[text()='Сохранить']")
@@ -189,11 +189,14 @@ public class WindowMeetingScheduling {
 
 //-------------------------Время Начала заседания
 
+    public String getTimeStartText(){
+        return sittingTimeStartField.getAttribute("value");
+    }
     public void typeTimeStart(String time) {
         sittingTimeStartField.sendKeys(time);
     }
 
-    public List<WebElement> openSelectSittingTimeStart() {
+    public List<WebElement> clickAndOpenDropDownSelectSittingTimeStart() {
         actions.moveToElement(selectSittingTimeStartDropDown).click().perform();
         try {
             Thread.sleep(1000L);
@@ -203,9 +206,17 @@ public class WindowMeetingScheduling {
         return selectSittingTimeStart;
     }
 
-    //----------------------------Время Окончания заседания
+    public WindowMeetingScheduling clickTimeStartInDropDown(){
+        selectSittingTimeStart.iterator().next().click();
+        return this;
+    }
 
-    public List<WebElement> openSelectSittingTimeEnd() {
+    //----------------------------Время Окончания заседания
+    public String getTimeEndText(){
+        return sittingTimeEndField.getAttribute("value");
+    }
+
+    public List<WebElement> clickAndOpenSelectSittingTimeEnd() {
         actions.moveToElement(sittingTimeEndDropDown).click().perform();
         try {
             Thread.sleep(1000L);
@@ -213,6 +224,10 @@ public class WindowMeetingScheduling {
             e.printStackTrace();
         }
         return selectSittingTimeEnd;
+    }
+    public WindowMeetingScheduling clickTimeEndInDropDown(){
+        selectSittingTimeEnd.iterator().next().click();
+        return this;
     }
 
     public void typeTimeEnd(String time) {

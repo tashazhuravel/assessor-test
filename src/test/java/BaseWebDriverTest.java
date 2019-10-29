@@ -58,8 +58,8 @@ public abstract class BaseWebDriverTest {
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 
-    @Rule
-    public DataBaseConnection dataBaseConnection = new DataBaseConnection();
+   /* @Rule
+    public DataBaseConnection dataBaseConnection = new DataBaseConnection();*/
 
     @BeforeClass
     public static void authorization() throws Exception {

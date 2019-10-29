@@ -29,7 +29,7 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Before
     public void setUp() {
-        assesorService = new AssesorService(dataBaseConnection.stmt);
+       // assesorService = new AssesorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         System.out.println("Step 1: Authorization");
         authorizationPage.setLogin(login);
@@ -92,11 +92,11 @@ public class FirstTest extends BaseWebDriverTest {
 
         //--проверка поля "Место заседания"
         assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
-        //хочешwindowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
+        //windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
         //  List<String> select = assesorService.getNamesRoom();//todo вставить пустую строку в начало листа
         //verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
-        windowMeetingScheduling.setSelectPlanningPlace("6");
-        System.out.println("Место заседания"+windowMeetingScheduling.getCityFieldText());
+        windowMeetingScheduling.setSelectPlanningPlace("35");
+        System.out.println(windowMeetingScheduling.getCityFieldText());
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
         windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
 
@@ -112,9 +112,23 @@ public class FirstTest extends BaseWebDriverTest {
         windowMeetingScheduling.clickTodayButton();
         System.out.println(windowMeetingScheduling.getDateFieldText());
 
-
-
         //--Время начала заседания
+        System.out.println(windowMeetingScheduling.getTimeStartText());
+        assertNotEquals("Поле время начала заседания не может быть пустым",StringUtils.EMPTY,windowMeetingScheduling.getTimeStartText());
+        windowMeetingScheduling.clickAndOpenDropDownSelectSittingTimeStart();
+        windowMeetingScheduling.clickTimeStartInDropDown();
+        System.out.println(windowMeetingScheduling.getTimeStartText());
+
+        //--Время окончания заседания
+        System.out.println(windowMeetingScheduling.getTimeEndText());
+        assertNotEquals("Поле время окончания заседания не может быть пустым",StringUtils.EMPTY, windowMeetingScheduling.getTimeEndText());
+        windowMeetingScheduling.clickAndOpenSelectSittingTimeEnd();
+        windowMeetingScheduling.clickTimeEndInDropDown();
+        System.out.println(windowMeetingScheduling.getTimeEndText());
+
+        //--Список участников
+        windowMeetingScheduling.getParticipantList();
+
 
 
 
