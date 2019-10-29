@@ -126,9 +126,8 @@ public class WindowMeetingScheduling {
         return selectPlanningPlace;
     }
 
-    public void setSelectPlanningPlace(String id){
-        JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        js.executeScript(String.format("document.getElementsByName('place_id')[0].setAttribute('value', %s)", id));
+    public void setSelectPlanningPlace(String roomName) {
+        actions.moveToElement(webDriver.findElement(By.xpath(String.format("//div[@class='x-combo-list-inner']//div[text()='%s']", roomName)))).click();
         try {
             Thread.sleep(500L);
         } catch (InterruptedException e) {
@@ -148,14 +147,16 @@ public class WindowMeetingScheduling {
 
 //--------------------проверка  Дата и Время
 
-    public void clearDateFieldText(){ dateField.clear();
+    public void clearDateFieldText() {
+        dateField.clear();
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-    public String getDateFieldText(){
+
+    public String getDateFieldText() {
         return dateField.getAttribute("value");
     }
 
@@ -177,10 +178,10 @@ public class WindowMeetingScheduling {
         return calendarTable.isEmpty();
     }
 
-    public WindowMeetingScheduling clickDateInCalendar(){
+    public WindowMeetingScheduling clickDateInCalendar() {
         calendarTable.iterator().next().click();
         return this;
-            }
+    }
 
     public WindowMeetingScheduling clickTodayButton() {
         actions.moveToElement(todayButton).click().perform();
