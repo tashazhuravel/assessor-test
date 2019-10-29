@@ -129,6 +129,11 @@ public class WindowMeetingScheduling {
     public void setSelectPlanningPlace(String id){
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
         js.executeScript(String.format("document.getElementsByName('place_id')[0].setAttribute('value', %s)", id));
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 //--------------------проверка поля Город
