@@ -1,6 +1,3 @@
-import org.junit.internal.TextListener;
-import org.junit.runner.JUnitCore;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -8,8 +5,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-
-import java.util.concurrent.TimeUnit;
 
 public class SeleniumConfig {
     public WebDriver webDriver;
@@ -24,7 +19,7 @@ public class SeleniumConfig {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
-                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+               // System.setProperty("webdriver.chrome.driver", CHROME_PATH);
                 webDriver = new ChromeDriver(chromeOptions);
                 break;
             case IE:
