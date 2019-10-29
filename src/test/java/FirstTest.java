@@ -1,3 +1,4 @@
+import dataBase.AssesorService;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -20,6 +21,7 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Before
     public void setUp() {
+        assesorService = new AssesorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         System.out.println("Step 1: Authorization");
         authorizationPage.setLogin(login);

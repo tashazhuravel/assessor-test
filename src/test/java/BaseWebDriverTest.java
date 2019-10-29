@@ -1,3 +1,5 @@
+import dataBase.AssesorService;
+import dataBase.DataBaseConnection;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -34,6 +36,7 @@ public abstract class BaseWebDriverTest {
     protected static AssessorSite assessorSite;
     protected PlanningTabPage planningTabPage;
     protected static AuthorizationPage authorizationPage;
+    protected AssesorService assesorService;
     protected String login;
     protected String password;
     protected static WebDriver driver;
@@ -53,6 +56,9 @@ public abstract class BaseWebDriverTest {
 
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();
+
+    @Rule
+    public DataBaseConnection dataBaseConnection = new DataBaseConnection();
 
     @BeforeClass
     public static void authorization() throws Exception {
