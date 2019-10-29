@@ -41,15 +41,16 @@ public abstract class BaseWebDriverTest {
     protected String password;
     protected static WebDriver driver;
     protected boolean acceptNextAlert = true;
-    protected final static String FIO_USER_ACCOUNT = "Секретарева И.О.";
-    protected final static String UNLLOCATED_QUESTIONS_STATUS_FIELD = "Тестовая комиссия. Нераспределённые вопросы";
-    protected final static String CURRENT_MEETING_STATUS_FIELD = "Тестовая комиссия. Секретарь: Секретарева И.О.";//todo Подумать как передать дату, номер, вид заседания
+    protected String fioUserAccount;
+    protected String unllocatedQuestionsStatusField;
+    protected String sittingPlace;
+
 
     @Parameters
     public static Collection authorizationData() {
         return Arrays.asList(
                 new Object[][]{
-                        {"krug", "krug"}
+                        {"krug", "krug", "Секретарева И.О.","Тестовая комиссия. Нераспределённые вопросы","переговорная 1"}
                 }
         );
     }

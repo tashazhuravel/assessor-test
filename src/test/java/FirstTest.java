@@ -3,6 +3,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.JavascriptExecutor;
 import pages.MainPage;
 import pages.UnllocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
@@ -10,13 +11,20 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
 import pages.window.WindowUserAccount;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class FirstTest extends BaseWebDriverTest {
 
-    public FirstTest(String LOGIN, String PASSWORD) {
-        this.login = LOGIN;
-        this.password = PASSWORD;
+    public FirstTest(String login, String password, String fioUserAccount, String unllocatedQuestionsStatusField, String sittingPlace) {
+        this.login = login;
+        this.password = password;
+        this.fioUserAccount = fioUserAccount;
+        this.unllocatedQuestionsStatusField = unllocatedQuestionsStatusField;
+        this.sittingPlace = sittingPlace;
+
     }
 
     @Before
@@ -27,10 +35,6 @@ public class FirstTest extends BaseWebDriverTest {
         authorizationPage.setLogin(login);
         authorizationPage.setPassword(password);
         authorizationPage.clickLoginButton();
-    }
-
-    @Test
-    public void authorizationAcceptTest() {
         assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
         takeScreenshot("authorization");
     }
@@ -56,7 +60,7 @@ public class FirstTest extends BaseWebDriverTest {
 
         assertTrue("Не открылось диалоговое окно 'Учетная запись пользователя'.", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
         assertEquals("Пустое поле ФИО", windowUserAccount.getUserFIOFieldText().size(), 1);
-        assertEquals("Неверное ФИО пользователя.", FIO_USER_ACCOUNT, windowUserAccount.getTextByUserFIOField());
+        assertEquals("Неверное ФИО пользователя.", fioUserAccount, windowUserAccount.getTextByUserFIOField());
         windowUserAccount.saveUserAccount();
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByButton();
@@ -71,7 +75,7 @@ public class FirstTest extends BaseWebDriverTest {
         PlanningTabPage planningTabPage = assessorSite.getPlanningPage();
         UnllocatedQuestions unllocatedQuestions = planningTabPage.clickUnllocatedQuestionsButton();
 
-        assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", UNLLOCATED_QUESTIONS_STATUS_FIELD, unllocatedQuestions.getTextStatusField());
+        assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", unllocatedQuestionsStatusField, unllocatedQuestions.getTextStatusField());
     }
 
     @Test
@@ -86,13 +90,35 @@ public class FirstTest extends BaseWebDriverTest {
         // assertNotSame(planningTabPage.getAllNumberSittingCommittee(), windowMeetingScheduling.getSittingNumberText());
         assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> windowMeetingScheduling.getSittingNumberText().equals(item.getText())));
 
-        assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", "переговорная 1", windowMeetingScheduling.getSittingPlaceText());
-        windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
-       /* List<String> select = Arrays.asList("", "Small meeting room", "Большой кабинет",
-                "Зал для совещаний Главного корпуса", "Зал заседаний", "Кабинет", "Комната для заседаний",
-                "Переговорная", "переговорная 1", "Переговорная комната");
-        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);*/
+        //--проверка поля "Место заседания"
+        assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
+        //хочешwindowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
+        //  List<String> select = assesorService.getNamesRoom();//todo вставить пустую строку в начало листа
+        //verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
+        windowMeetingScheduling.setSelectPlanningPlace("6");
+        System.out.println("Место заседания"+windowMeetingScheduling.getCityFieldText());
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
+        windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
+
+        //--Дата заседания
+        // windowMeetingScheduling.clearDateFieldText();
+        assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getDateFieldText());
+        assertEquals("По умолчанию должна быть отображена текущая дата", windowMeetingScheduling.getDateAsString(), windowMeetingScheduling.getDateFieldText());
+        windowMeetingScheduling.clickCalendarButton();
+        assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowMeetingScheduling.emptyCalendar());
+        windowMeetingScheduling.clickDateInCalendar();
+        System.out.println(windowMeetingScheduling.getDateFieldText());
+        windowMeetingScheduling.clickCalendarButton();
+        windowMeetingScheduling.clickTodayButton();
+        System.out.println(windowMeetingScheduling.getDateFieldText());
+
+
+
+        //--Время начала заседания
+
+
+
+
     }
 
 
