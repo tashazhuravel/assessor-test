@@ -28,7 +28,7 @@ import org.junit.runners.Parameterized.Parameters;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @RunWith(value = Parameterized.class)
 public abstract class BaseWebDriverTest {

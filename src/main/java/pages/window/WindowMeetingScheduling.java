@@ -32,7 +32,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif']")
     private WebElement inputPlanningPlaceDropDown;
 
-    @FindBy(xpath = "(//div[@class = 'x-layer x-combo-list '])[1]/div[@class='x-combo-list-inner']/div")
+    @FindBy(xpath = "(//div[@class = 'x-layer x-combo-list '])[1]/div[@class='x-combo-list-inner']/div[text()]")
     private List<WebElement> selectPlanningPlace;
 
     @FindBy(xpath = "//input[@name='city']")

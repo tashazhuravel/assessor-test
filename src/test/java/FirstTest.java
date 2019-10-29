@@ -79,94 +79,17 @@ public class FirstTest extends BaseWebDriverTest {
         assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", unllocatedQuestionsStatusField, unllocatedQuestions.getTextStatusField());
     }
 
-    @Test
-    //@Ignore
-    public void createPlanning() {
-        planningTabPage = assessorSite.getPlanningPage();
-        planningTabPage.clickTab(MainPage.ETab.PLANNING);
-        WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-        isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling());
-
-        //--проверка номера заседания
-        String numberSitting = windowMeetingScheduling.getSittingNumberText();
-        assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> numberSitting.equals(item.getText())));
-
-        //--проверка поля "Место заседания"
-        assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
-        windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
-        List<String> select = assesorService.getNamesRoom();
-        select.add(0,StringUtils.EMPTY);
-        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
-        windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
-        System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
-        assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
-        windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
-
-        //--Дата заседания
-        // windowMeetingScheduling.clearDateFieldText();
-        assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getDateFieldText());
-        assertEquals("По умолчанию должна быть отображена текущая дата", windowMeetingScheduling.getDateAsString(), windowMeetingScheduling.getDateFieldText());
-        windowMeetingScheduling.clickCalendarButton();
-        assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowMeetingScheduling.emptyCalendar());
-        windowMeetingScheduling.clickDateInCalendar();
-        System.out.println(windowMeetingScheduling.getDateFieldText());
-        windowMeetingScheduling.clickCalendarButton();
-        windowMeetingScheduling.clickTodayButton();
-        System.out.println(windowMeetingScheduling.getDateFieldText());
-
-        //--Время начала заседания
-        System.out.println(windowMeetingScheduling.getTimeStartText());
-        assertNotEquals("Поле время начала заседания не может быть пустым",StringUtils.EMPTY,windowMeetingScheduling.getTimeStartText());
-        windowMeetingScheduling.clickAndOpenDropDownSelectSittingTimeStart();
-        windowMeetingScheduling.clickTimeStartInDropDown();
-        System.out.println(windowMeetingScheduling.getTimeStartText());
-
-        //--Время окончания заседания
-        System.out.println(windowMeetingScheduling.getTimeEndText());
-        assertNotEquals("Поле время окончания заседания не может быть пустым",StringUtils.EMPTY, windowMeetingScheduling.getTimeEndText());
-        windowMeetingScheduling.clickAndOpenSelectSittingTimeEnd();
-        windowMeetingScheduling.clickTimeEndInDropDown();
-        System.out.println(windowMeetingScheduling.getTimeEndText());
-
-        //--Список участников
-        windowMeetingScheduling.getParticipantList();
-
-        //--Сохранение запланированного заседания
-        CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
-        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \n",windowMeetingScheduling.getDateAsString(),numberSitting) +
-                "Секретарь: Секретарева И.О.",currentMeetingPage.getTextStatusField());
-    }
-
-    @Test
-    @Ignore
-    public void checkCanselAndCloseButtonPlanning() {
-        planningTabPage = assessorSite.getPlanningPage();
-        planningTabPage.clickTab(MainPage.ETab.PLANNING);
-        WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-        windowMeetingScheduling.clickCancelButtonPlanningSitting();
-        planningTabPage.clickPlanningEventButton();
-        windowMeetingScheduling.clickCloseButtonPlanningSitting();
-    }
-
-
-
-
-       /* //--ошибочные данные
-        windowMeetingScheduling.savePlanning();
-        //isElementPresent(windowMeetingScheduling.)
-        ErrorByMeetingScheduling errorByMeetingScheduling = windowMeetingScheduling.getErrorByMeetingScheduling();
-        assertEquals(errorByMeetingScheduling.getErrorMassageText(), ErrorType.NUMBER_SITTING_EMPTY_AND_EXIST.getLabel());}*/
-
-
-
-  /*  @Test
-    @Ignore
-    public void checkSelectPlanningPlace() {
-        planningTabPage = assessorSite.getPlanningPage();
-        planningTabPage.clickTab(MainPage.ETab.PLANNING);
-        planningTabPage.clickPlanningEventButton();
-}*/
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
