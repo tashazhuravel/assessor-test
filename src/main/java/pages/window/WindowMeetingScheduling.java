@@ -94,7 +94,7 @@ public class WindowMeetingScheduling {
     //-----------------------проверки поля Номер
 
     public String getSittingNumberText() {
-        return inputSittingNumber.getText();
+        return inputSittingNumber.getAttribute("value");
     }
 
     public void setSittingNumber(String number) {
@@ -243,7 +243,7 @@ public class WindowMeetingScheduling {
         }
     }
 
-    public CurrentMeetingPage savePlanning() {
+    public CurrentMeetingPage clickSaveButtonPlanning() {
         buttonSave.click();
         return new CurrentMeetingPage(webDriver);
     }

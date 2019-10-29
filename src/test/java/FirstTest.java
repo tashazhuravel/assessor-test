@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.JavascriptExecutor;
+import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnllocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
@@ -87,15 +88,15 @@ public class FirstTest extends BaseWebDriverTest {
         isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling());
 
         //--проверка номера заседания
-        // assertNotSame(planningTabPage.getAllNumberSittingCommittee(), windowMeetingScheduling.getSittingNumberText());
-        assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> windowMeetingScheduling.getSittingNumberText().equals(item.getText())));
+        String numberSitting = windowMeetingScheduling.getSittingNumberText();
+        assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> numberSitting.equals(item.getText())));
 
         //--проверка поля "Место заседания"
         assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
-        windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
+        //windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
         //  List<String> select = assesorService.getNamesRoom();//todo вставить пустую строку в начало листа
         //verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
-        windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
+        //windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
         System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
         windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
@@ -129,12 +130,23 @@ public class FirstTest extends BaseWebDriverTest {
         //--Список участников
         windowMeetingScheduling.getParticipantList();
 
-
-
-
+        //--Сохранение запланированного заседания
+        CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
+        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \n",windowMeetingScheduling.getDateAsString(),numberSitting) +
+                "Секретарь: Секретарева И.О.",currentMeetingPage.getTextStatusField());
 
     }
 
+    @Test
+    @Ignore
+    public void checkCanselAndCloseButtonPlanning() {
+        planningTabPage = assessorSite.getPlanningPage();
+        planningTabPage.clickTab(MainPage.ETab.PLANNING);
+        WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
+        windowMeetingScheduling.clickCancelButtonPlanningSitting();
+        planningTabPage.clickPlanningEventButton();
+        windowMeetingScheduling.clickCloseButtonPlanningSitting();
+    }
 
 
 
