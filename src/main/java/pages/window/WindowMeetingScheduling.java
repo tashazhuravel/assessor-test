@@ -44,7 +44,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "(//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif'])[2]")
     private WebElement calendarButton;
 
-    @FindBy(xpath = "//table[@class='x-date-inner']/tbody/tr/td")
+    @FindBy(xpath = "//table[@class='x-date-inner']/tbody/tr/td/a")
     private List<WebElement> calendarTable;
 
     @FindBy(xpath = "//button[text()='Сегодня']")
@@ -119,7 +119,7 @@ public class WindowMeetingScheduling {
     public List<WebElement> clickAndOpenSelectDropDownPlanningPlace() {
         actions.moveToElement(inputPlanningPlaceDropDown).click().perform();
         try {
-            Thread.sleep(2000L);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -128,7 +128,7 @@ public class WindowMeetingScheduling {
 
     public void setSelectPlanningPlace(String id){
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        js.executeScript(String.format("document.getElementByName('place_id').setAttribute('value', %s)", id));
+        js.executeScript(String.format("document.getElementsByName('place_id')[0].setAttribute('value', %s)", id));
     }
 
 //--------------------проверка поля Город
@@ -143,18 +143,39 @@ public class WindowMeetingScheduling {
 
 //--------------------проверка  Дата и Время
 
+    public void clearDateFieldText(){ dateField.clear();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public String getDateFieldText(){
+        return dateField.getAttribute("value");
+    }
+
     public void typeDate(String dateSitting) {
         dateField.sendKeys(dateSitting);
     }
 
     public WindowMeetingScheduling clickCalendarButton() {
         actions.moveToElement(calendarButton).click().perform();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
     public boolean emptyCalendar() {
         return calendarTable.isEmpty();
     }
+
+    public WindowMeetingScheduling clickDateInCalendar(){
+        calendarTable.iterator().next().click();
+        return this;
+            }
 
     public WindowMeetingScheduling clickTodayButton() {
         actions.moveToElement(todayButton).click().perform();
