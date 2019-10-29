@@ -32,7 +32,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif']")
     private WebElement inputPlanningPlaceDropDown;
 
-    @FindBy(xpath = "//div[@class = 'x-combo-list-inner']/div")
+    @FindBy(xpath = "(//div[@class = 'x-layer x-combo-list '])[1]/div[@class='x-combo-list-inner']/div")
     private List<WebElement> selectPlanningPlace;
 
     @FindBy(xpath = "//input[@name='city']")
@@ -56,7 +56,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "(//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif'])[3]")
     private WebElement selectSittingTimeStartDropDown;
 
-    @FindBy(xpath = "//div[@class='x-layer x-combo-list ']/div")
+    @FindBy(xpath = "(//div[@class='x-layer x-combo-list '])[2]/div")
     private List<WebElement> selectSittingTimeStart;
 
     @FindBy(xpath = "//input[@id='sittingTimeEnd']")
@@ -65,7 +65,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "(//img[@src='extensions/is.assessor/externallib/extjs/resources/images/default/s.gif'])[4]")
     private WebElement sittingTimeEndDropDown;
 
-    @FindBy(xpath = "(//div[@class='x-layer x-combo-list '])[2]/div")
+    @FindBy(xpath = "(//div[@class='x-layer x-combo-list '])[3]/div")
     private List<WebElement> selectSittingTimeEnd;
 
     @FindBy(xpath = "//div[@class='x-grid3-cell-inner x-grid3-col-0']")

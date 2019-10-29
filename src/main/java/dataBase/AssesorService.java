@@ -18,7 +18,7 @@ public class AssesorService {
         List<String> roomsName = new ArrayList<>();
         ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery("SELECT r.name FROM rooms r");
+            resultSet = statement.executeQuery("SELECT r.name FROM rooms r ORDER BY r.name ASC");
             while (resultSet.next()) {
                 roomsName.add(resultSet.getString("name"));
             }

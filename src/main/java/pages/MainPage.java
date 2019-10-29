@@ -9,6 +9,7 @@ import pages.mainPageTab.ArchiveTabPage;
 import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
+import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
 public class MainPage {
@@ -31,6 +32,12 @@ public class MainPage {
 
     @FindBy(xpath = "//table/tbody//td//table//em/button")
     WebElement userFIOButton;
+
+    @FindBy(xpath = "//button[@class=' x-btn-text notificationBtn']")
+    WebElement notificationButton;
+
+    @FindBy(xpath = " x-btn-text hasNews")
+    WebElement notificationButtonHaveMessage;
 
     @FindBy(xpath = "//button[text()='О системе']")
     WebElement aboutSystemButton;
@@ -65,6 +72,11 @@ public class MainPage {
     public WindowUserAccount clickButtonUserAccount() {
         actions.moveToElement(userFIOButton).click().perform();
         return new WindowUserAccount(webDriver);
+    }
+
+    public WindowNotification clickButtonNotification(){
+        actions.moveToElement(notificationButton).click().perform();
+        return new WindowNotification(webDriver);
     }
 
     //Кнопка О системе

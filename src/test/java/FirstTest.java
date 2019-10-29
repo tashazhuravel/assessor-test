@@ -30,7 +30,7 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Before
     public void setUp() {
-        //assesorService = new AssesorService(dataBaseConnection.stmt);
+        assesorService = new AssesorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         System.out.println("Step 1: Authorization");
         authorizationPage.setLogin(login);
@@ -93,10 +93,11 @@ public class FirstTest extends BaseWebDriverTest {
 
         //--проверка поля "Место заседания"
         assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
-        //windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
-        //  List<String> select = assesorService.getNamesRoom();//todo вставить пустую строку в начало листа
-        //verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
-        //windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
+        windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
+        List<String> select = assesorService.getNamesRoom();
+        select.add(0,StringUtils.EMPTY);
+        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
+        windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
         System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
         windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
@@ -134,7 +135,6 @@ public class FirstTest extends BaseWebDriverTest {
         CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
         assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \n",windowMeetingScheduling.getDateAsString(),numberSitting) +
                 "Секретарь: Секретарева И.О.",currentMeetingPage.getTextStatusField());
-
     }
 
     @Test
