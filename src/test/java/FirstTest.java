@@ -12,8 +12,19 @@ import pages.window.WindowUserAccount;
 import static org.junit.Assert.*;
 
 public class FirstTest extends BaseWebDriverTest {
+
+    public FirstTest(String LOGIN, String PASSWORD) {
+        this.login = LOGIN;
+        this.password = PASSWORD;
+    }
+
     @Before
     public void setUp() {
+        authorizationPage = assessorSite.getAuthorizationPage();
+        System.out.println("Step 1: Authorization");
+        authorizationPage.setLogin(login);
+        authorizationPage.setPassword(password);
+        authorizationPage.clickLoginButton();
     }
 
     @Test
