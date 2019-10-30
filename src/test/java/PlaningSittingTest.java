@@ -3,6 +3,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.window.WindowMeetingScheduling;
@@ -18,7 +19,6 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
-        this.unllocatedQuestionsStatusField = unllocatedQuestionsStatusField;
         this.sittingPlace = sittingPlace;
 
     }
@@ -49,9 +49,8 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
         //--проверка поля "Место заседания"
         assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
-        windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
+        // windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
         List<String> select = assesorService.getNamesRoom();
-        select.add(0, StringUtils.EMPTY);
         verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
         windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
         System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
@@ -72,26 +71,31 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
         //--Время начала заседания
         System.out.println(windowMeetingScheduling.getTimeStartText());
-        assertNotEquals("Поле время начала заседания не может быть пустым",StringUtils.EMPTY,windowMeetingScheduling.getTimeStartText());
+        assertNotEquals("Поле время начала заседания не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getTimeStartText());
         windowMeetingScheduling.clickAndOpenDropDownSelectSittingTimeStart();
         windowMeetingScheduling.clickTimeStartInDropDown();
         System.out.println(windowMeetingScheduling.getTimeStartText());
 
         //--Время окончания заседания
         System.out.println(windowMeetingScheduling.getTimeEndText());
-        assertNotEquals("Поле время окончания заседания не может быть пустым",StringUtils.EMPTY, windowMeetingScheduling.getTimeEndText());
+        assertNotEquals("Поле время окончания заседания не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getTimeEndText());
         windowMeetingScheduling.clickAndOpenSelectSittingTimeEnd();
         windowMeetingScheduling.clickTimeEndInDropDown();
         System.out.println(windowMeetingScheduling.getTimeEndText());
 
         //--Список участников
-        windowMeetingScheduling.getParticipantList();
+        List<String> selectParticipant = assesorService.getFIOParticipantSitting();
+        System.out.println(selectParticipant);
+        verifyAutocompleteOptionsText(verifyWordpressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
+
 
         //--Сохранение запланированного заседания
         CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
-        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \n",windowMeetingScheduling.getDateAsString(),numberSitting) +
-                "Секретарь: Секретарева И.О.",currentMeetingPage.getTextStatusField());
+        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
+                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: Секретарева И.О.", windowMeetingScheduling.getDateAsString(), numberSitting),
+                currentMeetingPage.getTextStatusField());
     }
+
     @Test
     @Ignore
     public void checkCancelAndCloseButtonPlanning() {
@@ -120,4 +124,4 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         planningTabPage.clickPlanningEventButton();
 
 }*/
-    }
+}

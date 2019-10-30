@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -36,8 +37,9 @@ public class MainPage {
     @FindBy(xpath = "//button[@class=' x-btn-text notificationBtn']")
     WebElement notificationButton;
 
-    @FindBy(xpath = " x-btn-text hasNews")
-    WebElement notificationButtonHaveMessage;
+    @FindBy
+
+    By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
 
     @FindBy(xpath = "//button[text()='О системе']")
     WebElement aboutSystemButton;
@@ -74,8 +76,13 @@ public class MainPage {
         return new WindowUserAccount(webDriver);
     }
 
-    public WindowNotification clickButtonNotification(){
+    public WindowNotification clickButtonNotification() {
         actions.moveToElement(notificationButton).click().perform();
+        return new WindowNotification(webDriver);
+    }
+
+    public WindowNotification clickNotificationButtonHaveNewMessage() {
+        webDriver.findElement(notificationButtonHaveMessage).click();
         return new WindowNotification(webDriver);
     }
 
@@ -83,6 +90,11 @@ public class MainPage {
     public WindowAboutSystem clickButtonAboutSystem() {
         actions.moveToElement(aboutSystemButton).click().perform();
         return new WindowAboutSystem(webDriver);
+    }
+
+    public By getNotificationButtonHaveMessage() {
+
+        return notificationButtonHaveMessage;
     }
 
     public enum ETab {

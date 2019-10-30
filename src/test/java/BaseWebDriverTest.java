@@ -10,6 +10,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import pages.AssessorSite;
@@ -19,13 +20,10 @@ import pages.mainPageTab.PlanningTabPage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 import org.junit.runners.Parameterized.Parameters;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
@@ -50,7 +48,7 @@ public abstract class BaseWebDriverTest {
     public static Collection authorizationData() {
         return Arrays.asList(
                 new Object[][]{
-                        {"krug", "krug", "Секретарева И.О.","Тестовая комиссия. Нераспределённые вопросы","переговорная 1"}
+                        {"krug", "krug", "Секретарева И.О.", "Тестовая комиссия. Нераспределённые вопросы", "переговорная 1"}
                 }
         );
     }
@@ -58,7 +56,7 @@ public abstract class BaseWebDriverTest {
     @Rule
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 
-  @Rule
+    @Rule
     public DataBaseConnection dataBaseConnection = new DataBaseConnection();
 
     @BeforeClass
@@ -119,10 +117,38 @@ public abstract class BaseWebDriverTest {
     protected void verifyAutocompleteOptions(List<WebElement> webElements, List<String> optionsNames) {
         assertEquals("Options", optionsNames.size(), webElements.size());
         for (int i = 0; i < optionsNames.size(); i++) {
+            String a = optionsNames.get(i);
+            String b = webElements.get(i).getText();
             assertEquals("Wrong options text", optionsNames.get(i), webElements.get(i).getText());
         }
     }
+    protected void verifyAutocompleteOptionsText(List<String> word, List<String> optionsNames) {
+        assertEquals("Options", optionsNames.size(), word.size());
+        for (int i = 0; i < optionsNames.size(); i++) {
+            String a = optionsNames.get(i);
+            String b = word.get(i);
+            assertEquals("Wrong options text", optionsNames.get(i), word.get(i));
+        }
+    }
 
+    public List<String> verifyWordpressSymbol(List<WebElement> elements){
+        List<String> newParticipantFIO = new ArrayList();
+        for (int i=0; i<elements.size();i++){
+            String word = elements.get(i).getText().trim().replace((char) 32, (char) 160);
+            newParticipantFIO.add(i,word);
+        }
+        return newParticipantFIO;
+    }
+
+   /* public List<WebElement> verifyWordpressSymbol(List<WebElement> elements) {
+        Iterator<WebElement> iterator = elements.iterator();
+        while (iterator.hasNext()){
+            WebElement webElement = iterator.next();
+            webElement.getText().trim().replace((char) 32, (char) 160);
+        }
+        return elements;
+    }
+*/
     protected boolean isElementPresent(By by) {
         try {
             driver.findElement(by);

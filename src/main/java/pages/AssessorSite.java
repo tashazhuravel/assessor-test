@@ -6,6 +6,7 @@ import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
+import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
 public class AssessorSite {
@@ -51,6 +52,8 @@ public class AssessorSite {
     public WindowMeetingScheduling getWindowMeetingScheduling() {
         return new WindowMeetingScheduling(webDriver);
     }
+
+    public WindowNotification getWindowNotification(){ return new WindowNotification(webDriver);}
 
     public UnllocatedQuestions getUnllocatedQuestions() {
         return new UnllocatedQuestions(webDriver);

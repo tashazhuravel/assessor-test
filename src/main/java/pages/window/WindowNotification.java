@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.CurrentMeetingPage;
+import pages.mainPageTab.PlanningTabPage;
+
+import java.util.List;
 
 public class WindowNotification {
     private WebDriver webDriver;
@@ -13,12 +17,19 @@ public class WindowNotification {
     private Actions actions;
 
     private By headerNotificationWindow = By.xpath("//span[text()='Оповещения']");
+    private By haveNewNotificationMessage = By.xpath("//div[@class='event-item new-event-item']");
+    private By haveOldNotificationMessage = By.xpath("//div[@class='event-item old-event-item']");
 
     @FindBy(xpath = "//div[@class='event-item old-event-item']")
-    private WebElement oldNotificationMessage;
+    private List<WebElement> oldNotificationMessage;
 
-    @FindBy(xpath = "//div[@class='event-item new-event-item']")
-    private WebElement newNotificationMessage;
+    @FindBy(xpath = "//div[@class='event-item new-event-item']//span[@class ='red-point']")
+    private List<WebElement> newNotificationMessage;
+
+    @FindBy(xpath = "//div[@class='event-item__body']//span[contains(text(),'Тестовая')]")
+    List<WebElement> sittingLinkNotificationMessage;
+
+   // @FindBy()
 
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     private WebElement closeWindowButton;
@@ -36,7 +47,40 @@ public class WindowNotification {
         PageFactory.initElements(webDriver, this);
     }
 
+    public PlanningTabPage closeWindowNotificationByX() {
+        actions.moveToElement(closeWindowButton).click().perform();
+    return new PlanningTabPage(webDriver);
+    }
+
+    public WindowNotification clickNewNotificationMessage(){
+        newNotificationMessage.iterator().next().click();
+        return this;
+    }
+
+    public CurrentMeetingPage clickLinkSittingNotificationMessage(){
+        sittingLinkNotificationMessage.iterator().next().click();
+        return new CurrentMeetingPage(webDriver);
+    }
+
+    public WindowNotification clickClearButton(){
+        actions.moveToElement(clearWindowButton).click().perform();
+        return this;
+    }
+    public PlanningTabPage clickCloseButton(){
+        actions.moveToElement(closeButton).click().perform();
+        return new PlanningTabPage(webDriver);
+    }
+
+
     public By getHeaderNotificationWindow() {
         return headerNotificationWindow;
+    }
+
+    public By getHaveNewNotificationMessage() {
+        return haveNewNotificationMessage;
+    }
+
+    public By getHaveOldNotificationMessage() {
+        return haveOldNotificationMessage;
     }
 }

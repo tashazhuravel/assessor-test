@@ -10,6 +10,7 @@ import pages.UnllocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
+import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
 import java.util.Arrays;
@@ -59,6 +60,7 @@ public class FirstTest extends BaseWebDriverTest {
         MainPage mainPage = assessorSite.getMainPage();
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
+
         assertTrue("Не открылось диалоговое окно 'Учетная запись пользователя'.", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
         assertEquals("Пустое поле ФИО", windowUserAccount.getUserFIOFieldText().size(), 1);
         assertEquals("Неверное ФИО пользователя.", fioUserAccount, windowUserAccount.getTextByUserFIOField());
@@ -67,6 +69,44 @@ public class FirstTest extends BaseWebDriverTest {
         windowUserAccount.closeWindowUserAccountByButton();
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByX();
+    }
+    @Test
+    public void checkWindowNotification(){
+        MainPage mainPage = assessorSite.getMainPage();
+        WindowNotification windowNotification = mainPage.clickButtonNotification();
+        assertTrue("Не открылось диалоговое окно'Уведомления'.", isElementPresent(windowNotification.getHeaderNotificationWindow()));
+        windowNotification.closeWindowNotificationByX();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue("Нет новых сообщений", isElementPresent(mainPage.getNotificationButtonHaveMessage()));
+        mainPage.clickNotificationButtonHaveNewMessage();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+        windowNotification.clickNewNotificationMessage();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldNotificationMessage()));
+
+       /* CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
+        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
+                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: Секретарева И.О.", windowNotification.getDateAsString(), numberSitting),
+                currentMeetingPage.getTextStatusField());*/
+
+
+
+
+
+
     }
 
     @Test

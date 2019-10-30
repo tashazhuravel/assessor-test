@@ -68,7 +68,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "(//div[@class='x-layer x-combo-list '])[3]/div")
     private List<WebElement> selectSittingTimeEnd;
 
-    @FindBy(xpath = "//div[@class='x-grid3-cell-inner x-grid3-col-0']")
+    @FindBy(xpath = "//td[@class='x-grid3-col x-grid3-cell x-grid3-td-0 x-grid3-cell-first ']/div[text()]")
     private List<WebElement> participantsList;
 
     @FindBy(xpath = "//button[text()='Сохранить']")
@@ -237,10 +237,9 @@ public class WindowMeetingScheduling {
 
     //----------------Список участников
 
-    public void getParticipantList() {
-        for (WebElement participant : participantsList) {
-            participant.getText();
-        }
+
+    public List<WebElement> getParticipantsList() {
+        return participantsList;
     }
 
     public CurrentMeetingPage clickSaveButtonPlanning() {
