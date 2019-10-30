@@ -59,8 +59,6 @@ public class FirstTest extends BaseWebDriverTest {
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
-
-
         assertTrue("Не открылось диалоговое окно 'Учетная запись пользователя'.", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
         assertEquals("Пустое поле ФИО", windowUserAccount.getUserFIOFieldText().size(), 1);
         assertEquals("Неверное ФИО пользователя.", fioUserAccount, windowUserAccount.getTextByUserFIOField());
@@ -74,7 +72,12 @@ public class FirstTest extends BaseWebDriverTest {
     public void checkWindowNotification(){
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification = mainPage.clickButtonNotification();
-        assertTrue("Не открылось диалоговое окно'Уведомления'.", isElementPresent(windowNotification.getHeaderNotificationWindow()));
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(".","visible",mainPage.getNotificationWindow().getCssValue("visibility"));
         windowNotification.closeWindowNotificationByX();
         try {
             Thread.sleep(2000L);
