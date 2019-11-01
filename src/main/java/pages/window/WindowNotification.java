@@ -26,10 +26,11 @@ public class WindowNotification {
     @FindBy(xpath = "//div[@class='event-item new-event-item']//span[@class ='red-point']")
     private List<WebElement> newNotificationMessage;
 
-    @FindBy(xpath = "//div[@class='event-item__body']//span[contains(text(),'Тестовая')]")
-    List<WebElement> sittingLinkNotificationMessage;
+    @FindBy(xpath = "//div[@class='event-item old-event-item']//p/span[text()]")
+    private List<WebElement> sittingLinkNotificationMessage;
 
-   // @FindBy()
+    @FindBy(xpath = "//div[@class='event-item old-event-item']//p[text()]")
+    private WebElement oldNotificationMessageText;
 
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     private WebElement closeWindowButton;
@@ -49,27 +50,33 @@ public class WindowNotification {
 
     public PlanningTabPage closeWindowNotificationByX() {
         actions.moveToElement(closeWindowButton).click().perform();
-    return new PlanningTabPage(webDriver);
+        return new PlanningTabPage(webDriver);
     }
 
-    public WindowNotification clickNewNotificationMessage(){
+    public WindowNotification clickNewNotificationMessage() {
         newNotificationMessage.iterator().next().click();
         return this;
     }
 
-    public CurrentMeetingPage clickLinkSittingNotificationMessage(){
+    public CurrentMeetingPage clickLinkSittingNotificationMessage() {
         sittingLinkNotificationMessage.iterator().next().click();
         return new CurrentMeetingPage(webDriver);
     }
 
-    public WindowNotification clickClearButton(){
+    public WindowNotification clickClearButton() {
         actions.moveToElement(clearWindowButton).click().perform();
         return this;
     }
-    public PlanningTabPage clickCloseButton(){
+
+    public PlanningTabPage clickCloseButton() {
         actions.moveToElement(closeButton).click().perform();
         return new PlanningTabPage(webDriver);
     }
+
+    public String getTextOldNotificationMessage() {
+        return oldNotificationMessageText.getText();
+    }
+//Todo распарсить строку из уведомления и забрать либо только №, либо Тестовая комиссия и №
 
 
     public By getHeaderNotificationWindow() {
@@ -83,4 +90,5 @@ public class WindowNotification {
     public By getHaveOldNotificationMessage() {
         return haveOldNotificationMessage;
     }
+
 }

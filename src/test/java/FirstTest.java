@@ -68,8 +68,10 @@ public class FirstTest extends BaseWebDriverTest {
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByX();
     }
+
     @Test
-    public void checkWindowNotification(){
+    //@Ignore
+    public void checkWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification = mainPage.clickButtonNotification();
         try {
@@ -77,7 +79,7 @@ public class FirstTest extends BaseWebDriverTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        assertEquals(".","visible",mainPage.getNotificationWindow().getCssValue("visibility"));
+        assertEquals(".", "visible", mainPage.getNotificationWindow().getCssValue("visibility"));
         windowNotification.closeWindowNotificationByX();
         try {
             Thread.sleep(2000L);
@@ -99,17 +101,24 @@ public class FirstTest extends BaseWebDriverTest {
             e.printStackTrace();
         }
         assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldNotificationMessage()));
+        String textOldNotificationMessage = windowNotification.getTextOldNotificationMessage();
+        System.out.println(textOldNotificationMessage);
+        CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
 
-       /* CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
-        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
-                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: Секретарева И.О.", windowNotification.getDateAsString(), numberSitting),
-                currentMeetingPage.getTextStatusField());*/
-
-
-
-
-
-
+        //Todo проверка части строк Тестовая комиссия № из уведомления и из строки статус. можно просто по номеру.
+        //  System.out.println(currentMeetingPage.getPartOfTextStatusField(currentMeetingPage.getTextStatusField()));
+        //assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField());
+        currentMeetingPage.clickBackOnListSitting();
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mainPage.clickNotificationButtonHaveNewMessage();
+        windowNotification.clickClearButton();
+        assertFalse("Не удалось открыть Уведомления, либо список содержит уведомления", isElementPresent(windowNotification.getHaveOldNotificationMessage()));
+        windowNotification.clickCloseButton();
+        assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
     }
 
     @Test
