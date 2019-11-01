@@ -94,7 +94,6 @@ public class MainPage {
     }
 
     public By getNotificationButtonHaveMessage() {
-
         return notificationButtonHaveMessage;
     }
 

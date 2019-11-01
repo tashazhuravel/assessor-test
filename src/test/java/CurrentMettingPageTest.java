@@ -24,4 +24,5 @@ class CurrentMettingPageTest extends BaseWebDriverTest {
         assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
         takeScreenshot("authorization");
     }
+
 }

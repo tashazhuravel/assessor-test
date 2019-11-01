@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -29,6 +30,13 @@ public class CurrentMeetingPage {
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaOpen']")
     private WebElement agendaButton;
+
+    @FindBy(xpath = "//div[@id ='popupWindowCreateQuestion']")
+    private WebElement windowKindOfQuestion;
+
+    @FindBy(xpath = "//div[@class=' x-window']")
+    private WebElement windowAddUnllocatedQuestion;
+
 
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnSittingBack']")
@@ -61,5 +69,12 @@ public class CurrentMeetingPage {
       return new PlanningTabPage(webDriver);
   }
 
+    public WebElement getWindowKindOfQuestion() {
+        return windowKindOfQuestion;
+    }
+
+    public WebElement getWindowAddUnllocatedQuestion() {
+        return windowAddUnllocatedQuestion;
+    }
 }
 
