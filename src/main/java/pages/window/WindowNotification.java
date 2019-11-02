@@ -1,18 +1,23 @@
 package pages.window;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.*;
 import pages.CurrentMeetingPage;
 import pages.mainPageTab.PlanningTabPage;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WindowNotification {
     private WebDriver webDriver;
+    private Wait wait;
 
     private Actions actions;
 
@@ -21,7 +26,7 @@ public class WindowNotification {
     private By haveOldNotificationMessage = By.xpath("//div[@class='event-item old-event-item']");
 
     @FindBy(xpath = "//div[@class='event-item old-event-item']")
-    private List<WebElement> oldNotificationMessage;
+    private List<WebElement> oldNotificationMessages;
 
     @FindBy(xpath = "//div[@class='event-item new-event-item']//span[@class ='red-point']")
     private List<WebElement> newNotificationMessage;
@@ -45,6 +50,7 @@ public class WindowNotification {
     public WindowNotification(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
+        wait = new FluentWait<WebDriver>(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 
@@ -76,8 +82,16 @@ public class WindowNotification {
     public String getTextOldNotificationMessage() {
         return oldNotificationMessageText.getText();
     }
-//Todo распарсить строку из уведомления и забрать либо только №, либо Тестовая комиссия и №
 
+    public String getNumberSittingFromNottificationMessage() {
+        String result = StringUtils.EMPTY;
+        Pattern regex = Pattern.compile("№/d+");
+        Matcher m = regex.matcher(oldNotificationMessageText.getText());
+        if (m.find()) {
+            result = m.group();
+        }
+        return result;
+    }
 
     public By getHeaderNotificationWindow() {
         return headerNotificationWindow;

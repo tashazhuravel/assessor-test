@@ -7,10 +7,10 @@ import org.junit.Rule;
 import org.junit.rules.MethodRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import pages.AssessorSite;
@@ -20,13 +20,14 @@ import pages.mainPageTab.PlanningTabPage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import org.junit.runners.Parameterized.Parameters;
-
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(value = Parameterized.class)
 public abstract class BaseWebDriverTest {
@@ -60,13 +61,14 @@ public abstract class BaseWebDriverTest {
     public DataBaseConnection dataBaseConnection = new DataBaseConnection();
 
     @BeforeClass
-    public static void authorization() throws Exception {
+    public static void initWebDriver() throws Exception {
         seleniumAssessor = new SeleniumAssessor();
         driver = seleniumAssessor.getWebDriver();
         driver.get(seleniumAssessor.getUrl());
         driver.manage().window().setSize(new Dimension(1600, 1000));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         assessorSite = PageFactory.initElements(driver, AssessorSite.class);
+        //TODO  попробовать удалить строку выше. Должно работать
     }
 
     class ScreenshotRule implements MethodRule {
@@ -131,24 +133,15 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    public List<String> verifyWordpressSymbol(List<WebElement> elements){
-        List<String> newParticipantFIO = new ArrayList();
-        for (int i=0; i<elements.size();i++){
+    public List<String> changeWordpressSymbol(List<WebElement> elements){
+        List<String> newParticipantFIO  = elements.stream().map(element -> element.getText().trim().replace((char) 32, (char) 160)).collect(Collectors.toList());
+       /* for (int i=0; i<elements.size();i++){
             String word = elements.get(i).getText().trim().replace((char) 32, (char) 160);
             newParticipantFIO.add(i,word);
-        }
+        }*/
         return newParticipantFIO;
     }
 
-   /* public List<WebElement> verifyWordpressSymbol(List<WebElement> elements) {
-        Iterator<WebElement> iterator = elements.iterator();
-        while (iterator.hasNext()){
-            WebElement webElement = iterator.next();
-            webElement.getText().trim().replace((char) 32, (char) 160);
-        }
-        return elements;
-    }
-*/
     protected boolean isElementPresent(By by) {
         try {
             driver.findElement(by);

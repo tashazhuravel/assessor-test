@@ -1,6 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,7 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.mainPageTab.PlanningTabPage;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CurrentMeetingPage {
+
+    private WebDriver webDriver;
+    private Actions actions;
 
     @FindBy(xpath = "//textarea[@id='planningCommittee']")
     private WebElement informationFieldAboutSitting;
@@ -37,13 +43,8 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//div[@class=' x-window']")
     private WebElement windowAddUnllocatedQuestion;
 
-
-
     @FindBy(xpath = "//button[@class=' x-btn-text btnSittingBack']")
     private WebElement backOnListSitting;
-
-    private WebDriver webDriver;
-    private Actions actions;
 
     public CurrentMeetingPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -55,19 +56,20 @@ public class CurrentMeetingPage {
         return informationFieldAboutSitting.getAttribute("value");
     }
 
-  /* TOdo распарсить строку статус
-  public String getPartOfTextStatusField(String nameCommittee) {
-        List<String> arrSplit = new ArrayList<String>(Arrays.asList(nameCommittee.split("№ ",1)));
-        for (int i = 0; i < arrSplit.size(); i++) {
-            System.out.println(arrSplit.get(i));
+    public String getPartOfTextStatusField(String nameCommittee) {
+        String result = StringUtils.EMPTY;
+        Pattern regex = Pattern.compile("№/d+");
+        Matcher m = regex.matcher(nameCommittee);
+        if (m.find()) {
+            result = m.group();
         }
-        return arrSplit.get(0);
-    }*/
+        return result;
+    }
 
-  public PlanningTabPage clickBackOnListSitting(){
-      actions.moveToElement(backOnListSitting).click().perform();
-      return new PlanningTabPage(webDriver);
-  }
+    public PlanningTabPage clickBackOnListSitting() {
+        actions.moveToElement(backOnListSitting).click().perform();
+        return new PlanningTabPage(webDriver);
+    }
 
     public WebElement getWindowKindOfQuestion() {
         return windowKindOfQuestion;

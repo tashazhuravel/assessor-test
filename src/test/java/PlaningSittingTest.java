@@ -3,10 +3,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.window.WindowMeetingScheduling;
+import utils.DateUtil;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         authorizationPage.setPassword(password);
         authorizationPage.clickLoginButton();
         assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
-        takeScreenshot("authorization");
+        takeScreenshot("initWebDriver");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-        isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling());
+        assertTrue("Окошко не отрылося", isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling()));
 
         //--проверка номера заседания
         String numberSitting = windowMeetingScheduling.getSittingNumberText();
@@ -53,14 +53,14 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         List<String> select = assesorService.getNamesRoom();
         verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
         windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
-        System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
         windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
+        System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
 
         //--Дата заседания
         // windowMeetingScheduling.clearDateFieldText();
         assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getDateFieldText());
-        assertEquals("По умолчанию должна быть отображена текущая дата", windowMeetingScheduling.getDateAsString(), windowMeetingScheduling.getDateFieldText());
+        assertEquals("По умолчанию должна быть отображена текущая дата", DateUtil.getCurrentDateAsString(), windowMeetingScheduling.getDateFieldText());
         windowMeetingScheduling.clickCalendarButton();
         assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowMeetingScheduling.emptyCalendar());
         windowMeetingScheduling.clickDateInCalendar();
@@ -86,13 +86,13 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         //--Список участников
         List<String> selectParticipant = assesorService.getFIOParticipantSitting();
         System.out.println(selectParticipant);
-        verifyAutocompleteOptionsText(verifyWordpressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
+        verifyAutocompleteOptionsText(changeWordpressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
 
 
         //--Сохранение запланированного заседания
         CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
         assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
-                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: Секретарева И.О.", windowMeetingScheduling.getDateAsString(), numberSitting),
+                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, fioUserAccount),
                 currentMeetingPage.getTextStatusField());
     }
 

@@ -1,11 +1,15 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import pages.mainPageTab.ArchiveTabPage;
 import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
@@ -13,10 +17,14 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
+import java.time.Duration;
+
+import static java.time.temporal.ChronoUnit.SECONDS;
+
 public class MainPage {
 
     protected WebDriver webDriver;
-
+    private Wait wait;
     private Actions actions;
 
     @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a[2]")
@@ -38,7 +46,7 @@ public class MainPage {
     WebElement notificationButton;
 
     @FindBy(xpath = "//div[@id='windowNotifications']")
-            WebElement notificationWindow;
+    WebElement notificationWindow;
 
     By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
 
@@ -48,6 +56,9 @@ public class MainPage {
     public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
+        wait = new FluentWait<WebDriver>(webDriver).withTimeout(Duration.of(30, SECONDS))
+                .pollingEvery(Duration.of(30, SECONDS))
+                .ignoring(NoSuchElementException.class);
         PageFactory.initElements(webDriver, this);
     }
 
@@ -98,7 +109,7 @@ public class MainPage {
     }
 
     public WebElement getNotificationWindow() {
-        return notificationWindow;
+        return (WebElement) wait.until(ExpectedConditions.visibilityOf(notificationWindow));
     }
 
     public enum ETab {

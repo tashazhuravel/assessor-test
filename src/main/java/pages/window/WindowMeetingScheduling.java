@@ -86,10 +86,7 @@ public class WindowMeetingScheduling {
         PageFactory.initElements(webDriver, this);
     }
 
-    public String getDateAsString() {
-        Date date = new Date();
-        return new SimpleDateFormat("dd.MM.yyyy").format(date);
-    }
+
 
     //-----------------------проверки поля Номер
 
