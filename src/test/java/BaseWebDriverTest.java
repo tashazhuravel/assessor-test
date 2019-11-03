@@ -1,6 +1,7 @@
 import dataBase.AssesorService;
 import dataBase.DataBaseConnection;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -43,6 +44,7 @@ public abstract class BaseWebDriverTest {
     protected String fioUserAccount;
     protected String unllocatedQuestionsStatusField;
     protected String sittingPlace;
+    protected static Logger log = Logger.getLogger("devpinoyLogger");
 
 
     @Parameters
@@ -124,6 +126,7 @@ public abstract class BaseWebDriverTest {
             assertEquals("Wrong options text", optionsNames.get(i), webElements.get(i).getText());
         }
     }
+
     protected void verifyAutocompleteOptionsText(List<String> word, List<String> optionsNames) {
         assertEquals("Options", optionsNames.size(), word.size());
         for (int i = 0; i < optionsNames.size(); i++) {
@@ -133,8 +136,8 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    public List<String> changeWordpressSymbol(List<WebElement> elements){
-        List<String> newParticipantFIO  = elements.stream().map(element -> element.getText().trim().replace((char) 32, (char) 160)).collect(Collectors.toList());
+    public List<String> changeWordpressSymbol(List<WebElement> elements) {
+        List<String> newParticipantFIO = elements.stream().map(element -> element.getText().trim().replace((char) 32, (char) 160)).collect(Collectors.toList());
        /* for (int i=0; i<elements.size();i++){
             String word = elements.get(i).getText().trim().replace((char) 32, (char) 160);
             newParticipantFIO.add(i,word);
