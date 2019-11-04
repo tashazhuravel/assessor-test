@@ -6,6 +6,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.MethodRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -68,6 +70,20 @@ public abstract class BaseWebDriverTest {
     @Rule
     public DataBaseConnection dataBaseConnection = new DataBaseConnection();
 
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+
+        @Override
+        protected void failed(Throwable e, Description description) {
+            log.error(description, e);
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            log.info(description);
+        }
+    };
+
     @BeforeClass
     public static void initWebDriver() throws Exception {
         seleniumAssessor = new SeleniumAssessor();
@@ -79,7 +95,6 @@ public abstract class BaseWebDriverTest {
         wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.of(10, SECONDS))
                 .pollingEvery(Duration.of(2, SECONDS))
                 .ignoring(NoSuchElementException.class);
-        //TODO  попробовать удалить строку выше. Должно работать
     }
 
     class ScreenshotRule implements MethodRule {
@@ -107,7 +122,7 @@ public abstract class BaseWebDriverTest {
         try {
             FileUtils.copyFile(scrFile, new File(path));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Ошибка сохранения скриншота", e);
         }
     }
 
@@ -147,10 +162,6 @@ public abstract class BaseWebDriverTest {
 
     public List<String> changeWordpressSymbol(List<WebElement> elements) {
         List<String> newParticipantFIO = elements.stream().map(element -> element.getText().trim().replace((char) 32, (char) 160)).collect(Collectors.toList());
-       /* for (int i=0; i<elements.size();i++){
-            String word = elements.get(i).getText().trim().replace((char) 32, (char) 160);
-            newParticipantFIO.add(i,word);
-        }*/
         return newParticipantFIO;
     }
 
