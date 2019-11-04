@@ -24,7 +24,6 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 public class MainPage {
 
     protected WebDriver webDriver;
-    private Wait wait;
     private Actions actions;
 
     @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a[2]")
@@ -56,9 +55,6 @@ public class MainPage {
     public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        wait = new FluentWait<WebDriver>(webDriver).withTimeout(Duration.of(30, SECONDS))
-                .pollingEvery(Duration.of(30, SECONDS))
-                .ignoring(NoSuchElementException.class);
         PageFactory.initElements(webDriver, this);
     }
 
@@ -109,7 +105,7 @@ public class MainPage {
     }
 
     public WebElement getNotificationWindow() {
-        return (WebElement) wait.until(ExpectedConditions.visibilityOf(notificationWindow));
+        return notificationWindow;
     }
 
     public enum ETab {

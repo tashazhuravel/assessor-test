@@ -2,6 +2,8 @@ import dataBase.AssesorService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnllocatedQuestions;
@@ -74,7 +76,8 @@ public class FirstTest extends BaseWebDriverTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-        assertEquals(".", "visible", mainPage.getNotificationWindow().getCssValue("visibility"));
+        WebElement notificationWindow = (WebElement) wait.until(ExpectedConditions.visibilityOf(mainPage.getNotificationWindow()));
+        assertEquals(".", "visible", notificationWindow.getCssValue("visibility"));
         windowNotification.closeWindowNotificationByX();
         try {
             Thread.sleep(2000L);
@@ -96,7 +99,7 @@ public class FirstTest extends BaseWebDriverTest {
             e.printStackTrace();
         }
         assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldNotificationMessage()));
-        String textOldNotificationMessage = windowNotification.getTextOldNotificationMessage();
+        String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
         System.out.println(textOldNotificationMessage);
         CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
         assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));

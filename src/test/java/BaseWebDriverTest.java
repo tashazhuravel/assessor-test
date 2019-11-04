@@ -13,7 +13,9 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import pages.AssessorSite;
 import pages.AuthorizationPage;
 import pages.mainPageTab.PlanningTabPage;
@@ -21,6 +23,7 @@ import pages.mainPageTab.PlanningTabPage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -28,6 +31,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(value = Parameterized.class)
@@ -45,6 +49,7 @@ public abstract class BaseWebDriverTest {
     protected String unllocatedQuestionsStatusField;
     protected String sittingPlace;
     protected static Logger log = Logger.getLogger("devpinoyLogger");
+    protected static Wait wait;
 
 
     @Parameters
@@ -70,6 +75,9 @@ public abstract class BaseWebDriverTest {
         driver.manage().window().setSize(new Dimension(1600, 1000));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         assessorSite = PageFactory.initElements(driver, AssessorSite.class);
+        wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.of(10, SECONDS))
+                .pollingEvery(Duration.of(2, SECONDS))
+                .ignoring(NoSuchElementException.class);
         //TODO  попробовать удалить строку выше. Должно работать
     }
 

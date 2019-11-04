@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 
 public class WindowNotification {
     private WebDriver webDriver;
-    private Wait wait;
 
     private Actions actions;
 
@@ -50,7 +49,6 @@ public class WindowNotification {
     public WindowNotification(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        wait = new FluentWait<WebDriver>(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 

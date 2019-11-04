@@ -1,6 +1,5 @@
 package dataBase;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
