@@ -13,6 +13,7 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
@@ -48,7 +49,7 @@ public abstract class BaseWebDriverTest {
     protected String fioUserAccount;
     protected String unllocatedQuestionsStatusField;
     protected String sittingPlace;
-    protected static Logger log = Logger.getLogger("devpinoyLogger");
+    protected static Logger log = Logger.getLogger(BaseWebDriverTest.class.getName());
     protected static Wait wait;
 
 
@@ -151,6 +152,25 @@ public abstract class BaseWebDriverTest {
             newParticipantFIO.add(i,word);
         }*/
         return newParticipantFIO;
+    }
+
+    public boolean isElementVisible(WebElement webElement) {
+
+        try {
+            wait.until(ExpectedConditions.visibilityOf(webElement));
+        } catch (TimeoutException exception) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isFind(By my_element) {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(my_element));
+        } catch (TimeoutException exception) {
+            return false;
+        }
+        return true;
     }
 
     protected boolean isElementPresent(By by) {

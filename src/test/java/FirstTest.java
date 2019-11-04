@@ -2,6 +2,7 @@ import dataBase.AssesorService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.CurrentMeetingPage;
@@ -71,20 +72,11 @@ public class FirstTest extends BaseWebDriverTest {
     public void checkWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification = mainPage.clickButtonNotification();
-       /* try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-        WebElement notificationWindow = (WebElement) wait.until(ExpectedConditions.visibilityOf(mainPage.getNotificationWindow()));
-        assertEquals(".", "visible", notificationWindow.getCssValue("visibility"));
+
+        assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
         windowNotification.closeWindowNotificationByX();
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertTrue("Нет новых сообщений", isElementPresent(mainPage.getNotificationButtonHaveMessage()));
+
+        assertTrue("Нет новых сообщений", isFind(mainPage.getNotificationButtonHaveMessage()));
         mainPage.clickNotificationButtonHaveNewMessage();
         try {
             Thread.sleep(2000L);
