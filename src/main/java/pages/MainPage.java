@@ -48,6 +48,8 @@ public class MainPage {
     WebElement notificationWindow;
 
     By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
+    By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
+
 
     @FindBy(xpath = "//button[text()='О системе']")
     WebElement aboutSystemButton;
@@ -106,6 +108,10 @@ public class MainPage {
 
     public WebElement getNotificationWindow() {
         return notificationWindow;
+    }
+
+    public By getNotificationMessageButton() {
+        return notificationMessageButton;
     }
 
     public enum ETab {

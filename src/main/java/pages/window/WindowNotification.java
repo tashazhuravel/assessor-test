@@ -22,7 +22,9 @@ public class WindowNotification {
 
     private By headerNotificationWindow = By.xpath("//span[text()='Оповещения']");
     private By haveNewNotificationMessage = By.xpath("//div[@class='event-item new-event-item']");
+    private By haveNewSystemNotificationMessage = By.xpath("//div[@class='event-item new-event-item']//span[contains(text(),'Системное сообщение')]");
     private By haveOldNotificationMessage = By.xpath("//div[@class='event-item old-event-item']");
+    private By haveOldSystemNotificationMessage = By.xpath("//div[@class='event-item old-event-item']//span[contains(text(),'Системное сообщение')]");
 
     @FindBy(xpath = "//div[@class='event-item old-event-item']")
     private List<WebElement> oldNotificationMessages;
@@ -103,4 +105,11 @@ public class WindowNotification {
         return haveOldNotificationMessage;
     }
 
+    public By getHaveNewSystemNotificationMessage() {
+        return haveNewSystemNotificationMessage;
+    }
+
+    public By getHaveOldSystemNotificationMessage() {
+        return haveOldSystemNotificationMessage;
+    }
 }

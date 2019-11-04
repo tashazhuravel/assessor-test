@@ -10,8 +10,8 @@ public class SeleniumConfig {
     public WebDriver webDriver;
     private DriverType driverType = DriverType.CHROME;
     private String CHROME_PATH = "C:/Install/chromedriver/chromedriver.exe";
-    private String FIREFOX_PATH = "";
-    private String IE_PATH = "";
+    private String FIREFOX_PATH = "C:/Install/chromedriver/geckodriver.exe";
+    private String IE_PATH = "C:/Install/chromedriver/MicrosoftWebDriver.exe";
 
     public SeleniumConfig() {
         switch (driverType) {
@@ -24,12 +24,12 @@ public class SeleniumConfig {
                 break;
             case IE:
                 InternetExplorerOptions iEOptions = new InternetExplorerOptions();
-                System.setProperty("", IE_PATH);
+                System.setProperty("webdriver.MicrosoftWebDriver.driver", IE_PATH);
                 webDriver = new InternetExplorerDriver(iEOptions);
                 break;
             case FIREFOX:
                 FirefoxOptions fFOptions = new FirefoxOptions();
-                System.setProperty("", FIREFOX_PATH);
+                System.setProperty("webdriver.geckodriver.driver", FIREFOX_PATH);
                 webDriver = new FirefoxDriver(fFOptions);
                 break;
         }

@@ -17,6 +17,7 @@ public class WindowUserAccount {
     private Actions actions;
 
     private By headerWindowUserAccount = By.xpath("//div/span[text()='Учётная запись пользователя']");
+    private By labelEnableNotifications = By.xpath("//label[text()='Включить уведомления:']");
 
     @FindBy(xpath = "//div[contains(text(),'Секретарева')]")
     private List<WebElement> userFIOFieldText;
@@ -30,6 +31,12 @@ public class WindowUserAccount {
     @FindBy(xpath = "//span[text()='Учётная запись пользователя']/parent::div/child::div")
     private WebElement closeWindowButton;
 
+    @FindBy(xpath = "//input[@id='checkboxNotifications']")
+    private WebElement checkboxEnabledNotifications;
+
+    @FindBy(xpath = "//input[@id='checkboxNotificationsMessages']")
+    private WebElement checkboxEnabledShowNewNotificationsMessages;
+
     public WindowUserAccount(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
@@ -38,6 +45,16 @@ public class WindowUserAccount {
 
     public String getTextByUserFIOField() {
         return userFIOFieldText.iterator().next().getText();
+    }
+
+    public WindowUserAccount clickCheckboxEnabledNotifications(){
+        actions.moveToElement(checkboxEnabledNotifications).click().perform();
+        return this;
+    }
+
+    public WindowUserAccount clickCheckboxEnabledShowNewNotificationsMessages(){
+        actions.moveToElement(checkboxEnabledShowNewNotificationsMessages).click().perform();
+        return this;
     }
 
     public PlanningTabPage saveUserAccount() {
@@ -54,6 +71,7 @@ public class WindowUserAccount {
         actions.moveToElement(closeWindowButton).click().perform();
         return new PlanningTabPage(webDriver);
     }
+    //ToDo добавить методы для работы с чекбоксами уведомлений
 
     public By getHeaderWindowUserAccount() {
         return headerWindowUserAccount;
@@ -69,6 +87,10 @@ public class WindowUserAccount {
 
     public WebElement getCloseWindowButton() {
         return closeWindowButton;
+    }
+
+    public By getLabelEnableNotifications() {
+        return labelEnableNotifications;
     }
 
     public List<WebElement> getUserFIOFieldText() {

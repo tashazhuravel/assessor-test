@@ -175,7 +175,7 @@ public abstract class BaseWebDriverTest {
         return true;
     }
 
-    public boolean isFind(By my_element) {
+    public boolean isElementFind(By my_element) {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(my_element));
         } catch (TimeoutException exception) {

@@ -66,8 +66,6 @@ public class WindowAddUnllocatedQuestion {
         return new CurrentMeetingPage(webDriver);
     }
 
-
-
     public By getHeaderWindowAddUnllocatedQuestion() {
         return headerWindowAddUnllocatedQuestion;
     }

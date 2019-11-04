@@ -2,9 +2,6 @@ import dataBase.AssesorService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnllocatedQuestions;
@@ -14,6 +11,7 @@ import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 public class FirstTest extends BaseWebDriverTest {
 
@@ -52,7 +50,7 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+   // @Ignore
     //проверка модального окна "Учетная запись пользователя"
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
@@ -60,15 +58,37 @@ public class FirstTest extends BaseWebDriverTest {
         assertTrue("Не открылось диалоговое окно 'Учетная запись пользователя'.", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
         assertEquals("Пустое поле ФИО", windowUserAccount.getUserFIOFieldText().size(), 1);
         assertEquals("Неверное ФИО пользователя.", fioUserAccount, windowUserAccount.getTextByUserFIOField());
+
+        mainPage.clickButtonUserAccount();
+        windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
         windowUserAccount.saveUserAccount();
+        if (isElementPresent(mainPage.getNotificationMessageButton())){
+            WindowNotification windowNotification = mainPage.clickButtonNotification();
+            assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления",isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+            assertFalse("Окно содержит прочитанные системные уведомления",isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
+            windowNotification.clickCloseButton();
+        }
+        else{
+            WindowNotification windowNotification = mainPage.clickButtonNotification();
+            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
+            mainPage.clickNotificationButtonHaveNewMessage();
+            assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
+            assertFalse("Окно содержит нетолько новые системные уведомления",isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+            windowNotification.clickCloseButton();
+        }
+
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByButton();
+
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByX();
+
+
+        //Todo добавить проверку чекбоксов Уведомлений.  у чекбокса "Показывать уведомления о новых сообщениях:" в свойстве checked появляется disabled, если снята галка "Включить уведомления"
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void checkWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification = mainPage.clickButtonNotification();
@@ -76,37 +96,29 @@ public class FirstTest extends BaseWebDriverTest {
         assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
         windowNotification.closeWindowNotificationByX();
 
-        assertTrue("Нет новых сообщений", isFind(mainPage.getNotificationButtonHaveMessage()));
+        assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
         mainPage.clickNotificationButtonHaveNewMessage();
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        assertTrue(isElementFind(windowNotification.getHaveNewNotificationMessage()));
         assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
         windowNotification.clickNewNotificationMessage();
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        assertTrue(isElementFind(windowNotification.getHaveOldNotificationMessage()));
         assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldNotificationMessage()));
         String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
         System.out.println(textOldNotificationMessage);
         CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
-        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
+      //  assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
+        assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", windowNotification.getTextOldNotificationMessage(), containsString(textOldNotificationMessage));
         currentMeetingPage.clickBackOnListSitting();
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         mainPage.clickNotificationButtonHaveNewMessage();
         windowNotification.clickClearButton();
         assertFalse("Не удалось открыть Уведомления, либо список содержит уведомления", isElementPresent(windowNotification.getHaveOldNotificationMessage()));
         windowNotification.clickCloseButton();
         assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
     }
+
 
     @Test
     @Ignore
