@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataBaseConnection extends TestWatcher {
-    public Connection conn = null;
+    private Connection conn = null;
     public Statement stmt = null;
 
     @Override

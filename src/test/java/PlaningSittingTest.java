@@ -86,7 +86,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         //--Список участников
         List<String> selectParticipant = assesorService.getFIOParticipantSitting();
         System.out.println(selectParticipant);
-        verifyAutocompleteOptionsText(changeWordpressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
+        verifyAutocompleteOptionsText(changeWordPressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
 
 
         //--Сохранение запланированного заседания

@@ -55,8 +55,8 @@ public class AssessorSite {
 
     public WindowNotification getWindowNotification(){ return new WindowNotification(webDriver);}
 
-    public UnllocatedQuestions getUnllocatedQuestions() {
-        return new UnllocatedQuestions(webDriver);
+    public UnallocatedQuestions getUnllocatedQuestions() {
+        return new UnallocatedQuestions(webDriver);
     }
 
 }

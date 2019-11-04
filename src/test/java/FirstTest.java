@@ -4,14 +4,14 @@ import org.junit.Ignore;
 import org.junit.Test;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
-import pages.UnllocatedQuestions;
+import pages.UnallocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 public class FirstTest extends BaseWebDriverTest {
 
@@ -19,7 +19,7 @@ public class FirstTest extends BaseWebDriverTest {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
-        this.unllocatedQuestionsStatusField = unllocatedQuestionsStatusField;
+        this.unallocatedQuestionsStatusField = unllocatedQuestionsStatusField;
         this.sittingPlace = sittingPlace;
 
     }
@@ -34,7 +34,6 @@ public class FirstTest extends BaseWebDriverTest {
         authorizationPage.setPassword(password);
         authorizationPage.clickLoginButton();
         assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
-        takeScreenshot("initWebDriver");
     }
 
     @Test
@@ -50,14 +49,14 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-   // @Ignore
+    @Ignore
     //проверка модального окна "Учетная запись пользователя"
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
-        assertTrue("Не открылось диалоговое окно 'Учетная запись пользователя'.", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
-        assertEquals("Пустое поле ФИО", windowUserAccount.getUserFIOFieldText().size(), 1);
-        assertEquals("Неверное ФИО пользователя.", fioUserAccount, windowUserAccount.getTextByUserFIOField());
+        assertTrue("Не открылось диалоговое окно", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
+        assertThat("Заголовок Диалогового окна не 'Учётная запись пользователя'.", windowUserAccount.getHeaderWindowUserAccountText(), containsString("Учётная запись пользователя"));
+        assertThat("Неверное ФИО пользователя", windowUserAccount.getUserFIOFieldText().getText(), containsString(fioUserAccount));
 
         mainPage.clickButtonUserAccount();
         windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
@@ -123,11 +122,11 @@ public class FirstTest extends BaseWebDriverTest {
     @Test
     @Ignore
     //проверка кнопки "Нераспределенные вопросы"
-    public void checkUnllocatedQuestionsTest() {
+    public void checkUnallocatedQuestionsTest() {
         PlanningTabPage planningTabPage = assessorSite.getPlanningPage();
-        UnllocatedQuestions unllocatedQuestions = planningTabPage.clickUnllocatedQuestionsButton();
+        UnallocatedQuestions unallocatedQuestions = planningTabPage.clickUnallocatedQuestionsButton();
 
-        assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", unllocatedQuestionsStatusField, unllocatedQuestions.getTextStatusField());
+        assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", unallocatedQuestionsStatusField, unallocatedQuestions.getTextStatusField());
     }
 
 

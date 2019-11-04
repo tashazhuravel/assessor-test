@@ -7,7 +7,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 
 public class SeleniumConfig {
-    public WebDriver webDriver;
+    private WebDriver webDriver;
     private DriverType driverType = DriverType.CHROME;
     private String CHROME_PATH = "C:/Install/chromedriver/chromedriver.exe";
     private String FIREFOX_PATH = "C:/Install/chromedriver/geckodriver.exe";
@@ -19,7 +19,7 @@ public class SeleniumConfig {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
-                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+               // System.setProperty("webdriver.chrome.driver", CHROME_PATH);
                 webDriver = new ChromeDriver(chromeOptions);
                 break;
             case IE:

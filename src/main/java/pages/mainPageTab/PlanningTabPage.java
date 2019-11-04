@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
-import pages.UnllocatedQuestions;
+import pages.UnallocatedQuestions;
 import pages.window.WindowMeetingScheduling;
 
 import java.util.List;
@@ -19,19 +19,19 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//div[@id=64]")
     private WebElement nameCommittee;
 
-    @FindBy(xpath = "//fieldset[last()]/div/div/table//span[@class='btnSittingNum']")
+    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//span[@class='btnSittingNum']")
     private List<WebElement> allNumberCommitteeButton;
 
-    @FindBy(xpath = "(//fieldset[last()]/div/div/table)[last()-2]")
+    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]")
     private WebElement committeeButton;
 
-    @FindBy(xpath = "(//button[contains(text(),'Нераспределённые вопросы')])[last()]")
+    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//button[contains(@class ,'btnSittingUndistributed')]")
     private WebElement unllocatedQuestions;
 
-    @FindBy(xpath = "(//button[contains(text(),'Планировать новое заседание')])[last()]")
+    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//button[contains(@class ,'btnSittingNew')]")
     private WebElement planningEventButton;
 
-    private By windowCreatePlanning = By.xpath("//span[text()='Планирование заседания']");
+    private By windowCreatePlanning = By.cssSelector(".x-window-header-text");
 
 
     public WindowMeetingScheduling clickPlanningEventButton() {
@@ -39,9 +39,9 @@ public class PlanningTabPage extends MainPage {
         return new WindowMeetingScheduling(webDriver);
     }
 
-    public UnllocatedQuestions clickUnllocatedQuestionsButton(){
+    public UnallocatedQuestions clickUnallocatedQuestionsButton() {
         unllocatedQuestions.click();
-        return new UnllocatedQuestions(webDriver);
+        return new UnallocatedQuestions(webDriver);
     }
 
     public String getAllNumberSittingCommittee() {

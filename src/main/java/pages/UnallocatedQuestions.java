@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class UnllocatedQuestions {
+public class UnallocatedQuestions {
 
     private WebDriver webDriver;
 
@@ -13,7 +13,7 @@ public class UnllocatedQuestions {
     WebElement statusField;
     //todo дописать все элементы  и методы к ним
 
-    public UnllocatedQuestions(WebDriver webDriver) {
+    public UnallocatedQuestions(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }

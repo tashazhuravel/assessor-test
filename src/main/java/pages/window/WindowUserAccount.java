@@ -16,11 +16,12 @@ public class WindowUserAccount {
 
     private Actions actions;
 
-    private By headerWindowUserAccount = By.xpath("//div/span[text()='Учётная запись пользователя']");
+    private By headerWindowUserAccount = By.cssSelector(".x-window-header-text");
+
     private By labelEnableNotifications = By.xpath("//label[text()='Включить уведомления:']");
 
-    @FindBy(xpath = "//div[contains(text(),'Секретарева')]")
-    private List<WebElement> userFIOFieldText;
+    @FindBy(xpath = "//div[@id='editTypeForm']//fieldset//div[text()]")
+    private WebElement userFIOFieldText;
 
     @FindBy(xpath = "//button[text()='Сохранить']")
     private WebElement saveButton;
@@ -28,7 +29,7 @@ public class WindowUserAccount {
     @FindBy(xpath = "//button[text()='Закрыть']")
     private WebElement closeButton;
 
-    @FindBy(xpath = "//span[text()='Учётная запись пользователя']/parent::div/child::div")
+    @FindBy(css = ".x-tool")
     private WebElement closeWindowButton;
 
     @FindBy(xpath = "//input[@id='checkboxNotifications']")
@@ -41,10 +42,6 @@ public class WindowUserAccount {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
-    }
-
-    public String getTextByUserFIOField() {
-        return userFIOFieldText.iterator().next().getText();
     }
 
     public WindowUserAccount clickCheckboxEnabledNotifications(){
@@ -77,6 +74,10 @@ public class WindowUserAccount {
         return headerWindowUserAccount;
     }
 
+    public String getHeaderWindowUserAccountText() {
+        return webDriver.findElement(headerWindowUserAccount).getText();
+    }
+
     public WebElement getSaveButton() {
         return saveButton;
     }
@@ -93,7 +94,7 @@ public class WindowUserAccount {
         return labelEnableNotifications;
     }
 
-    public List<WebElement> getUserFIOFieldText() {
+    public WebElement getUserFIOFieldText() {
         return userFIOFieldText;
     }
 }

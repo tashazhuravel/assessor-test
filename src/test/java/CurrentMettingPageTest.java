@@ -17,6 +17,7 @@ class CurrentMettingPageTest extends BaseWebDriverTest {
     public void setUp() {
         assesorService = new AssesorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
+        log.info("Authorization");
         System.out.println("Step 1: Authorization");
         authorizationPage.setLogin(login);
         authorizationPage.setPassword(password);

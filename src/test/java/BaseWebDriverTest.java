@@ -39,20 +39,20 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(value = Parameterized.class)
 public abstract class BaseWebDriverTest {
-    protected static SeleniumAssessor seleniumAssessor;
-    protected static AssessorSite assessorSite;
-    protected PlanningTabPage planningTabPage;
-    protected static AuthorizationPage authorizationPage;
-    protected AssesorService assesorService;
-    protected String login;
-    protected String password;
-    protected static WebDriver driver;
-    protected boolean acceptNextAlert = true;
-    protected String fioUserAccount;
-    protected String unllocatedQuestionsStatusField;
-    protected String sittingPlace;
-    protected static Logger log = Logger.getLogger(BaseWebDriverTest.class.getName());
-    protected static Wait wait;
+    private static SeleniumAssessor seleniumAssessor;
+    private static WebDriver driver;
+    private boolean acceptNextAlert = true;
+    private static Wait wait;
+    PlanningTabPage planningTabPage;
+    AssesorService assesorService;
+    String login;
+    String password;
+    String fioUserAccount;
+    String unallocatedQuestionsStatusField;
+    String sittingPlace;
+    static AuthorizationPage authorizationPage;
+    static AssessorSite assessorSite;
+    static Logger log = Logger.getLogger(BaseWebDriverTest.class.getName());
 
 
     @Parameters
@@ -113,7 +113,7 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    protected void takeScreenshot(String name) {
+    void takeScreenshot(String name) {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         Date date = new Date();
         String formattedDate = new SimpleDateFormat("dd_MM_yyyy").format(date);
@@ -142,7 +142,7 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    protected void verifyAutocompleteOptions(List<WebElement> webElements, List<String> optionsNames) {
+    void verifyAutocompleteOptions(List<WebElement> webElements, List<String> optionsNames) {
         assertEquals("Options", optionsNames.size(), webElements.size());
         for (int i = 0; i < optionsNames.size(); i++) {
             String a = optionsNames.get(i);
@@ -151,7 +151,7 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    protected void verifyAutocompleteOptionsText(List<String> word, List<String> optionsNames) {
+    void verifyAutocompleteOptionsText(List<String> word, List<String> optionsNames) {
         assertEquals("Options", optionsNames.size(), word.size());
         for (int i = 0; i < optionsNames.size(); i++) {
             String a = optionsNames.get(i);
@@ -160,12 +160,13 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    public List<String> changeWordpressSymbol(List<WebElement> elements) {
-        List<String> newParticipantFIO = elements.stream().map(element -> element.getText().trim().replace((char) 32, (char) 160)).collect(Collectors.toList());
-        return newParticipantFIO;
+    List<String> changeWordPressSymbol(List<WebElement> elements) {
+        return elements.stream().map(element -> element.getText().trim().replace((char) 32, (char) 160)).collect(Collectors.toList());
+
     }
 
-    public boolean isElementVisible(WebElement webElement) {
+    @SuppressWarnings("unchecked")
+    boolean isElementVisible(WebElement webElement) {
 
         try {
             wait.until(ExpectedConditions.visibilityOf(webElement));
@@ -175,7 +176,8 @@ public abstract class BaseWebDriverTest {
         return true;
     }
 
-    public boolean isElementFind(By my_element) {
+    @SuppressWarnings("unchecked")
+    boolean isElementFind(By my_element) {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(my_element));
         } catch (TimeoutException exception) {
@@ -184,7 +186,7 @@ public abstract class BaseWebDriverTest {
         return true;
     }
 
-    protected boolean isElementPresent(By by) {
+    boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
             return true;
