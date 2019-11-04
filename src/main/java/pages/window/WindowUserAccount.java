@@ -16,7 +16,7 @@ public class WindowUserAccount {
 
     private Actions actions;
 
-    private By headerWindowUserAccount = By.cssSelector(".x-window-header-text");
+    private By headerWindowUserAccount = By.xpath("//span[@class='x-window-header-text']");
 
     private By labelEnableNotifications = By.xpath("//label[text()='Включить уведомления:']");
 
@@ -29,7 +29,7 @@ public class WindowUserAccount {
     @FindBy(xpath = "//button[text()='Закрыть']")
     private WebElement closeButton;
 
-    @FindBy(css = ".x-tool")
+    @FindBy(xpath= "//div[@class='x-tool x-tool-close']")
     private WebElement closeWindowButton;
 
     @FindBy(xpath = "//input[@id='checkboxNotifications']")

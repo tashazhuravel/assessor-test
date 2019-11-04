@@ -49,7 +49,7 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+  //  @Ignore
     //проверка модального окна "Учетная запись пользователя"
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
@@ -61,20 +61,22 @@ public class FirstTest extends BaseWebDriverTest {
         mainPage.clickButtonUserAccount();
         windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
         windowUserAccount.saveUserAccount();
+        WindowNotification windowNotification = mainPage.clickButtonNotification();
         if (isElementPresent(mainPage.getNotificationMessageButton())){
-            WindowNotification windowNotification = mainPage.clickButtonNotification();
+           // WindowNotification windowNotification = mainPage.clickButtonNotification();
             assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления",isElementPresent(windowNotification.getHaveNewNotificationMessage()));
             assertFalse("Окно содержит прочитанные системные уведомления",isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
-            windowNotification.clickCloseButton();
+           // windowNotification.clickCloseButton();
         }
         else{
-            WindowNotification windowNotification = mainPage.clickButtonNotification();
+         //   WindowNotification windowNotification = mainPage.clickButtonNotification();
             assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
             mainPage.clickNotificationButtonHaveNewMessage();
             assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
             assertFalse("Окно содержит нетолько новые системные уведомления",isElementPresent(windowNotification.getHaveNewNotificationMessage()));
-            windowNotification.clickCloseButton();
+            //windowNotification.clickCloseButton();
         }
+        windowNotification.clickCloseButton();
 
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByButton();
