@@ -186,12 +186,27 @@ public abstract class BaseWebDriverTest {
         return true;
     }
 
-    boolean isElementPresent(By by) {
+    boolean isElementPresent(By my_element) {
         try {
-            driver.findElement(by);
+            driver.findElement(my_element);
             return true;
         } catch (NoSuchElementException ex) {
             return false;
+        }
+    }
+
+    void waitWhileElementPresent(By my_element) {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(my_element));
+        } catch (TimeoutException exception) {
+        }
+    }
+
+    void waitWhileElementPresent(WebElement my_element) {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(my_element));
+
+        } catch (TimeoutException exception) {
         }
     }
 

@@ -115,9 +115,9 @@ public class MainPage {
         return notificationMessageButton;
     }
 
-  /*  public By getFindUserFIOButton() {
-        return findUserFIOButton;
-    }*/
+    public WebElement getUserFIOButton() {
+        return userFIOButton;
+    }
 
     public enum ETab {
         PLANNING, ARCHIVE, MANAGER

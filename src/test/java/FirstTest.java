@@ -79,16 +79,11 @@ public class FirstTest extends BaseWebDriverTest {
     //Todo добавить проверку чекбоксов Уведомлений.  у чекбокса "Показывать уведомления о новых сообщениях:" в свойстве checked появляется disabled, если снята галка "Включить уведомления"
     public void  checkWindowUserAccountAndWindowNotificationTest() {
         MainPage mainPage = assessorSite.getMainPage();
-        try {
-            Thread.sleep(1000);
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
-        }
+         waitWhileElementPresent(mainPage.getUserFIOButton());
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
         assertTrue("Не открылось диалоговое окно", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
-
+        if(){
         windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
         try {
             Thread.sleep(2000);
@@ -106,7 +101,6 @@ public class FirstTest extends BaseWebDriverTest {
         WindowNotification windowNotification;
         if (isElementFind(mainPage.getNotificationMessageButton())) {
             windowNotification = mainPage.clickButtonNotification();
-           // assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
             assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
             assertFalse("Окно содержит прочитанные системные уведомления", isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
         } else {
@@ -117,7 +111,7 @@ public class FirstTest extends BaseWebDriverTest {
         }
        windowNotification.clickCloseButton();
 
-        mainPage.clickButtonUserAccount();
+      /*  mainPage.clickButtonUserAccount();
         windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
         try {
             Thread.sleep(2000);
@@ -138,7 +132,7 @@ public class FirstTest extends BaseWebDriverTest {
         }else{
             mainPage.clickButtonNotification();
 
-        }
+        }*/
 
 
 
