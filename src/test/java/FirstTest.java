@@ -2,6 +2,7 @@ import dataBase.AssesorService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.support.FindBy;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnallocatedQuestions;
@@ -49,43 +50,98 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    //  @Ignore
+    @Ignore
     //проверка модального окна "Учетная запись пользователя"
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
+        try {
+            Thread.sleep(1000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
-        assertTrue("Не открылось диалоговое окно", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
+
+        assertTrue("Не открылось диалоговое окно или не найден заголовок окна.", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
         assertThat("Заголовок Диалогового окна не 'Учётная запись пользователя'.", windowUserAccount.getHeaderWindowUserAccountText(), containsString("Учётная запись пользователя"));
         assertThat("Неверное ФИО пользователя", windowUserAccount.getUserFIOFieldText().getText(), containsString(fioUserAccount));
-
-        //mainPage.clickButtonUserAccount();
-        windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
         windowUserAccount.saveUserAccount();
-
-        WindowNotification windowNotification = mainPage.clickButtonNotification();
-        if (isElementPresent(mainPage.getNotificationMessageButton())) {
-            // WindowNotification windowNotification = mainPage.clickButtonNotification();
-            assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
-            assertFalse("Окно содержит прочитанные системные уведомления", isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
-            // windowNotification.clickCloseButton();
-        } else {
-            //   WindowNotification windowNotification = mainPage.clickButtonNotification();
-            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
-            mainPage.clickNotificationButtonHaveNewMessage();
-            assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
-            assertFalse("Окно содержит нетолько новые системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
-            //windowNotification.clickCloseButton();
-        }
-        windowNotification.clickCloseButton();
 
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByButton();
 
         mainPage.clickButtonUserAccount();
         windowUserAccount.closeWindowUserAccountByX();
+          }
+
+    @Test
+   //@Ignore
+    //Todo добавить проверку чекбоксов Уведомлений.  у чекбокса "Показывать уведомления о новых сообщениях:" в свойстве checked появляется disabled, если снята галка "Включить уведомления"
+    public void  checkWindowUserAccountAndWindowNotificationTest() {
+        MainPage mainPage = assessorSite.getMainPage();
+        try {
+            Thread.sleep(1000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
+        WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
+
+        assertTrue("Не открылось диалоговое окно", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
+
+        windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
+        try {
+            Thread.sleep(2000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
+        windowUserAccount.saveUserAccount();
+        try {
+            Thread.sleep(2000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
+        WindowNotification windowNotification;
+        if (isElementFind(mainPage.getNotificationMessageButton())) {
+            windowNotification = mainPage.clickButtonNotification();
+           // assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
+            assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+            assertFalse("Окно содержит прочитанные системные уведомления", isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
+        } else {
+            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
+            windowNotification = mainPage.clickNotificationButtonHaveNewMessage();
+            assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
+            assertFalse("Окно содержит нетолько новые системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+        }
+       windowNotification.clickCloseButton();
+
+        mainPage.clickButtonUserAccount();
+        windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
+        try {
+            Thread.sleep(2000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
+        windowUserAccount.saveUserAccount();
+        try {
+            Thread.sleep(2000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (isElementFind(mainPage.getNotificationButtonHaveMessage())){
+            mainPage.clickNotificationButtonHaveNewMessage();
+            assertTrue("Окно пустое", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+        }else{
+            mainPage.clickButtonNotification();
+
+        }
 
 
-        //Todo добавить проверку чекбоксов Уведомлений.  у чекбокса "Показывать уведомления о новых сообщениях:" в свойстве checked появляется disabled, если снята галка "Включить уведомления"
+
     }
 
     @Test

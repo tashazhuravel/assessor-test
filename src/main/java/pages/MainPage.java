@@ -49,6 +49,7 @@ public class MainPage {
 
     By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
     By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
+   // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
 
 
     @FindBy(xpath = "//button[text()='О системе']")
@@ -113,6 +114,10 @@ public class MainPage {
     public By getNotificationMessageButton() {
         return notificationMessageButton;
     }
+
+  /*  public By getFindUserFIOButton() {
+        return findUserFIOButton;
+    }*/
 
     public enum ETab {
         PLANNING, ARCHIVE, MANAGER

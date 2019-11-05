@@ -41,10 +41,10 @@ public class WindowNotification {
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     private WebElement closeWindowButton;
 
-    @FindBy(xpath = "//button[text()='Очистить']")
+    @FindBy(xpath = "(//div[@id='windowNotifications']//button[text()])[1]")
     private WebElement clearWindowButton;
 
-    @FindBy(xpath = "//button[text()='Закрыть']")
+    @FindBy(xpath = "(//div[@id='windowNotifications']//button[text()])[2]")
     private WebElement closeButton;
 
 
