@@ -49,31 +49,31 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-  //  @Ignore
+    //  @Ignore
     //проверка модального окна "Учетная запись пользователя"
     public void checkWindowUserAccountTest() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
-        assertTrue("Не открылось диалоговое окно", isElementPresent(windowUserAccount.getHeaderWindowUserAccount()));
+        assertTrue("Не открылось диалоговое окно", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
         assertThat("Заголовок Диалогового окна не 'Учётная запись пользователя'.", windowUserAccount.getHeaderWindowUserAccountText(), containsString("Учётная запись пользователя"));
         assertThat("Неверное ФИО пользователя", windowUserAccount.getUserFIOFieldText().getText(), containsString(fioUserAccount));
 
-        mainPage.clickButtonUserAccount();
+        //mainPage.clickButtonUserAccount();
         windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
         windowUserAccount.saveUserAccount();
+
         WindowNotification windowNotification = mainPage.clickButtonNotification();
-        if (isElementPresent(mainPage.getNotificationMessageButton())){
-           // WindowNotification windowNotification = mainPage.clickButtonNotification();
-            assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления",isElementPresent(windowNotification.getHaveNewNotificationMessage()));
-            assertFalse("Окно содержит прочитанные системные уведомления",isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
-           // windowNotification.clickCloseButton();
-        }
-        else{
-         //   WindowNotification windowNotification = mainPage.clickButtonNotification();
+        if (isElementPresent(mainPage.getNotificationMessageButton())) {
+            // WindowNotification windowNotification = mainPage.clickButtonNotification();
+            assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+            assertFalse("Окно содержит прочитанные системные уведомления", isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
+            // windowNotification.clickCloseButton();
+        } else {
+            //   WindowNotification windowNotification = mainPage.clickButtonNotification();
             assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
             mainPage.clickNotificationButtonHaveNewMessage();
             assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
-            assertFalse("Окно содержит нетолько новые системные уведомления",isElementPresent(windowNotification.getHaveNewNotificationMessage()));
+            assertFalse("Окно содержит нетолько новые системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
             //windowNotification.clickCloseButton();
         }
         windowNotification.clickCloseButton();
@@ -109,7 +109,7 @@ public class FirstTest extends BaseWebDriverTest {
         String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
         System.out.println(textOldNotificationMessage);
         CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
-      //  assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
+        //  assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
         assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", windowNotification.getTextOldNotificationMessage(), containsString(textOldNotificationMessage));
         currentMeetingPage.clickBackOnListSitting();
 

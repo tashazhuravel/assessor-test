@@ -38,10 +38,8 @@ public class MainPage {
     @FindBy(xpath = "//button[text()='Завершение сеанса']")
     WebElement logOutButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Секретарева')]")
-            //(xpath = "//table[@class='x-btn x-btn-noicon']//button")
+    @FindBy(xpath = "//table/tbody//td//table//em/button")
     WebElement userFIOButton;
-
 
     @FindBy(xpath = "//button[@class=' x-btn-text notificationBtn']")
     WebElement notificationButton;
@@ -85,7 +83,6 @@ public class MainPage {
     // Кнопка Учетная запись пользователя
     public WindowUserAccount clickButtonUserAccount() {
        actions.moveToElement(userFIOButton).click().perform();
-       //userFIOButton.click();
         return new WindowUserAccount(webDriver);
     }
 
