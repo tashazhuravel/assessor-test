@@ -185,6 +185,14 @@ public abstract class BaseWebDriverTest {
         }
         return true;
     }
+    boolean isCheckboxSelected(WebElement my_element) {
+        try {
+            wait.until(ExpectedConditions.elementToBeSelected(my_element));
+        } catch (TimeoutException exception) {
+            return false;
+        }
+        return true;
+    }
 
     boolean isElementPresent(By my_element) {
         try {

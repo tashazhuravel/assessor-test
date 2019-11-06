@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.*;
 import pages.CurrentMeetingPage;
 import pages.mainPageTab.PlanningTabPage;
 
@@ -21,16 +20,18 @@ public class WindowNotification {
     private Actions actions;
 
     private By headerNotificationWindow = By.xpath("//span[text()='Оповещения']");
-    private By haveNewNotificationMessage = By.xpath("//div[@class='event-item new-event-item']");
+    private By haveNewAnyNotificationMessage = By.xpath("//div[@class='event-item new-event-item']");
+    private By haveNewNotificationMessage = By.xpath("//div[@class='event-item new-event-item']//span[contains(text(),'Новое сообщение')]");
     private By haveNewSystemNotificationMessage = By.xpath("//div[@class='event-item new-event-item']//span[contains(text(),'Системное сообщение')]");
-    private By haveOldNotificationMessage = By.xpath("//div[@class='event-item old-event-item']");
-    private By haveOldSystemNotificationMessage = By.xpath("//div[@class='event-item old-event-item']//span[contains(text(),'Системное сообщение')]");
+    private By haveOldAnyNotificationMessage = By.xpath("//div[@class='event-item old-event-item']");
+    private By haveOldNewNotificationMessage = By.xpath("//div[@class='event-item new-event-item']//span[contains(text(),'Новое сообщение')]");
+    private By haveOldSystemNotificationMessage = By.xpath("//div[@class='event-item new-event-item']//span[contains(text(),'Системное сообщение')]");
 
     @FindBy(xpath = "//div[@class='event-item old-event-item']")
     private List<WebElement> oldNotificationMessages;
 
     @FindBy(xpath = "//div[@class='event-item new-event-item']//span[@class ='red-point']")
-    private List<WebElement> newNotificationMessage;
+    private List<WebElement> newAnyNotificationMessage;
 
     @FindBy(xpath = "//div[@class='event-item old-event-item']//p/span[text()]")
     private List<WebElement> sittingLinkNotificationMessage;
@@ -59,8 +60,8 @@ public class WindowNotification {
         return new PlanningTabPage(webDriver);
     }
 
-    public WindowNotification clickNewNotificationMessage() {
-        newNotificationMessage.iterator().next().click();
+    public WindowNotification clickAnyNewNotificationMessage() {
+        newAnyNotificationMessage.iterator().next().click();
         return this;
     }
 
@@ -97,12 +98,12 @@ public class WindowNotification {
         return headerNotificationWindow;
     }
 
-    public By getHaveNewNotificationMessage() {
-        return haveNewNotificationMessage;
+    public By getHaveNewAnyNotificationMessage() {
+        return haveNewAnyNotificationMessage;
     }
 
-    public By getHaveOldNotificationMessage() {
-        return haveOldNotificationMessage;
+    public By getHaveOldAnyNotificationMessage() {
+        return haveOldAnyNotificationMessage;
     }
 
     public By getHaveNewSystemNotificationMessage() {
@@ -111,5 +112,13 @@ public class WindowNotification {
 
     public By getHaveOldSystemNotificationMessage() {
         return haveOldSystemNotificationMessage;
+    }
+
+    public By getHaveNewNotificationMessage() {
+        return haveNewNotificationMessage;
+    }
+
+    public By getHaveOldNewNotificationMessage() {
+        return haveOldNewNotificationMessage;
     }
 }

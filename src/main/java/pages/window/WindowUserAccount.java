@@ -78,6 +78,14 @@ public class WindowUserAccount {
         return webDriver.findElement(headerWindowUserAccount).getText();
     }
 
+    public WebElement getCheckboxEnabledNotifications() {
+        return checkboxEnabledNotifications;
+    }
+
+    public WebElement getCheckboxEnabledShowNewNotificationsMessages() {
+        return checkboxEnabledShowNewNotificationsMessages;
+    }
+
     public WebElement getSaveButton() {
         return saveButton;
     }
