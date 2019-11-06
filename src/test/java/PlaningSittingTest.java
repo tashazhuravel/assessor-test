@@ -10,6 +10,7 @@ import utils.DateUtil;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotEquals;
 
@@ -91,9 +92,12 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
         //--Сохранение запланированного заседания
         CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
-        assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
-                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, fioUserAccount),
-                currentMeetingPage.getTextStatusField());
+        String selectSecretary = assesorService.getFIOSecretaryOfCommittee().get(0);
+        //verifyAutocompleteOptionsText(changeWordPressSymbol(currentMeetingPage.getInformationFieldAboutSitting()),selectSecretary);
+    /*   assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
+                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary),
+                currentMeetingPage.getTextStatusField());*/
+        assertThat(".", String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextStatusField()));
     }
 
     @Test

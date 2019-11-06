@@ -71,6 +71,10 @@ public class CurrentMeetingPage {
         return new PlanningTabPage(webDriver);
     }
 
+    public WebElement getInformationFieldAboutSitting() {
+        return informationFieldAboutSitting;
+    }
+
     public WebElement getWindowKindOfQuestion() {
         return windowKindOfQuestion;
     }

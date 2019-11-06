@@ -48,4 +48,19 @@ public class AssesorService {
         }
         return participantFio;
     }
+
+    public List<String> getFIOSecretaryOfCommittee() {
+        List<String> secretaryFio = new ArrayList<>();
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery("SELECT u.user_real_name FROM committee_secretary c2 LEFT JOIN user u ON u.user_id = c2.user_id  WHERE c2.committee_id = '64'");
+            while (resultSet.next()) {
+                secretaryFio.add(resultSet.getString("user_real_name"));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return secretaryFio;
+    }
 }

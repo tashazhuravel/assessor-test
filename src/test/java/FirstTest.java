@@ -75,7 +75,7 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     //Todo добавить проверку чекбоксов Уведомлений.  у чекбокса "Показывать уведомления о новых сообщениях:" в свойстве checked появляется disabled, если снята галка "Включить уведомления"
     public void checkWindowUserAccountWithWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
