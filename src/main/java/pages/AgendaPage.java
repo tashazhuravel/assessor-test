@@ -14,7 +14,7 @@ public class AgendaPage {
     private WebElement backFromQuestionListButton;
 
     @FindBy(xpath = "//table[@id='btnSecretaryAgendaRefresh']//button")
-    private WebElement refreshAgendaButton;
+    private WebElement reformAgendaButton;
 
     @FindBy(xpath = "//table[@id='btnSecretaryAgendaSend']//button")
     private WebElement sendAgendaButton;

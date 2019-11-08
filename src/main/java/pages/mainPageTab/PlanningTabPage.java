@@ -22,6 +22,9 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//span[@class='btnSittingNum']")
     private List<WebElement> allNumberCommitteeButton;
 
+    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//span[@class='btnSittingState']")
+    private List<WebElement> allStateCommitteeButton;
+
     @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]")
     private WebElement committeeButton;
 
@@ -50,5 +53,9 @@ public class PlanningTabPage extends MainPage {
 
     public List<WebElement> getAllNumberCommitteeButton() {
         return allNumberCommitteeButton;
+    }
+
+    public List<WebElement> getAllStateCommitteeButton() {
+        return allStateCommitteeButton;
     }
 }
