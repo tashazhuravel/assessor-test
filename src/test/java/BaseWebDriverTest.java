@@ -193,14 +193,15 @@ public abstract class BaseWebDriverTest {
         }
         return true;
     }
-    boolean isCheckboxClickable(WebElement my_element) {
+    boolean isCheckboxDisabled(WebElement my_element) {
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(my_element));
+            wait.until(ExpectedConditions.attributeToBe(my_element,"disabled","true"));
         } catch (TimeoutException exception) {
             return false;
         }
         return true;
     }
+
 
 
     boolean isElementPresent(By my_element) {

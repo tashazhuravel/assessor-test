@@ -48,7 +48,7 @@ public class MainPage {
     WebElement notificationWindow;
 
     By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
-    By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
+    By notificationMessageButton = By.xpath("//table[@id='btnNotifications']//button");
    // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
 
 
@@ -88,7 +88,7 @@ public class MainPage {
     }
 
     public WindowNotification clickButtonNotification() {
-        actions.moveToElement(notificationButton).click().perform();
+       actions.moveToElement(notificationButton).click().perform();
         return new WindowNotification(webDriver);
     }
 
@@ -113,6 +113,10 @@ public class MainPage {
 
     public By getNotificationMessageButton() {
         return notificationMessageButton;
+    }
+
+    public boolean isNotificationMessageButtonDisplay() {
+        return webDriver.findElement(By.xpath("//table[@id='btnNotifications']/parent::td")).getCssValue("display").equals("none");
     }
 
     public WebElement getUserFIOButton() {

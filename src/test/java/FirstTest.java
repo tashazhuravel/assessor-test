@@ -1,9 +1,9 @@
 import dataBase.AssesorService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnallocatedQuestions;
@@ -11,8 +11,6 @@ import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
-
-import java.util.concurrent.CompletionException;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -92,7 +90,7 @@ public class FirstTest extends BaseWebDriverTest {
         if (isCheckboxSelected(checkboxEnabledShowNewNotificationsMessages)) {
             windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (
                     InterruptedException e) {
                 e.printStackTrace();
@@ -108,7 +106,7 @@ public class FirstTest extends BaseWebDriverTest {
         if (isElementFind(mainPage.getNotificationMessageButton())) {
             windowNotification = mainPage.clickButtonNotification();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(5000);
             } catch (
                     InterruptedException e) {
                 e.printStackTrace();
@@ -118,12 +116,7 @@ public class FirstTest extends BaseWebDriverTest {
         } else {
             assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
             windowNotification = mainPage.clickNotificationButtonHaveNewMessage();
-            try {
-                Thread.sleep(2000);
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-            }
+
             assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
             assertFalse("Окно содержит нетолько новые системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
         }
@@ -137,18 +130,19 @@ public class FirstTest extends BaseWebDriverTest {
         if (isCheckboxSelected(checkboxEnabledNotificationsMessages)) {
             windowUserAccount.clickCheckboxEnabledNotifications();
             try {
-                Thread.sleep(2000);
+                Thread.sleep(500);
             } catch (
                     InterruptedException e) {
                 e.printStackTrace();
             }
-            assertFalse("Активен чекбокс 'Показывать уведомления о новых сообщениях:'", isCheckboxClickable(windowUserAccount.getCheckboxEnabledNotifications()));
+            assertFalse("Активен чекбокс 'Показывать уведомления о новых сообщениях:'", windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages().isEnabled());
+
             windowUserAccount.saveUserAccount();
         } else {
             windowUserAccount.saveUserAccount();
         }
-        assertFalse("Активна кнопка уведомления",isElementFind(mainPage.getNotificationMessageButton()));
-        assertFalse("Активна кнопка Есть новые уведомления",isElementFind(mainPage.getNotificationButtonHaveMessage()));
+        assertTrue("Активна кнопка уведомления", mainPage.isNotificationMessageButtonDisplay());
+        assertFalse("Активна кнопка Есть новые уведомления", isElementFind(mainPage.getNotificationButtonHaveMessage()));
     }
 
     @Test

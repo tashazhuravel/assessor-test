@@ -25,6 +25,9 @@ public class AgendaPage {
     @FindBy(xpath = "//table[@id='btnSecretaryAgendaEndorsementSetApproved']//button")
     private WebElement setMeetingStatusAgendaApprovedButton;
 
+    @FindBy(xpath = "//table[@id='btnSecretaryAgendaSendInvitation']//button")
+    private WebElement sendInvitationButton;
+
     @FindBy(xpath = "//table[@id='protocolDownloadBtn']//button")
     private WebElement downloadThisTextButton;
 
