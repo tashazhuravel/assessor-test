@@ -1,10 +1,12 @@
 package pages;
 
+import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.attentionWindow.AttentionWindow;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 
 public class AgendaPage {
@@ -61,6 +63,15 @@ public class AgendaPage {
     public WindowPreliminaryAcquaintanceWithAgenda clickSendAgendaButton(){
         actions.moveToElement(sendAgendaButton).click().perform();
         return new WindowPreliminaryAcquaintanceWithAgenda(webDriver);
+    }
+
+    public AttentionWindow clickSetMeetingStatusAgendaUnderApprovalButton(){
+        actions.moveToElement(setMeetingStatusAgendaUnderApprovalButton).click().perform();
+        return new AttentionWindow(webDriver);
+    }
+
+    public AgendaPage clickSetMeetingStatusAgendaApprovedButton(){
+        actions.moveToElement()
     }
 
 
