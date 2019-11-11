@@ -68,7 +68,7 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
             assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
             assertFalse("Окно содержит прочитанные системные уведомления", isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
         } else {
-            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
+            assertTrue("Нет новых сообщений", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
             windowNotification = mainPage.clickNotificationButtonHaveNewMessage();
 
             assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
@@ -96,7 +96,7 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
             windowUserAccount.saveUserAccount();
         }
         assertFalse("Активна кнопка уведомления", mainPage.isNotificationMessageButtonDisplay());
-        assertFalse("Активна кнопка Есть новые уведомления", isElementFind(mainPage.getNotificationButtonHaveMessage()));
+        assertFalse("Активна кнопка Есть новые уведомления", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
     }
 
 }

@@ -47,7 +47,10 @@ public class MainPage {
     @FindBy(xpath = "//div[@id='windowNotifications']")
     WebElement notificationWindow;
 
-    By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
+    @FindBy(xpath = "//button[@class=' x-btn-text hasNews']")
+    WebElement notificationButtonHaveMessage;
+
+   // By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
     By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
    // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
 
@@ -93,7 +96,7 @@ public class MainPage {
     }
 
     public WindowNotification clickNotificationButtonHaveNewMessage() {
-        webDriver.findElement(notificationButtonHaveMessage).click();
+       actions.moveToElement(notificationButtonHaveMessage).click().perform();
         return new WindowNotification(webDriver);
     }
 
@@ -104,7 +107,7 @@ public class MainPage {
     }
 
     //Кнопка Уведомления
-    public By getNotificationButtonHaveMessage() {
+    public WebElement getNotificationButtonHaveMessage() {
         return notificationButtonHaveMessage;
     }
 

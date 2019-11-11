@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.AgendaPage;
 
 public class AttentionWindow {
     private WebDriver webDriver;
@@ -34,6 +35,21 @@ public class AttentionWindow {
     }
 
     public String getTextAttention(){return textAttention.getText();}
+
+    public AgendaPage clickYesAttentionButton(){
+        actions.moveToElement(yesAttentionButton).click().perform();
+        return new AgendaPage(webDriver);
+    }
+
+    public AgendaPage clickNoAttentionButton(){
+        actions.moveToElement(noAttentionButton).click().perform();
+        return new AgendaPage(webDriver);
+    }
+
+    public AgendaPage clickAttentionCloseByXButton(){
+        actions.moveToElement(attentionCloseButtonByX).click().perform();
+        return new AgendaPage(webDriver);
+    }
 
 
 }

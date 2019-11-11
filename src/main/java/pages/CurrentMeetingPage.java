@@ -82,7 +82,7 @@ public class CurrentMeetingPage {
 
     public String getPartOfTextStatusField(String nameCommittee) {
         String result = StringUtils.EMPTY;
-        Pattern regex = Pattern.compile("№/d+");
+        Pattern regex = Pattern.compile("№\\d+");
         Matcher m = regex.matcher(nameCommittee);
         if (m.find()) {
             result = m.group();

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 
 public class AgendaPage {
     private WebDriver webDriver;
@@ -46,5 +47,21 @@ public class AgendaPage {
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
     }
+
+    public CurrentMeetingPage clickBackFromQuestionListButton(){
+        actions.moveToElement(backFromQuestionListButton).click().perform();
+        return new CurrentMeetingPage(webDriver);
+    }
+
+    public AgendaPage clickReformAgendaButton(){
+        actions.moveToElement(reformAgendaButton).click().perform();
+        return this;
+    }
+
+    public WindowPreliminaryAcquaintanceWithAgenda clickSendAgendaButton(){
+        actions.moveToElement(sendAgendaButton).click().perform();
+        return new WindowPreliminaryAcquaintanceWithAgenda(webDriver);
+    }
+
 
 }

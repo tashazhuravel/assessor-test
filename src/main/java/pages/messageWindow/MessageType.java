@@ -7,9 +7,6 @@ public enum MessageType {
     MEETING_STATUS_AGENDA_APPROVED_HAS_BEEN_SET("Установлен статус заседания \"Повестка дня утверждена\"");
 
 
-    //TODO создать класс "сообщение" с кнопками да/нет и перенести сообщение ниже в него
-    //SET_MEETING_STATUS_AGENDA_APPROVED("Установить статус заседания \"Повестка утверждена?\"");
-
 
 
     private String label;

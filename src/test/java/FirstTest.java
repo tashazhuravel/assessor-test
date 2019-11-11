@@ -81,13 +81,19 @@ public class FirstTest extends BaseWebDriverTest {
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification;
         assertFalse(".",mainPage.isNotificationMessageButtonDisplay());
+        try {
+            Thread.sleep(1000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (isElementFind(mainPage.getNotificationMessageButton())) {
             windowNotification = mainPage.clickButtonNotification();
             assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
             windowNotification.closeWindowNotificationByX();
-        }else {
-            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
+        }else if (isElementVisible(mainPage.getNotificationButtonHaveMessage())){
+            assertTrue("Нет новых сообщений", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
             windowNotification=mainPage.clickNotificationButtonHaveNewMessage();
 
             assertTrue(isElementFind(windowNotification.getHaveNewAnyNotificationMessage()));
@@ -96,11 +102,11 @@ public class FirstTest extends BaseWebDriverTest {
 
             assertTrue(isElementFind(windowNotification.getHaveOldAnyNotificationMessage()));
             assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
-            String textOldNotificationMessage = windowNotification.getTextOldNotificationMessage();
+            String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
             System.out.println(textOldNotificationMessage);
             CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
-            //  assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
-            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", windowNotification.getTextOldNotificationMessage(), containsString(currentMeetingPage.getTextStatusField()));
+           // assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
+            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",  currentMeetingPage.getTextStatusField(), containsString(textOldNotificationMessage));
             currentMeetingPage.clickBackOnListSitting();
 
             mainPage.clickNotificationButtonHaveNewMessage();

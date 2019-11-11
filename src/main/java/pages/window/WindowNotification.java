@@ -86,7 +86,7 @@ public class WindowNotification {
 
     public String getNumberSittingFromNottificationMessage() {
         String result = StringUtils.EMPTY;
-        Pattern regex = Pattern.compile("№/d+");
+        Pattern regex = Pattern.compile("№\\d+");
         Matcher m = regex.matcher(oldNotificationMessageText.getText());
         if (m.find()) {
             result = m.group();
