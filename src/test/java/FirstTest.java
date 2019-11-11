@@ -76,76 +76,6 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    // @Ignore
-    //Todo добавить проверку чекбоксов Уведомлений.  у чекбокса "Показывать уведомления о новых сообщениях:" в свойстве checked появляется disabled, если снята галка "Включить уведомления"
-    public void checkWindowUserAccountWithWindowNotification() {
-        MainPage mainPage = assessorSite.getMainPage();
-        waitWhileElementPresent(mainPage.getUserFIOButton());
-        WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
-
-        assertTrue("Не открылось диалоговое окно", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
-        WebElement checkboxEnabledShowNewNotificationsMessages = windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages();
-
-        // Todo---провекрка нажат чекбокс Показывать уведомления о новых сообщениях
-        if (isCheckboxSelected(checkboxEnabledShowNewNotificationsMessages)) {
-            windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
-            try {
-                Thread.sleep(1000);
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-            }
-            windowUserAccount.saveUserAccount();
-        } else {
-            windowUserAccount.saveUserAccount();
-        }
-
-
-        // Todo--провекрка отображения Системных сообщений, когда снят чекбокс Показывать уведомления о новых сообщениях
-        WindowNotification windowNotification;
-        if (isElementFind(mainPage.getNotificationMessageButton())) {
-            windowNotification = mainPage.clickButtonNotification();
-            try {
-                Thread.sleep(5000);
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-            }
-            assertFalse("Окно содержит новые уведомления или непрочитанные системные уведомления", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
-            assertFalse("Окно содержит прочитанные системные уведомления", isElementPresent(windowNotification.getHaveOldSystemNotificationMessage()));
-        } else {
-            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
-            windowNotification = mainPage.clickNotificationButtonHaveNewMessage();
-
-            assertTrue("Окно содержит нетолько новые системные уведомления, либо нет уведомлений", isElementPresent(windowNotification.getHaveNewSystemNotificationMessage()));
-            assertFalse("Окно содержит нетолько новые системные уведомления", isElementPresent(windowNotification.getHaveNewNotificationMessage()));
-        }
-
-        windowNotification.clickCloseButton();
-
-        mainPage.clickButtonUserAccount();
-        WebElement checkboxEnabledNotificationsMessages = windowUserAccount.getCheckboxEnabledNotifications();
-
-        // Todo---провекрка нажат чекбокс Включить уведомления
-        if (isCheckboxSelected(checkboxEnabledNotificationsMessages)) {
-            windowUserAccount.clickCheckboxEnabledNotifications();
-            try {
-                Thread.sleep(500);
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-            }
-            assertFalse("Активен чекбокс 'Показывать уведомления о новых сообщениях:'", windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages().isEnabled());
-
-            windowUserAccount.saveUserAccount();
-        } else {
-            windowUserAccount.saveUserAccount();
-        }
-        assertTrue("Активна кнопка уведомления", mainPage.isNotificationMessageButtonDisplay());
-        assertFalse("Активна кнопка Есть новые уведомления", isElementFind(mainPage.getNotificationButtonHaveMessage()));
-    }
-
-    @Test
     @Ignore
     public void checkWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
@@ -176,7 +106,6 @@ public class FirstTest extends BaseWebDriverTest {
         windowNotification.clickCloseButton();
         assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
     }
-
 
     @Test
     @Ignore
