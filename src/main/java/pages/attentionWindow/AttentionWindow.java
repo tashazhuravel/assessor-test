@@ -33,5 +33,7 @@ public class AttentionWindow {
         PageFactory.initElements(webDriver,this);
     }
 
+    public String getTextAttention(){return textAttention.getText();}
+
 
 }

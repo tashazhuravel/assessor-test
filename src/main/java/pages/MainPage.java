@@ -48,7 +48,7 @@ public class MainPage {
     WebElement notificationWindow;
 
     By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
-    By notificationMessageButton = By.xpath("//table[@id='btnNotifications']//button");
+    By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
    // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
 
 
@@ -103,6 +103,7 @@ public class MainPage {
         return new WindowAboutSystem(webDriver);
     }
 
+    //Кнопка Уведомления
     public By getNotificationButtonHaveMessage() {
         return notificationButtonHaveMessage;
     }

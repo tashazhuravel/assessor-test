@@ -80,6 +80,7 @@ public class FirstTest extends BaseWebDriverTest {
     public void checkWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification;
+        assertFalse(".",mainPage.isNotificationMessageButtonDisplay());
 
         if (isElementFind(mainPage.getNotificationMessageButton())) {
             windowNotification = mainPage.clickButtonNotification();
@@ -87,7 +88,7 @@ public class FirstTest extends BaseWebDriverTest {
             windowNotification.closeWindowNotificationByX();
         }else {
             assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
-            mainPage.clickNotificationButtonHaveNewMessage();
+            windowNotification=mainPage.clickNotificationButtonHaveNewMessage();
 
             assertTrue(isElementFind(windowNotification.getHaveNewAnyNotificationMessage()));
             assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
