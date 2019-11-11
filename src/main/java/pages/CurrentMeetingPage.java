@@ -29,19 +29,43 @@ public class CurrentMeetingPage {
     private WebElement cancelSittingButton;
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnQuestionAdd']")
-    private WebElement createNewQuestion;
+    private WebElement createNewQuestionButton;
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnQuestionMove']")
-    private WebElement addUnllocatedQuestion;
+    private WebElement addUnallocatedQuestionButton;
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaOpen']")
     private WebElement agendaButton;
+
+    @FindBy(xpath = "//table[@id='planningControlManagmentButtonInfoOpen']//button")
+    private WebElement openInformationTableButton;
+
+    @FindBy(xpath = "//table[@id='planningControlManagmentButtonPicturesOpen']//button")
+    private  WebElement openPicturesButton;
+
+    @FindBy(xpath = "//table[@id='btnPhonesConcole']//button")
+    private WebElement openPhonesConsoleButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretaryProtocolVotingOpen']//button")
+    private WebElement openVotingResultProtocol;
+
+    @FindBy(xpath = "//table[@id='btnSecretaryProtocolOpen']//button")
+    private WebElement openProtocol;
+
+    @FindBy(xpath = "//table[@id='btnSecretarySittingOpen']//button")
+    private WebElement openSittingButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretarySittingClose']//button")
+    private WebElement closeSittingButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretarySittingArchive']//button")
+    private WebElement putMeetingMaterialsInArchiveButton;
 
     @FindBy(xpath = "//div[@id ='popupWindowCreateQuestion']")
     private WebElement windowKindOfQuestion;
 
     @FindBy(xpath = "//div[@class=' x-window']")
-    private WebElement windowAddUnllocatedQuestion;
+    private WebElement windowAddUnallocatedQuestion;
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnSittingBack']")
     private WebElement backOnListSitting;
@@ -79,8 +103,8 @@ public class CurrentMeetingPage {
         return windowKindOfQuestion;
     }
 
-    public WebElement getWindowAddUnllocatedQuestion() {
-        return windowAddUnllocatedQuestion;
+    public WebElement getWindowAddUnallocatedQuestion() {
+        return windowAddUnallocatedQuestion;
     }
 }
 

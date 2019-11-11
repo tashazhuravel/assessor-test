@@ -76,35 +76,38 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void checkWindowNotification() {
         MainPage mainPage = assessorSite.getMainPage();
-        WindowNotification windowNotification = mainPage.clickButtonNotification();
+        WindowNotification windowNotification;
 
-        assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
-        windowNotification.closeWindowNotificationByX();
+        if (isElementFind(mainPage.getNotificationMessageButton())) {
+            windowNotification = mainPage.clickButtonNotification();
+            assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
+            windowNotification.closeWindowNotificationByX();
+        }else {
+            assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
+            mainPage.clickNotificationButtonHaveNewMessage();
 
-        assertTrue("Нет новых сообщений", isElementFind(mainPage.getNotificationButtonHaveMessage()));
-        mainPage.clickNotificationButtonHaveNewMessage();
+            assertTrue(isElementFind(windowNotification.getHaveNewAnyNotificationMessage()));
+            assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
+            windowNotification.clickAnyNewNotificationMessage();
 
-        assertTrue(isElementFind(windowNotification.getHaveNewAnyNotificationMessage()));
-        assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
-        windowNotification.clickAnyNewNotificationMessage();
+            assertTrue(isElementFind(windowNotification.getHaveOldAnyNotificationMessage()));
+            assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
+            String textOldNotificationMessage = windowNotification.getTextOldNotificationMessage();
+            System.out.println(textOldNotificationMessage);
+            CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
+            //  assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
+            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", windowNotification.getTextOldNotificationMessage(), containsString(currentMeetingPage.getTextStatusField()));
+            currentMeetingPage.clickBackOnListSitting();
 
-        assertTrue(isElementFind(windowNotification.getHaveOldAnyNotificationMessage()));
-        assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
-        String textOldNotificationMessage = windowNotification.getTextOldNotificationMessage();
-        System.out.println(textOldNotificationMessage);
-        CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
-        //  assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
-        assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", windowNotification.getTextOldNotificationMessage(), containsString(currentMeetingPage.getTextStatusField()));
-        currentMeetingPage.clickBackOnListSitting();
-
-        mainPage.clickNotificationButtonHaveNewMessage();
-        windowNotification.clickClearButton();
-        assertFalse("Не удалось открыть Уведомления, либо список содержит уведомления", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
-        windowNotification.clickCloseButton();
-        assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
+            mainPage.clickNotificationButtonHaveNewMessage();
+            windowNotification.clickClearButton();
+            assertFalse("Не удалось открыть Уведомления, либо список содержит уведомления", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
+            windowNotification.clickCloseButton();
+            assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
+        }
     }
 
     @Test
