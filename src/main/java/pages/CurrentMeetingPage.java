@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import pages.mainPageTab.PlanningTabPage;
 
 import java.util.List;
+import java.util.logging.XMLFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -146,6 +147,122 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//table[@id='planningQuestionButtonDel']//button")
     private WebElement deleteQuestionButton;
 
+    @FindBy(xpath = "//textarea[@id='planningQuestionSubject']")
+    private WebElement subjectQuestionField;
+
+    @FindBy(xpath = "(//div[@class='x-panel-tbar x-panel-tbar-noheader']//button[text()='Очистить'])[1]")
+    private List<WebElement> clearSubjectButton;
+
+    @FindBy(xpath = "//input[@id='fioAttestedFieldId']")
+    private WebElement fioAttestedField;
+
+    @FindBy(xpath = "//div[@class = 'x-layer x-combo-list ']/div[@class='x-combo-list-inner']/div[text()]")
+    private List<WebElement> fioAttestedList;
+
+    @FindBy(xpath = "//input[@id='positionAttestedFieldId']")
+    private WebElement positionAttestedField;
+
+    @FindBy(xpath = "//table[@id='positionFioClearButton']//button")
+    private WebElement positionFioClearButton;
+
+    @FindBy(xpath = "//table[@id='positionClearButton']//button")
+    private WebElement positionClearButton;
+
+    @FindBy(xpath = "//input[@id='planningQuestionRepporteur']")
+    private WebElement repporteurFIOField;
+
+    @FindBy(xpath = "//div[@class = 'x-layer x-combo-list ']/div[@class='x-combo-list-inner']/div//span")
+    private List<WebElement> repporteurFIOList;
+
+    @FindBy(xpath = "//table[@id='btnAddRepporteur']//button")
+    private WebElement addRepporteurButton;
+
+    @FindBy(xpath = "//div[@id='planningQuestionRepporteurGrid']//table//span")
+    private List<WebElement> addedRepporteurList;
+
+    @FindBy(xpath = "//table[@id='secretaryQuestionDelRepporteurBtn']//button")
+    private WebElement deleteRepporteurButton;
+
+    @FindBy(xpath = "//input[@id='planningQuestionCoRepporteur']")
+    private WebElement coRepporteurFIOField;
+
+    @FindBy(xpath = "//table[@id='btnAddCoRepporteur']//button")
+    private WebElement addCoRepporteurButton;
+
+    @FindBy(xpath = "//div[@id='planningQuestionCoRepporteurGrid']//table//span")
+    private List<WebElement> addedCoRepporteurList;
+
+    @FindBy(xpath = "//table[@id='secretaryQuestionDelCoRepporteurBtn']//button")
+    private WebElement deleteCoRreporteurButton;
+
+    @FindBy(xpath = "//input[@id='planningQuestionInvited']")
+    private WebElement invitedFIOField;
+
+    @FindBy(xpath = "//table[@id='btnAddInvited']//button")
+    private WebElement addInvitedButton;
+
+    @FindBy(xpath = "//div[@id='planningQuestionInvitedGrid']//table//span")
+    private List<WebElement> addedInvitedList;
+
+    @FindBy(xpath = "//table[@id='secretaryQuestionDelInvitedBtn']//button")
+    private WebElement deleteInvitedButton;
+
+    @FindBy(xpath = "//input[@id='planningQuestionActed']")
+    private WebElement actedFIOField;
+
+    @FindBy(xpath = "//table[@id='btnAddActed']//button")
+    private WebElement addActedButton;
+
+    @FindBy(xpath = "//div[@id='planningQuestionActedGrid']//div[@class='x-grid3-cell-inner x-grid3-col-1']")
+    private List<WebElement> addedActedList;
+
+    @FindBy(xpath = "//table[@id='secretaryQuestionDelActedBtn']//button")
+    private WebElement deleteActedButton;
+
+    @FindBy(xpath = "//div[@id='addDocumentsForm']//input[@id='form-file']")
+    private WebElement fileMaterialsField;
+
+    @FindBy(xpath = "//div[@id='addDocumentsForm']//input[@id='form-file-file']")
+    private WebElement addFileMaterials;
+
+    @FindBy(xpath = "//div[@id='addDocumentsForm']//button")
+    private WebElement chooseFileMaterialsButton;
+
+    @FindBy(xpath = "//div[@id='addDocumentsForm']//input[@id='form-name']")
+    private WebElement nameFileMaterials;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonDocument']//button")
+    private WebElement addDocumentsButton;
+
+    @FindBy(xpath = "//table[@id='documentDelButton']//button")
+    private WebElement deleteDocumentButton;
+
+    @FindBy(xpath = "//div[@id='planningQuestionMaterialsGrid']//div[@class='x-grid3-cell-inner x-grid3-col-2']")
+    private List<WebElement> addedMaterialsList;
+
+    @FindBy(xpath = "//div[@id='planningQuestionListenForm']//button")
+    private WebElement editLisenInMSWordButton;
+
+    @FindBy(xpath = "//textarea[@id='planningQuestionListen']")
+    private WebElement listenTextField;
+
+    @FindBy(xpath = "//div[@id='planningQuestionListenDoc']")
+    private WebElement listenWordDocField;
+
+    @FindBy(xpath = "//div[@id='planningQuestionDecideForm']//button")
+    private WebElement editDecideInMSWordButton;
+
+    @FindBy(xpath = "//textarea[@id='planningQuestionDecide']")
+    private WebElement decideTextField;
+
+    @FindBy(xpath = "//div[@id='planningQuestionDecideDoc']")
+    private WebElement decideWordDocField;
+
+    @FindBy(xpath = "//textarea[@id='planningQuestionHistory']")
+            private WebElement historyField;
+
+    @FindBy(xpath = "(//div[@class='x-panel-tbar x-panel-tbar-noheader']//button[text()='Очистить'])[2]")
+            private WebElement clearHistoryButton;
 
 
 
