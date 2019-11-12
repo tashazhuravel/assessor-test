@@ -94,10 +94,6 @@ public class WindowNotification {
         return result;
     }
 
-    public By getHeaderNotificationWindow() {
-        return headerNotificationWindow;
-    }
-
     public By getHaveNewAnyNotificationMessage() {
         return haveNewAnyNotificationMessage;
     }

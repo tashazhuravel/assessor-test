@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotEquals;
 
 public class PlaningSittingTest extends BaseWebDriverTest {
 
-    public PlaningSittingTest(String login, String password, String fioUserAccount, String unllocatedQuestionsStatusField, String sittingPlace) {
+    public PlaningSittingTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
@@ -93,10 +93,6 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         //--Сохранение запланированного заседания
         CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
         String selectSecretary = assesorService.getFIOSecretaryOfCommittee().get(0);
-        //verifyAutocompleteOptionsText(changeWordPressSymbol(currentMeetingPage.getInformationFieldAboutSitting()),selectSecretary);
-    /*   assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",
-                String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary),
-                currentMeetingPage.getTextStatusField());*/
         assertThat(".", String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextStatusField()));
     }
 

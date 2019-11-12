@@ -7,6 +7,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.attentionWindow.AttentionWindow;
+import pages.messageWindow.MessageWindowAgenda;
+import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 
 public class AgendaPage {
@@ -65,14 +67,37 @@ public class AgendaPage {
         return new WindowPreliminaryAcquaintanceWithAgenda(webDriver);
     }
 
-    public AttentionWindow clickSetMeetingStatusAgendaUnderApprovalButton(){
+    public MessageWindowAgenda clickSetMeetingStatusAgendaUnderApprovalButton(){
         actions.moveToElement(setMeetingStatusAgendaUnderApprovalButton).click().perform();
+        return new MessageWindowAgenda(webDriver);
+    }
+
+    public AttentionWindow clickSetMeetingStatusAgendaApprovedButton(){
+        actions.moveToElement(setMeetingStatusAgendaApprovedButton).click().perform();
         return new AttentionWindow(webDriver);
     }
 
-    public AgendaPage clickSetMeetingStatusAgendaApprovedButton(){
-        actions.moveToElement()
+    public WindowMailingNotificationInvitations clickSendInvitationButton(){
+        actions.moveToElement(sendInvitationButton).click().perform();
+        return new WindowMailingNotificationInvitations(webDriver);
     }
 
+    public AgendaPage clickDownloadThisTextButton(){
+        actions.moveToElement(downloadThisTextButton).click().perform();
+        return this;
+    }
 
+    public AgendaPage clickUploadEditedTextButton(){
+        actions.moveToElement(uploadEditedTextButton).click().perform();
+        return this;
+    }
+
+    public AgendaPage clickEditInWordButton(){
+        actions.moveToElement(editInWordButton).click().perform();
+        return this;
+    }
+
+    public WebElement getTextFromAgenda() {
+        return textFromAgenda;
+    }
 }

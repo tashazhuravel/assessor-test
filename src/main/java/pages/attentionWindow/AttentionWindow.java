@@ -7,7 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
-import pages.messageWindow.MessageByPreliminaryAcquaintanceWithAgenda;
+import pages.messageWindow.MessageWindowAgenda;
 
 public class AttentionWindow {
     private WebDriver webDriver;
@@ -37,9 +37,9 @@ public class AttentionWindow {
 
     public String getTextAttention(){return textAttention.getText();}
 
-    public MessageByPreliminaryAcquaintanceWithAgenda clickYesAttentionButton(){
+    public MessageWindowAgenda clickYesAttentionButton(){
         actions.moveToElement(yesAttentionButton).click().perform();
-        return new MessageByPreliminaryAcquaintanceWithAgenda(webDriver);
+        return new MessageWindowAgenda(webDriver);
     }
 
     public AgendaPage clickNoAttentionButton(){

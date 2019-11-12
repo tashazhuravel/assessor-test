@@ -17,11 +17,11 @@ import static org.junit.Assert.*;
 
 public class FirstTest extends BaseWebDriverTest {
 
-    public FirstTest(String login, String password, String fioUserAccount, String unllocatedQuestionsStatusField, String sittingPlace) {
+    public FirstTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
-        this.unallocatedQuestionsStatusField = unllocatedQuestionsStatusField;
+        this.unallocatedQuestionsStatusField = unallocatedQuestionsStatusField;
         this.sittingPlace = sittingPlace;
 
     }

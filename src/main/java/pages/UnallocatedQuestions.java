@@ -11,6 +11,9 @@ public class UnallocatedQuestions {
 
     @FindBy(xpath = "//textarea[@id='planningCommittee']")
     WebElement statusField;
+
+    @FindBy(xpath = "//table[@id='btnSecretaryBack']//button")
+    private WebElement backOnListSitting;
     //todo дописать все элементы  и методы к ним
 
     public UnallocatedQuestions(WebDriver webDriver) {

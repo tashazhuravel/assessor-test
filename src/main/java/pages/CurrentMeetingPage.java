@@ -1,6 +1,7 @@
 package pages;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.mainPageTab.PlanningTabPage;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +43,7 @@ public class CurrentMeetingPage {
     private WebElement openInformationTableButton;
 
     @FindBy(xpath = "//table[@id='planningControlManagmentButtonPicturesOpen']//button")
-    private  WebElement openPicturesButton;
+    private WebElement openPicturesButton;
 
     @FindBy(xpath = "//table[@id='btnPhonesConcole']//button")
     private WebElement openPhonesConsoleButton;
@@ -67,8 +69,88 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//div[@class=' x-window']")
     private WebElement windowAddUnallocatedQuestion;
 
-    @FindBy(xpath = "//button[@class=' x-btn-text btnSittingBack']")
+    @FindBy(xpath = "//table[@id='btnSecretaryBack']//button")
     private WebElement backOnListSitting;
+
+    @FindBy(xpath = "//div[@id='planningQuestionTree']//span[@class='titlePanel']")
+    private WebElement headerQuestionList;
+
+    @FindBy(xpath = "//div[@class='x-tool x-tool-toggle x-tool-collapse-west']")
+    private WebElement hideQuestionListButton;
+
+    @FindBy(xpath = "//div[@class='x-tree-root-node']/li/div/a/span")
+    private List<WebElement> questionList;
+
+    @FindBy(xpath = "//span[@class='questionList']")
+    private List<WebElement> questionListText;
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusVotingWork']")
+    private List<WebElement> questionStatusVotingWork; //есть атрибут title
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusVotingInternal']")
+    private List<WebElement> questionStatusVotingInternal;
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusVotingAnonym']")
+    private List<WebElement> questionStatusVotingAnonym;
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusVotingAnonymWork']")
+    private List<WebElement> questionStatusVotingAnonymWork;
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusVoted']")
+    private List<WebElement> questionStatusVoted;
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusAllVoted']")
+    private List<WebElement> questionStatusAllVoted;
+
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusExamine']")
+    private WebElement questionStatusExamine;
+
+    //TODO добавить 2 статуса, они появляют при работе со сторонней системой
+
+    @FindBy(xpath = "//div[@class='x-tree-node-el x-unselectable x-tree-node-collapsed x-tree-selected']")
+    private WebElement selectedQuestionInList;
+
+    @FindBy(xpath = "//div[@id='planningQuestionButtonSave']//button")
+    private WebElement saveQuestionButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionSelect']//button")
+    private WebElement underConsiderationButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonVote']//button")
+    private WebElement openVoteButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonVoteResult']//button")
+    private WebElement voteResultButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonHand']//button")
+    private WebElement handVoteButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonElectro']//button")
+    private WebElement workVoteButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonAnonym']//button")
+    private WebElement anonymVoteButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonAnonymWork']//button")
+    private WebElement anonymWorkVoteButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonCopy']//button")
+    private WebElement copeQuestionButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonMove']//button")
+    private WebElement moveQuestionButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionSandBackRevisionButton']//button")
+    private WebElement sendBackRevisionButton;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonDel']//button")
+    private WebElement deleteQuestionButton;
+
+
+
+
+    By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");
+
 
     public CurrentMeetingPage(WebDriver webDriver) {
         this.webDriver = webDriver;

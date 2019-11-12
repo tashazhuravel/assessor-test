@@ -10,7 +10,7 @@ import pages.AgendaPage;
 
 import java.util.List;
 
-public class MessageByPreliminaryAcquaintanceWithAgenda {
+public class MessageWindowAgenda {
     private WebDriver webDriver;
 
     private Actions actions;
@@ -26,7 +26,7 @@ public class MessageByPreliminaryAcquaintanceWithAgenda {
     @FindBy(xpath = "//table[@class='x-btn x-btn-noicon']//button")
     private WebElement messageOkButton;
 
-    public MessageByPreliminaryAcquaintanceWithAgenda(WebDriver webDriver){
+    public MessageWindowAgenda(WebDriver webDriver){
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
