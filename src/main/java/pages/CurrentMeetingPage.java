@@ -263,6 +263,11 @@ public class CurrentMeetingPage {
 
     @FindBy(xpath = "(//div[@class='x-panel-tbar x-panel-tbar-noheader']//button[text()='Очистить'])[2]")
             private WebElement clearHistoryButton;
+    @FindBy(xpath = "//table[@id='historyAddButton']//button")
+            private WebElement addLinkButton;
+
+    @FindBy(xpath = "//table[@id='historyDelButton']//button")
+            private WebElement deleteLinkButton;
 
 
 
