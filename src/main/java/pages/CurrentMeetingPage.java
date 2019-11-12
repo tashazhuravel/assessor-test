@@ -259,16 +259,22 @@ public class CurrentMeetingPage {
     private WebElement decideWordDocField;
 
     @FindBy(xpath = "//textarea[@id='planningQuestionHistory']")
-            private WebElement historyField;
+    private WebElement historyField;
 
     @FindBy(xpath = "(//div[@class='x-panel-tbar x-panel-tbar-noheader']//button[text()='Очистить'])[2]")
-            private WebElement clearHistoryButton;
+    private WebElement clearHistoryButton;
+
     @FindBy(xpath = "//table[@id='historyAddButton']//button")
-            private WebElement addLinkButton;
+    private WebElement addLinkButton;
 
     @FindBy(xpath = "//table[@id='historyDelButton']//button")
-            private WebElement deleteLinkButton;
+    private WebElement deleteLinkButton;
 
+    @FindBy(xpath = "//div[@id='historyListBox']//input")
+    private WebElement checkboxLinkQuestion;
+
+    @FindBy(xpath = "//div[@id='historyListBox']//a")
+    private List<WebElement> linkQuestions;
 
 
     By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");

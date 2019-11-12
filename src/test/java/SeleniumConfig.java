@@ -22,7 +22,7 @@ public class SeleniumConfig {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
-               // System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
                 webDriver = new ChromeDriver(chromeOptions);
                 eventDriver = new EventFiringWebDriver(webDriver);
                 eventDriver.register(new EventHandler());

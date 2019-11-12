@@ -10,7 +10,7 @@ import org.openqa.selenium.support.events.WebDriverEventListener;
 
 public class EventHandler  implements WebDriverEventListener {
 
-    public static final Logger LOG = LogManager.getLogger("assesorLogger");
+    public static final Logger LOG = LogManager.getLogger("assessorLogger");
 
     @Override
     public void beforeAlertAccept(WebDriver driver) {
@@ -137,9 +137,10 @@ public class EventHandler  implements WebDriverEventListener {
 
     @Override
     public void beforeGetText(WebElement element, WebDriver driver) {
+        LOG.debug("Should be " + element.getText());
     }
 
     @Override
-    public void afterGetText(WebElement element, WebDriver driver, String text) {
+    public void afterGetText(WebElement element, WebDriver driver, String text) {LOG.debug("Text found " + text);
     }
 }

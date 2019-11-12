@@ -45,7 +45,7 @@ public class BaseWebDriverTest {
     private boolean acceptNextAlert = true;
     private static Wait wait;
     PlanningTabPage planningTabPage;
-    AssessorServiceImp assesorService;
+    AssessorServiceImp assessorService;
     String login;
     String password;
     String fioUserAccount;

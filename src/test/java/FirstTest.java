@@ -27,7 +27,7 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Test
     public void authorization() {
-        assesorService = new AssessorService(dataBaseConnection.stmt);
+        assessorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         MainPage mainPage = authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
@@ -41,6 +41,12 @@ public class FirstTest extends BaseWebDriverTest {
         log.info("Проверка модального окна 'О системе'");
         MainPage mainPage = assessorSite.getMainPage();
         waitWhileElementPresent(mainPage.getAboutSystemButton());
+        try {
+            Thread.sleep(1000);
+        } catch (
+                InterruptedException e) {
+            e.printStackTrace();
+        }
         WindowAboutSystem windowAboutSystem = mainPage.clickButtonAboutSystem();
         assertTrue("Не открылось диалоговое окно 'О системе'.", isElementFind(windowAboutSystem.getHeaderWindowAboutSystem()));
         windowAboutSystem.closeWindowAboutSystemByX();

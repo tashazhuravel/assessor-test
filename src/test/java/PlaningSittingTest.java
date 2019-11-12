@@ -25,7 +25,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
     @Before
     public void setUp() {
-        assesorService = new AssessorService(dataBaseConnection.stmt);
+        assessorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
@@ -36,35 +36,34 @@ public class PlaningSittingTest extends BaseWebDriverTest {
     @Test
     @Ignore
     public void createPlanning() {
+        log.info("Проверка модального окна 'Планирование заседания'");
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-        assertTrue("Окошко не отрылося", isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling()));
+        assertTrue("Окно Планирование заседания не отрылося", isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling()));
 
-        //--проверка номера заседания
+        log.info("Проверка поля Номер");
         String numberSitting = windowMeetingScheduling.getSittingNumberText();
         assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> numberSitting.equals(item.getText())));
 
-        //--проверка поля "Место заседания"
+        log.info("Проверка поля 'Место заседания'");
         assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
         // windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
-        List<String> select = assesorService.getNamesRoom();
+        List<String> select = assessorService.getNamesRoom();
         verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
         windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
         windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
         System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
 
-        //--Дата заседания
-        // windowMeetingScheduling.clearDateFieldText();
+        log.info("Проверка поля 'Дата'");
         assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getDateFieldText());
         assertEquals("По умолчанию должна быть отображена текущая дата", DateUtil.getCurrentDateAsString(), windowMeetingScheduling.getDateFieldText());
         windowMeetingScheduling.clickCalendarButton();
         assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowMeetingScheduling.emptyCalendar());
         windowMeetingScheduling.clickDateInCalendar();
         System.out.println(windowMeetingScheduling.getDateFieldText());
-        windowMeetingScheduling.clickCalendarButton();
-        windowMeetingScheduling.clickTodayButton();
+        windowMeetingScheduling.clickCalendarButton().clickTodayButton();
         System.out.println(windowMeetingScheduling.getDateFieldText());
 
         //--Время начала заседания
@@ -82,14 +81,14 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         System.out.println(windowMeetingScheduling.getTimeEndText());
 
         //--Список участников
-        List<String> selectParticipant = assesorService.getFIOParticipantSitting();
+        List<String> selectParticipant = assessorService.getFIOParticipantSitting();
         System.out.println(selectParticipant);
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
 
 
         //--Сохранение запланированного заседания
         CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
-        String selectSecretary = assesorService.getFIOSecretaryOfCommittee().get(0);
+        String selectSecretary = assessorService.getFIOSecretaryOfCommittee().get(0);
         assertThat(".", String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextStatusField()));
     }
 
