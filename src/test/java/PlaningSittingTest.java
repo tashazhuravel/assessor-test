@@ -1,4 +1,4 @@
-import dataBase.AssesorService;
+import dataBase.AssessorService;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,7 +12,6 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotEquals;
 
 public class PlaningSittingTest extends BaseWebDriverTest {
 
@@ -26,14 +25,12 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
     @Before
     public void setUp() {
-        assesorService = new AssesorService(dataBaseConnection.stmt);
+        assesorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
-        System.out.println("Step 1: Authorization");
-        authorizationPage.setLogin(login);
-        authorizationPage.setPassword(password);
-        authorizationPage.clickLoginButton();
+        log.info("Authorization begin");
+        authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
         assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
-        takeScreenshot("initWebDriver");
+        log.info("Authorization complete");
     }
 
     @Test

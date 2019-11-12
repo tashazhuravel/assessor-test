@@ -1,25 +1,17 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import pages.mainPageTab.ArchiveTabPage;
 import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
-
-import java.time.Duration;
-
-import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class MainPage {
 
@@ -50,10 +42,11 @@ public class MainPage {
     @FindBy(xpath = "//button[@class=' x-btn-text hasNews']")
     WebElement notificationButtonHaveMessage;
 
-   // By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
+    // By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
     By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
-   // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
+    // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
 
+    private By divMainPage = By.xpath("//div[@id='layoutTabs']");
 
     @FindBy(xpath = "//button[text()='О системе']")
     WebElement aboutSystemButton;
@@ -86,17 +79,17 @@ public class MainPage {
 
     // Кнопка Учетная запись пользователя
     public WindowUserAccount clickButtonUserAccount() {
-       actions.moveToElement(userFIOButton).click().perform();
+        actions.moveToElement(userFIOButton).click().perform();
         return new WindowUserAccount(webDriver);
     }
 
     public WindowNotification clickButtonNotification() {
-       actions.moveToElement(notificationButton).click().perform();
+        actions.moveToElement(notificationButton).click().perform();
         return new WindowNotification(webDriver);
     }
 
     public WindowNotification clickNotificationButtonHaveNewMessage() {
-       actions.moveToElement(notificationButtonHaveMessage).click().perform();
+        actions.moveToElement(notificationButtonHaveMessage).click().perform();
         return new WindowNotification(webDriver);
     }
 
@@ -117,6 +110,14 @@ public class MainPage {
 
     public By getNotificationMessageButton() {
         return notificationMessageButton;
+    }
+
+    public WebElement getAboutSystemButton() {
+        return aboutSystemButton;
+    }
+
+    public By getDivMainPage() {
+        return divMainPage;
     }
 
     public boolean isNotificationMessageButtonDisplay() {

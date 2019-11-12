@@ -1,9 +1,7 @@
-import dataBase.AssesorService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
+import dataBase.AssessorService;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.openqa.selenium.WebElement;
+import org.junit.runners.MethodSorters;
 import pages.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnallocatedQuestions;
@@ -12,9 +10,10 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FirstTest extends BaseWebDriverTest {
 
     public FirstTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
@@ -26,41 +25,35 @@ public class FirstTest extends BaseWebDriverTest {
 
     }
 
-    @Before
-    public void setUp() {
-        assesorService = new AssesorService(dataBaseConnection.stmt);
+    @Test
+    public void authorization() {
+        assesorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
-        log.debug("Authorization");
-        System.out.println("Step 1: Authorization");
-        authorizationPage.setLogin(login);
-        authorizationPage.setPassword(password);
-        authorizationPage.clickLoginButton();
-        assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
+        log.info("Authorization begin");
+        MainPage mainPage = authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
+        assertTrue("Неверный логин/пароль.", isElementFind(mainPage.getDivMainPage()));
+        log.info("Authorization complete");
     }
 
     @Test
-    @Ignore
-    //проверка модального окна "О системе"
+    //@Ignore
     public void checkWindowAboutSystemTest() {
+        log.info("Проверка модального окна 'О системе'");
         MainPage mainPage = assessorSite.getMainPage();
+        waitWhileElementPresent(mainPage.getAboutSystemButton());
         WindowAboutSystem windowAboutSystem = mainPage.clickButtonAboutSystem();
-        assertTrue("Не открылось диалоговое окно 'О системе'.", isElementPresent(windowAboutSystem.getHeaderWindowAboutSystem()));
+        assertTrue("Не открылось диалоговое окно 'О системе'.", isElementFind(windowAboutSystem.getHeaderWindowAboutSystem()));
         windowAboutSystem.closeWindowAboutSystemByX();
         mainPage.clickButtonAboutSystem();
         windowAboutSystem.closeWindowAboutSystemByButton();
     }
 
     @Test
-    @Ignore
-    //проверка модального окна "Учетная запись пользователя"
+    // @Ignore
     public void checkWindowUserAccountTest() {
+        log.info("Проверка модального окна 'Учетная запись пользователя'");
         MainPage mainPage = assessorSite.getMainPage();
-        try {
-            Thread.sleep(1000);
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitWhileElementPresent(mainPage.getUserFIOButton());
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
         assertTrue("Не открылось диалоговое окно или не найден заголовок окна.", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
@@ -78,9 +71,10 @@ public class FirstTest extends BaseWebDriverTest {
     @Test
     //@Ignore
     public void checkWindowNotification() {
+        log.info("Проверка модального окна 'Оповещения'");
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification;
-        assertFalse(".",mainPage.isNotificationMessageButtonDisplay());
+        assertFalse("Кнопка сообщение не отображена", mainPage.isNotificationMessageButtonDisplay());
         try {
             Thread.sleep(1000);
         } catch (
@@ -92,9 +86,9 @@ public class FirstTest extends BaseWebDriverTest {
             windowNotification = mainPage.clickButtonNotification();
             assertTrue(".", isElementVisible(mainPage.getNotificationWindow()));
             windowNotification.closeWindowNotificationByX();
-        }else if (isElementVisible(mainPage.getNotificationButtonHaveMessage())){
+        } else if (isElementVisible(mainPage.getNotificationButtonHaveMessage())) {
             assertTrue("Нет новых сообщений", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
-            windowNotification=mainPage.clickNotificationButtonHaveNewMessage();
+            windowNotification = mainPage.clickNotificationButtonHaveNewMessage();
 
             assertTrue(isElementFind(windowNotification.getHaveNewAnyNotificationMessage()));
             assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
@@ -105,8 +99,8 @@ public class FirstTest extends BaseWebDriverTest {
             String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
             System.out.println(textOldNotificationMessage);
             CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
-           // assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
-            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания",  currentMeetingPage.getTextStatusField(), containsString(textOldNotificationMessage));
+            // assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
+            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeetingPage.getTextStatusField(), containsString(textOldNotificationMessage));
             currentMeetingPage.clickBackOnListSitting();
 
             mainPage.clickNotificationButtonHaveNewMessage();
@@ -118,13 +112,14 @@ public class FirstTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
-    //проверка кнопки "Нераспределенные вопросы"
+    //@Ignore
     public void checkUnallocatedQuestionsTest() {
+        log.info("Проверка кнопки 'Нераспределенные вопросы'");
         PlanningTabPage planningTabPage = assessorSite.getPlanningPage();
         UnallocatedQuestions unallocatedQuestions = planningTabPage.clickUnallocatedQuestionsButton();
 
         assertEquals("Не осуществлен переход на форме 'Нераспределенные вопросы'.Неверный текст в поле статус.", unallocatedQuestionsStatusField, unallocatedQuestions.getTextStatusField());
+        unallocatedQuestions.clickButtonBack();
     }
 
 

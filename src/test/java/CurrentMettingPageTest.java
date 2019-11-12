@@ -1,4 +1,4 @@
-import dataBase.AssesorService;
+import dataBase.AssessorService;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
@@ -15,15 +15,12 @@ class CurrentMettingPageTest extends BaseWebDriverTest {
 
     @Before
     public void setUp() {
-        assesorService = new AssesorService(dataBaseConnection.stmt);
+        assesorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
-        log.info("Authorization");
-        System.out.println("Step 1: Authorization");
-        authorizationPage.setLogin(login);
-        authorizationPage.setPassword(password);
-        authorizationPage.clickLoginButton();
+        log.info("Authorization begin");
+        authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
         assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
-        takeScreenshot("initWebDriver");
+        log.info("Authorization complete");
     }
 
 }

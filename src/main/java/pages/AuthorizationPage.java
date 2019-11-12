@@ -28,18 +28,21 @@ public class AuthorizationPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public void setLogin(String login) {
+    public AuthorizationPage setLogin(String login) {
         inputLogin.clear();
         inputLogin.sendKeys(login);
+        return this;
     }
 
-    public void setPassword(String password) {
+    public AuthorizationPage setPassword(String password) {
         inputPassword.clear();
         inputPassword.sendKeys(password);
+        return this;
     }
 
-    public void clickLoginButton() {
+    public MainPage clickLoginButton() {
         buttonLogining.submit();
+        return new MainPage(webDriver);
     }
 
     public WebElement getInputLogin() {

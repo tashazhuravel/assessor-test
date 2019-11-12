@@ -8,28 +8,26 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.mainPageTab.PlanningTabPage;
 
-import java.util.List;
-
 public class WindowUserAccount {
 
     private WebDriver webDriver;
 
     private Actions actions;
 
-    private By headerWindowUserAccount = By.cssSelector(".x-window-header-text");
+    private By headerWindowUserAccount = By.xpath("//div[@class = ' x-window x-resizable-pinned']//span[@class = 'x-window-header-text']");
 
     private By labelEnableNotifications = By.xpath("//label[text()='Включить уведомления:']");
 
     @FindBy(xpath = "//div[@id='editTypeForm']//fieldset//div[text()]")
     private WebElement userFIOFieldText;
 
-    @FindBy(xpath = "//button[text()='Сохранить']")
+    @FindBy(xpath = "//div[@class = ' x-window x-resizable-pinned']//button[text()='Сохранить']")
     private WebElement saveButton;
 
-    @FindBy(xpath = "//button[text()='Закрыть']")
+    @FindBy(xpath = "//div[@class = ' x-window x-resizable-pinned']//button[text()='Закрыть']")
     private WebElement closeButton;
 
-    @FindBy(css = ".x-tool")
+    @FindBy(xpath = "//div[@class = ' x-window x-resizable-pinned']//div[@class='x-tool x-tool-close']")
     private WebElement closeWindowButton;
 
     @FindBy(xpath = "//input[@id='checkboxNotifications']")

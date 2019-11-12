@@ -6,14 +6,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssesorService {
+public class AssessorService implements AssessorServiceImp {
 
     private Statement statement;
 
-    public AssesorService(Statement statement) {
+    public AssessorService(Statement statement) {
         this.statement = statement;
     }
 
+    @Override
     public List<String> getNamesRoom() {
         List<String> roomsName = new ArrayList<>();
         ResultSet resultSet;
@@ -29,6 +30,7 @@ public class AssesorService {
         return roomsName;
     }
 
+    @Override
     public List<String> getFIOParticipantSitting() {
         List<String> participantFio = new ArrayList<>();
         ResultSet resultSet = null;
@@ -49,6 +51,7 @@ public class AssesorService {
         return participantFio;
     }
 
+    @Override
     public List<String> getFIOSecretaryOfCommittee() {
         List<String> secretaryFio = new ArrayList<>();
         ResultSet resultSet = null;

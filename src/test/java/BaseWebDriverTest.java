@@ -1,5 +1,6 @@
-import dataBase.AssesorService;
 import dataBase.DataBaseConnection;
+import dataBase.AssessorServiceImp;
+import log.EventHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
@@ -38,13 +39,13 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(value = Parameterized.class)
-public abstract class BaseWebDriverTest {
+public class BaseWebDriverTest {
     private static SeleniumAssessor seleniumAssessor;
     private static WebDriver driver;
     private boolean acceptNextAlert = true;
     private static Wait wait;
     PlanningTabPage planningTabPage;
-    AssesorService assesorService;
+    AssessorServiceImp assesorService;
     String login;
     String password;
     String fioUserAccount;
@@ -52,7 +53,7 @@ public abstract class BaseWebDriverTest {
     String sittingPlace;
     static AuthorizationPage authorizationPage;
     static AssessorSite assessorSite;
-    static Logger log = Logger.getLogger(BaseWebDriverTest.class.getName());
+    static Logger log = EventHandler.LOG;
 
 
     @Parameters
@@ -87,12 +88,12 @@ public abstract class BaseWebDriverTest {
     @BeforeClass
     public static void initWebDriver() throws Exception {
         seleniumAssessor = new SeleniumAssessor();
-        driver = seleniumAssessor.getWebDriver();
+        driver = seleniumAssessor.getEventDriver();
         driver.get(seleniumAssessor.getUrl());
         driver.manage().window().setSize(new Dimension(1600, 1000));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         assessorSite = PageFactory.initElements(driver, AssessorSite.class);
-        wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.of(10, SECONDS))
+        wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.of(5, SECONDS))
                 .pollingEvery(Duration.of(2, SECONDS))
                 .ignoring(NoSuchElementException.class);
     }
@@ -167,7 +168,6 @@ public abstract class BaseWebDriverTest {
 
     @SuppressWarnings("unchecked")
     boolean isElementVisible(WebElement webElement) {
-
         try {
             wait.until(ExpectedConditions.visibilityOf(webElement));
         } catch (TimeoutException exception) {
@@ -185,6 +185,7 @@ public abstract class BaseWebDriverTest {
         }
         return true;
     }
+
     boolean isCheckboxSelected(WebElement my_element) {
         try {
             wait.until(ExpectedConditions.elementToBeSelected(my_element));
@@ -193,15 +194,15 @@ public abstract class BaseWebDriverTest {
         }
         return true;
     }
+
     boolean isCheckboxDisabled(WebElement my_element) {
         try {
-            wait.until(ExpectedConditions.attributeToBe(my_element,"disabled","true"));
+            wait.until(ExpectedConditions.attributeToBe(my_element, "disabled", "true"));
         } catch (TimeoutException exception) {
             return false;
         }
         return true;
     }
-
 
 
     boolean isElementPresent(By my_element) {
@@ -213,18 +214,20 @@ public abstract class BaseWebDriverTest {
         }
     }
 
-    void waitWhileElementPresent(By my_element) {
+    void waitWhileElementPresent(By myElement) {
         try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(my_element));
+            wait.until(ExpectedConditions.presenceOfElementLocated(myElement));
         } catch (TimeoutException exception) {
+            log.error(myElement, exception);
         }
     }
 
-    void waitWhileElementPresent(WebElement my_element) {
+    void waitWhileElementPresent(WebElement myElement) {
         try {
-            wait.until(ExpectedConditions.visibilityOf(my_element));
+            wait.until(ExpectedConditions.visibilityOf(myElement));
 
         } catch (TimeoutException exception) {
+            log.error(myElement, exception);
         }
     }
 

@@ -1,7 +1,6 @@
 package pages.window;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,8 +10,6 @@ import pages.CurrentMeetingPage;
 import pages.errorWindow.ErrorByMeetingScheduling;
 import pages.mainPageTab.PlanningTabPage;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class WindowMeetingScheduling {
