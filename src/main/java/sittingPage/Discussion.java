@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Discussion {
 
-    WebDriver webDriver;
-    Actions actions;
+   private WebDriver webDriver;
+   private Actions actions;
 
     @FindBy(xpath = "//div[@class=' x-panel chatClass x-border-panel']//span[@class='titlePanel']")
     private WebElement headerDiscussion;

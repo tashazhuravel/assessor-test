@@ -10,8 +10,8 @@ import java.util.List;
 
 public class SelectedQuestion {
 
-    WebDriver webDriver;
-    Actions actions;
+    private WebDriver webDriver;
+    private Actions actions;
 
     @FindBy(xpath = "//div[@id='planningQuestionButtonSave']//button")
     private WebElement saveQuestionButton;

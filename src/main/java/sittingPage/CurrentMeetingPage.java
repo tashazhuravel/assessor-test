@@ -7,7 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.AgendaPage;
+import pages.MainPage;
 import pages.mainPageTab.PlanningTabPage;
+import pages.window.WindowAddUnllocatedQuestion;
+import pages.window.WindowEditMeetingRequisites;
+import pages.window.WindowKindOfQuestion;
 
 import java.util.List;
 import java.util.logging.XMLFormatter;
@@ -70,6 +75,9 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//div[@class=' x-window']")
     private WebElement windowAddUnallocatedQuestion;
 
+    @FindBy(xpath = "//div[@id='winPlanningControlAttributesButton']")
+    private  WebElement windowEditRequisitesSitting;
+
     @FindBy(xpath = "//table[@id='btnSecretaryBack']//button")
     private WebElement backOnListSitting;
 
@@ -96,10 +104,36 @@ public class CurrentMeetingPage {
         return result;
     }
 
+    public WindowEditMeetingRequisites clickEditRequisitesSitting(){
+        actions.moveToElement(editRequisites).click().perform();
+        return new WindowEditMeetingRequisites(webDriver);
+    }
+
     public PlanningTabPage clickBackOnListSitting() {
         actions.moveToElement(backOnListSitting).click().perform();
         return new PlanningTabPage(webDriver);
     }
+
+    public MainPage clickCancelSitting(){
+        actions.moveToElement(cancelSittingButton).click().perform();
+        return new MainPage(webDriver);
+    }
+
+    public WindowKindOfQuestion clickCreateNewQuestion(){
+        actions.moveToElement(createNewQuestionButton).click().perform();
+        return new WindowKindOfQuestion(webDriver);
+    }
+
+    public WindowAddUnllocatedQuestion clickAddUnllocatedQuestion(){
+        actions.moveToElement(addUnallocatedQuestionButton).click().perform();
+        return new WindowAddUnllocatedQuestion(webDriver);
+    }
+
+    public AgendaPage clickAgendaButton(){
+        actions.moveToElement(agendaButton).click().perform();
+        return new AgendaPage(webDriver);
+    }
+
 
     public WebElement getInformationFieldAboutSitting() {
         return informationFieldAboutSitting;
@@ -111,6 +145,10 @@ public class CurrentMeetingPage {
 
     public WebElement getWindowAddUnallocatedQuestion() {
         return windowAddUnallocatedQuestion;
+    }
+
+    public WebElement getWindowEditRequisitesSitting() {
+        return windowEditRequisitesSitting;
     }
 }
 
