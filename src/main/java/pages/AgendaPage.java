@@ -1,6 +1,5 @@
 package pages;
 
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +9,7 @@ import pages.attentionWindow.AttentionWindow;
 import pages.messageWindow.MessageWindowAgenda;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
+import sittingPage.CurrentMeetingPage;
 
 public class AgendaPage {
     private WebDriver webDriver;

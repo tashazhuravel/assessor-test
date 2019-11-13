@@ -8,6 +8,7 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowMeetingScheduling;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
+import sittingPage.CurrentMeetingPage;
 
 public class AssessorSite {
 

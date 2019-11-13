@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.CurrentMeetingPage;
+import sittingPage.CurrentMeetingPage;
 
 import java.util.List;
 

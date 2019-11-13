@@ -3,7 +3,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import pages.CurrentMeetingPage;
+import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
 import pages.window.WindowMeetingScheduling;
 import utils.DateUtil;

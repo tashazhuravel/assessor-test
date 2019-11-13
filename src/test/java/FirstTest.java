@@ -2,7 +2,7 @@ import dataBase.AssessorService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import pages.CurrentMeetingPage;
+import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
 import pages.UnallocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
