@@ -19,7 +19,7 @@ public class AssessorService implements AssessorServiceImp {
         List<String> roomsName = new ArrayList<>();
         ResultSet resultSet;
         try {
-            resultSet = statement.executeQuery("SELECT r.name FROM rooms r ORDER BY r.name ASC");
+            resultSet = statement.executeQuery("SELECT name FROM rooms ORDER BY name ASC");
             while (resultSet.next()) {
                 roomsName.add(resultSet.getString("name"));
             }

@@ -115,4 +115,6 @@ public class WindowEditMeetingRequisites {
     public void inputNumberSitting(String number){ numberSittingField.sendKeys(number);}
 
     public String getStartTimeText(){return startTimeField.getText();}
+
+
 }

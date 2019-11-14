@@ -1,8 +1,10 @@
 import dataBase.AssessorService;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
 import pages.window.WindowMeetingScheduling;
@@ -13,6 +15,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PlaningSittingTest extends BaseWebDriverTest {
 
     public PlaningSittingTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
@@ -23,8 +26,8 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
     }
 
-    @Before
-    public void setUp() {
+    @Test
+    public void authorization() {
         assessorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
@@ -34,7 +37,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void createPlanning() {
         log.info("Проверка модального окна 'Планирование заседания'");
         planningTabPage = assessorSite.getPlanningPage();
