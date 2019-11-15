@@ -8,11 +8,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
 
-public class WindowUploadEditedText {
+public class WindowUploadFile {
     private WebDriver webDriver;
     private Actions actions;
 
-    By headerWindowUploadEditedText = By.xpath("//div[@class=' x-window']//span");
+    By headerWindowUploadFile = By.xpath("//div[@class=' x-window']//span");
 
     @FindBy(xpath = "//div[@class=' x-window']//input[@name='file']")
     WebElement inputFile;
@@ -26,7 +26,7 @@ public class WindowUploadEditedText {
     @FindBy(xpath = "(//div[@class=' x-window']//button)[3]")
     WebElement  cancelUploadFileButton;
 
-    public WindowUploadEditedText(WebDriver webDriver){
+    public WindowUploadFile(WebDriver webDriver){
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver,this);
@@ -44,8 +44,8 @@ public class WindowUploadEditedText {
         return new AgendaPage(webDriver);
     }
 
-    public By getHeaderWindowUploadEditedText() {
-        return headerWindowUploadEditedText;
+    public By getHeaderWindowUploadFile() {
+        return headerWindowUploadFile;
     }
 
 }

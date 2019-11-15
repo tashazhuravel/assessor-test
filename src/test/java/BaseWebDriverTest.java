@@ -98,6 +98,8 @@ public class BaseWebDriverTest {
                 .ignoring(NoSuchElementException.class);
     }
 
+    //void initAssessorDataBase(){ assessorService = new assessorService(database.stmp);}
+
     class ScreenshotRule implements MethodRule {
         public Statement apply(final Statement statement, final FrameworkMethod frameworkMethod, final Object o) {
             return new Statement() {

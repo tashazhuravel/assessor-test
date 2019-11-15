@@ -28,7 +28,6 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
     @Test
     public void authorization() {
-        assessorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
@@ -40,6 +39,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
     //@Ignore
     public void createPlanning() {
         log.info("Проверка модального окна 'Планирование заседания'");
+        assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();

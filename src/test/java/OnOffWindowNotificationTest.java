@@ -1,6 +1,8 @@
 import dataBase.AssessorService;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebElement;
 import pages.MainPage;
 import pages.window.WindowNotification;
@@ -8,6 +10,7 @@ import pages.window.WindowUserAccount;
 
 import static org.junit.Assert.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OnOffWindowNotificationTest extends BaseWebDriverTest{
     public OnOffWindowNotificationTest(String login, String password, String fioUserAccount, String unllocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
@@ -18,9 +21,8 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
 
     }
 
-    @Before
-    public void setUp() {
-        assessorService = new AssessorService(dataBaseConnection.stmt);
+    @Test
+    public void  authorization() {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();

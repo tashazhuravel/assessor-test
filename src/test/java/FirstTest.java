@@ -27,7 +27,6 @@ public class FirstTest extends BaseWebDriverTest {
 
     @Test
     public void authorization() {
-        assessorService = new AssessorService(dataBaseConnection.stmt);
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         MainPage mainPage = authorizationPage.setLogin(login).setPassword(password).clickLoginButton();

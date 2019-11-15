@@ -8,11 +8,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
+import pages.InformationTablePage;
 import pages.MainPage;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAddUnllocatedQuestion;
 import pages.window.WindowEditMeetingRequisites;
 import pages.window.WindowKindOfQuestion;
+import pages.window.WindowMaximizedInformationTable;
 
 import java.util.List;
 import java.util.logging.XMLFormatter;
@@ -81,7 +83,7 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//table[@id='btnSecretaryBack']//button")
     private WebElement backOnListSitting;
 
-    By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");
+    private By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");
 
 
     public CurrentMeetingPage(WebDriver webDriver) {
@@ -133,6 +135,14 @@ public class CurrentMeetingPage {
         actions.moveToElement(agendaButton).click().perform();
         return new AgendaPage(webDriver);
     }
+
+    public InformationTablePage clickOpenInformationTableButton(){
+        actions.moveToElement(openInformationTableButton).click().perform();
+        return new InformationTablePage(webDriver);
+    }
+
+
+
 
 
     public WebElement getInformationFieldAboutSitting() {

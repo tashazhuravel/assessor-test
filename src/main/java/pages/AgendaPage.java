@@ -12,11 +12,13 @@ import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import sittingPage.CurrentMeetingPage;
 
 public class AgendaPage {
+
     private WebDriver webDriver;
+
     private Actions actions;
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaClose']")
-    private WebElement backFromQuestionListButton;
+    private WebElement backToQuestionListButton;
 
     @FindBy(xpath = "//table[@id='btnSecretaryAgendaRefresh']//button")
     private WebElement reformAgendaButton;
@@ -53,7 +55,7 @@ public class AgendaPage {
     }
 
     public CurrentMeetingPage clickBackFromQuestionListButton(){
-        actions.moveToElement(backFromQuestionListButton).click().perform();
+        actions.moveToElement(backToQuestionListButton).click().perform();
         return new CurrentMeetingPage(webDriver);
     }
 
