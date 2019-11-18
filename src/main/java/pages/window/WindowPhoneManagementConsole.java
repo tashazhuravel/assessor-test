@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sittingPage.CurrentMeetingPage;
 
-public class WindowTelephoneManagementConsole {
+public class WindowPhoneManagementConsole {
 
     private WebDriver webDriver;
     private Actions actions;
@@ -26,7 +26,7 @@ public class WindowTelephoneManagementConsole {
 
     By headerTelephoneConsole = By.xpath("//div[@class='x-window x-resizable-pinned']//span[@class='x-window-header-text']");
 
-    public WindowTelephoneManagementConsole(WebDriver webDriver) {
+    public WindowPhoneManagementConsole(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);

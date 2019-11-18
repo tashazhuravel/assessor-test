@@ -8,16 +8,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
+import pages.IllustrationsPage;
 import pages.InformationTablePage;
 import pages.MainPage;
 import pages.mainPageTab.PlanningTabPage;
-import pages.window.WindowAddUnllocatedQuestion;
-import pages.window.WindowEditMeetingRequisites;
-import pages.window.WindowKindOfQuestion;
-import pages.window.WindowMaximizedInformationTable;
+import pages.window.*;
 
-import java.util.List;
-import java.util.logging.XMLFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +25,7 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//textarea[@id='planningCommittee']")
     private WebElement informationFieldAboutSitting;
 
-    @FindBy(xpath = "//div[@id='planningSittingState']//div[text()]")
+    @FindBy(xpath = "//div[@id='planningSittingState']/div/div")
     private WebElement statusField;
 
     @FindBy(xpath = "//button[@class=' x-btn-text btnSittingAttributesEdit']")
@@ -61,6 +57,9 @@ public class CurrentMeetingPage {
 
     @FindBy(xpath = "//table[@id='btnSecretaryProtocolOpen']//button")
     private WebElement openProtocol;
+
+    @FindBy(xpath = "//table[@id='planningQuestionButtonVoteBulk']//button")
+    private WebElement openGroupVoteButton;
 
     @FindBy(xpath = "//table[@id='btnSecretarySittingOpen']//button")
     private WebElement openSittingButton;
@@ -141,6 +140,24 @@ public class CurrentMeetingPage {
         return new InformationTablePage(webDriver);
     }
 
+    public IllustrationsPage clickOpenPicturesButton(){
+        actions.moveToElement(openPicturesButton).click().perform();
+        return new IllustrationsPage(webDriver);
+    }
+
+    public WindowPhoneManagementConsole clickOpenPhonesConsoleButton(){
+        actions.moveToElement(openPhonesConsoleButton).click().perform();
+        return new WindowPhoneManagementConsole(webDriver);
+    }
+
+    public CurrentMeetingPage clickOpenSittingButton(){
+        actions.moveToElement(openSittingButton).click().perform();
+        return this;
+    }
+
+
+
+
 
 
 
@@ -159,6 +176,10 @@ public class CurrentMeetingPage {
 
     public WebElement getWindowEditRequisitesSitting() {
         return windowEditRequisitesSitting;
+    }
+
+    public WebElement getStatusField() {
+        return statusField;
     }
 }
 
