@@ -7,10 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.AgendaPage;
-import pages.IllustrationsPage;
-import pages.InformationTablePage;
-import pages.MainPage;
+import pages.*;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.*;
 
@@ -154,6 +151,18 @@ public class CurrentMeetingPage {
         actions.moveToElement(openSittingButton).click().perform();
         return this;
     }
+
+    public WindowOpenGroupVote clickGroupVoteButton(){
+        actions.moveToElement(openGroupVoteButton).click().perform();
+        return new WindowOpenGroupVote(webDriver);
+    }
+
+    public VotingResultsProtocolPage clickOpenVotingResultProtocol(){
+        actions.moveToElement(openVotingResultProtocol).click().perform();
+        return new VotingResultsProtocolPage(webDriver);
+    }
+
+
 
 
 

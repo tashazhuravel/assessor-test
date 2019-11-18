@@ -9,6 +9,7 @@ import pages.attentionWindow.AttentionWindow;
 import pages.messageWindow.MessageWindowAgenda;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
+import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
 
 public class AgendaPage {
@@ -89,9 +90,9 @@ public class AgendaPage {
         return this;
     }
 
-    public AgendaPage clickUploadEditedTextButton(){
+    public WindowUploadFile clickUploadEditedTextButton(){
         actions.moveToElement(uploadEditedTextButton).click().perform();
-        return this;
+        return new WindowUploadFile(webDriver);
     }
 
     public AgendaPage clickEditInWordButton(){
