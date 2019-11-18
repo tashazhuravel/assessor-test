@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
 import pages.UnallocatedQuestions;
-import pages.window.WindowMeetingScheduling;
+import pages.window.WindowSittingPlanning;
 
 import java.util.List;
 
@@ -37,9 +37,9 @@ public class PlanningTabPage extends MainPage {
     private By windowCreatePlanning = By.cssSelector(".x-window-header-text");
 
 
-    public WindowMeetingScheduling clickPlanningEventButton() {
+    public WindowSittingPlanning clickPlanningEventButton() {
         planningEventButton.click();
-        return new WindowMeetingScheduling(webDriver);
+        return new WindowSittingPlanning(webDriver);
     }
 
     public UnallocatedQuestions clickUnallocatedQuestionsButton() {

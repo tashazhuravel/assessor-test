@@ -12,7 +12,7 @@ import pages.mainPageTab.PlanningTabPage;
 
 import java.util.List;
 
-public class WindowMeetingScheduling {
+public class WindowSittingPlanning {
 
     private WebDriver webDriver;
 
@@ -77,7 +77,7 @@ public class WindowMeetingScheduling {
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     private WebElement closeButtonByX;
 
-    public WindowMeetingScheduling(WebDriver webDriver) {
+    public WindowSittingPlanning(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
@@ -158,7 +158,7 @@ public class WindowMeetingScheduling {
         dateField.sendKeys(dateSitting);
     }
 
-    public WindowMeetingScheduling clickCalendarButton() {
+    public WindowSittingPlanning clickCalendarButton() {
         actions.moveToElement(calendarButton).click().perform();
         try {
             Thread.sleep(1000L);
@@ -172,12 +172,12 @@ public class WindowMeetingScheduling {
         return calendarTable.isEmpty();
     }
 
-    public WindowMeetingScheduling clickDateInCalendar() {
+    public WindowSittingPlanning clickDateInCalendar() {
         calendarTable.iterator().next().click();
         return this;
     }
 
-    public WindowMeetingScheduling clickTodayButton() {
+    public WindowSittingPlanning clickTodayButton() {
         actions.moveToElement(todayButton).click().perform();
         return this;
     }
@@ -201,7 +201,7 @@ public class WindowMeetingScheduling {
         return selectSittingTimeStart;
     }
 
-    public WindowMeetingScheduling clickTimeStartInDropDown(){
+    public WindowSittingPlanning clickTimeStartInDropDown(){
         selectSittingTimeStart.iterator().next().click();
         return this;
     }
@@ -220,7 +220,7 @@ public class WindowMeetingScheduling {
         }
         return selectSittingTimeEnd;
     }
-    public WindowMeetingScheduling clickTimeEndInDropDown(){
+    public WindowSittingPlanning clickTimeEndInDropDown(){
         selectSittingTimeEnd.iterator().next().click();
         return this;
     }

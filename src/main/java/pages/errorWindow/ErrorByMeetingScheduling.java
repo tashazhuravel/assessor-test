@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.window.WindowMeetingScheduling;
+import pages.window.WindowSittingPlanning;
 
 import java.util.List;
 
@@ -37,13 +37,13 @@ public class ErrorByMeetingScheduling {
         return errorMessage.iterator().next().getText();
     }
 
-    public WindowMeetingScheduling clickOkErrorButton() {
+    public WindowSittingPlanning clickOkErrorButton() {
         actions.moveToElement(errorOkButton).click().perform();
-        return new WindowMeetingScheduling(webDriver);
+        return new WindowSittingPlanning(webDriver);
     }
 
-    public WindowMeetingScheduling clickCloseErrorButton() {
+    public WindowSittingPlanning clickCloseErrorButton() {
         actions.moveToElement(errorCloseButton).click().perform();
-        return new WindowMeetingScheduling(webDriver);
+        return new WindowSittingPlanning(webDriver);
     }
 }

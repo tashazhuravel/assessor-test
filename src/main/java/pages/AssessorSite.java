@@ -5,7 +5,7 @@ import pages.mainPageTab.ArchiveTabPage;
 import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
-import pages.window.WindowMeetingScheduling;
+import pages.window.WindowSittingPlanning;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
 import sittingPage.CurrentMeetingPage;
@@ -50,8 +50,8 @@ public class AssessorSite {
         return new WindowAboutSystem(webDriver);
     }
 
-    public WindowMeetingScheduling getWindowMeetingScheduling() {
-        return new WindowMeetingScheduling(webDriver);
+    public WindowSittingPlanning getWindowMeetingScheduling() {
+        return new WindowSittingPlanning(webDriver);
     }
 
     public WindowNotification getWindowNotification(){ return new WindowNotification(webDriver);}

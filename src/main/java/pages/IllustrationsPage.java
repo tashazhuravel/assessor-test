@@ -30,49 +30,90 @@ public class IllustrationsPage {
     private WebElement noImageText;
 
     @FindBy(xpath = "//div[@id='pictureView']//ul/li")
-    private List<WebElement> usersFIOTab;
+    protected List<WebElement> usersFIOTab;
 
     @FindBy(xpath = "//div[@id='pictureView']//ul/li//span/span")
-    private List<WebElement> usersFIOTabText;
+    protected List<WebElement> usersFIOTabText;
 
     @FindBy(xpath = "//span[@id='currentQuestionName']")
-    private WebElement subjectSelectedQuestion;
+    protected WebElement subjectSelectedQuestion;
 
-    @FindBy(xpath = "//table[@id='sharePictureButton']//button")  //TODO attribute pressed change text button Начать показ/Прекратить показ
-    private WebElement slideshowButton;
+    @FindBy(xpath = "//table[@id='sharePictureButton']//button")
+    //TODO attribute pressed change text button Начать показ/Прекратить показ
+    protected WebElement slideshowButton;
 
     @FindBy(xpath = "//table[@id='deletePictureButton']//button")
-    private WebElement deleteImageButton;
+    protected WebElement deleteImageButton;
 
     @FindBy(xpath = "//div[@id='pageSelector']//div/img")
-    private WebElement imagePageButton;
+    protected WebElement imagePageButton;
 
     @FindBy(xpath = "//div[@id='pageSelector']//div/span")
-    private WebElement imagePageNumber;
+    protected WebElement imagePageNumber;
 
     @FindBy(xpath = "//div[@id='pictureViewPanel']//div/img")
-    private WebElement imageContent;
+    protected WebElement imageContent;
 
     private By headerIllustrations = By.xpath("(//div[@id='sittingContent']//div/span)[1]");
 
-    public IllustrationsPage(WebDriver webDriver){
+    public IllustrationsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickBackToQuestionListButton(){
+    public CurrentMeetingPage clickBackToQuestionListButton() {
         actions.moveToElement(backToQuestionListButton).click().perform();
         return new CurrentMeetingPage(webDriver);
     }
 
-    public WindowUploadFile clickAddIllustrationButton(){
+    public WindowUploadFile clickAddIllustrationButton() {
         actions.moveToElement(addIllustrationButton).click().perform();
         return new WindowUploadFile(webDriver);
     }
 
-    public WindowMaximizedIllustration clickFullScreenModeButton(){
+    public WindowMaximizedIllustration clickFullScreenModeButton() {
         actions.moveToElement(fullScreenModeButton).click().perform();
         return new WindowMaximizedIllustration(webDriver);
+    }
+
+    public String getFIOParticipantTab() {
+        return usersFIOTabText.iterator().next().getAttribute("value");
+    }
+
+    public IllustrationsPage clickTabFIOParticipant() {
+        usersFIOTab.iterator().next().click();
+        return this;
+    }
+
+    public String getSubjectSelectedQuestionText() {
+        return subjectSelectedQuestion.getAttribute("value");
+    }
+
+    public IllustrationsPage clickSlideshowButton() {
+        actions.moveToElement(slideshowButton).click().perform();
+        return this;
+    }
+
+    public IllustrationsPage clickDeleteImageButton() {
+        actions.moveToElement(deleteImageButton).click().perform();
+        return this;
+    }
+
+    public IllustrationsPage clickImagePageButton() {
+        actions.moveToElement(imagePageButton).click().perform();
+        return this;
+    }
+
+    public String getImagePageNumber() {
+        return imagePageNumber.getText();
+    }
+
+    public WebElement getImageContent() {
+        return imageContent;
+    }
+
+    public By getHeaderIllustrations() {
+        return headerIllustrations;
     }
 }

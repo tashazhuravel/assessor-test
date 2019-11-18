@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
-public class EventHandler  implements WebDriverEventListener {
+public class EventHandler implements WebDriverEventListener {
 
     public static final Logger LOG = LogManager.getLogger("assessorLogger");
 
@@ -94,10 +94,12 @@ public class EventHandler  implements WebDriverEventListener {
 
     @Override
     public void beforeChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+        //LOG.debug("Value before" + element.getAttribute("value"));
     }
 
     @Override
     public void afterChangeValueOf(WebElement element, WebDriver driver, CharSequence[] keysToSend) {
+       // LOG.debug("Value after" + element.getAttribute("value"));
     }
 
     @Override
@@ -141,6 +143,7 @@ public class EventHandler  implements WebDriverEventListener {
     }
 
     @Override
-    public void afterGetText(WebElement element, WebDriver driver, String text) {LOG.debug("Text found " + text);
+    public void afterGetText(WebElement element, WebDriver driver, String text) {
+        LOG.debug("Text found " + text);
     }
 }

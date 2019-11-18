@@ -1,13 +1,12 @@
 import dataBase.AssessorService;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
-import pages.window.WindowMeetingScheduling;
+import pages.window.WindowSittingPlanning;
 import utils.DateUtil;
 
 import java.util.List;
@@ -42,55 +41,55 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
-        WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-        assertTrue("Окно Планирование заседания не отрылося", isElementPresent(windowMeetingScheduling.getHeaderWindowWettingScheduling()));
+        WindowSittingPlanning windowSittingPlanning = planningTabPage.clickPlanningEventButton();
+        assertTrue("Окно Планирование заседания не отрылося", isElementPresent(windowSittingPlanning.getHeaderWindowWettingScheduling()));
 
         log.info("Проверка поля Номер");
-        String numberSitting = windowMeetingScheduling.getSittingNumberText();
+        String numberSitting = windowSittingPlanning.getSittingNumberText();
         assertFalse("Заседание с таким номером уже существует.", planningTabPage.getAllNumberCommitteeButton().stream().anyMatch(item -> numberSitting.equals(item.getText())));
 
         log.info("Проверка поля 'Место заседания'");
-        assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowMeetingScheduling.getSittingPlaceText());
+        assertEquals("Поле 'Место заседания' не может быть пустым, либо выбрано другое место заседания", sittingPlace, windowSittingPlanning.getSittingPlaceText());
         // windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace();
         List<String> select = assessorService.getNamesRoom();
-        verifyAutocompleteOptions(windowMeetingScheduling.clickAndOpenSelectDropDownPlanningPlace(), select);
-        windowMeetingScheduling.setSelectPlanningPlace("Переговорная");
-        assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowMeetingScheduling.getCityFieldText());
-        windowMeetingScheduling.typeCityField("Витебск, пр-т Строителей 11а");
-        System.out.println("Город" + windowMeetingScheduling.getCityFieldText());
+        verifyAutocompleteOptions(windowSittingPlanning.clickAndOpenSelectDropDownPlanningPlace(), select);
+        windowSittingPlanning.setSelectPlanningPlace("Переговорная");
+        assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowSittingPlanning.getCityFieldText());
+        windowSittingPlanning.typeCityField("Витебск, пр-т Строителей 11а");
+        System.out.println("Город" + windowSittingPlanning.getCityFieldText());
 
         log.info("Проверка поля 'Дата'");
-        assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getDateFieldText());
-        assertEquals("По умолчанию должна быть отображена текущая дата", DateUtil.getCurrentDateAsString(), windowMeetingScheduling.getDateFieldText());
-        windowMeetingScheduling.clickCalendarButton();
-        assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowMeetingScheduling.emptyCalendar());
-        windowMeetingScheduling.clickDateInCalendar();
-        System.out.println(windowMeetingScheduling.getDateFieldText());
-        windowMeetingScheduling.clickCalendarButton().clickTodayButton();
-        System.out.println(windowMeetingScheduling.getDateFieldText());
+        assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowSittingPlanning.getDateFieldText());
+        assertEquals("По умолчанию должна быть отображена текущая дата", DateUtil.getCurrentDateAsString(), windowSittingPlanning.getDateFieldText());
+        windowSittingPlanning.clickCalendarButton();
+        assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowSittingPlanning.emptyCalendar());
+        windowSittingPlanning.clickDateInCalendar();
+        System.out.println(windowSittingPlanning.getDateFieldText());
+        windowSittingPlanning.clickCalendarButton().clickTodayButton();
+        System.out.println(windowSittingPlanning.getDateFieldText());
 
         //--Время начала заседания
-        System.out.println(windowMeetingScheduling.getTimeStartText());
-        assertNotEquals("Поле время начала заседания не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getTimeStartText());
-        windowMeetingScheduling.clickAndOpenDropDownSelectSittingTimeStart();
-        windowMeetingScheduling.clickTimeStartInDropDown();
-        System.out.println(windowMeetingScheduling.getTimeStartText());
+        System.out.println(windowSittingPlanning.getTimeStartText());
+        assertNotEquals("Поле время начала заседания не может быть пустым", StringUtils.EMPTY, windowSittingPlanning.getTimeStartText());
+        windowSittingPlanning.clickAndOpenDropDownSelectSittingTimeStart();
+        windowSittingPlanning.clickTimeStartInDropDown();
+        System.out.println(windowSittingPlanning.getTimeStartText());
 
         //--Время окончания заседания
-        System.out.println(windowMeetingScheduling.getTimeEndText());
-        assertNotEquals("Поле время окончания заседания не может быть пустым", StringUtils.EMPTY, windowMeetingScheduling.getTimeEndText());
-        windowMeetingScheduling.clickAndOpenSelectSittingTimeEnd();
-        windowMeetingScheduling.clickTimeEndInDropDown();
-        System.out.println(windowMeetingScheduling.getTimeEndText());
+        System.out.println(windowSittingPlanning.getTimeEndText());
+        assertNotEquals("Поле время окончания заседания не может быть пустым", StringUtils.EMPTY, windowSittingPlanning.getTimeEndText());
+        windowSittingPlanning.clickAndOpenSelectSittingTimeEnd();
+        windowSittingPlanning.clickTimeEndInDropDown();
+        System.out.println(windowSittingPlanning.getTimeEndText());
 
         //--Список участников
         List<String> selectParticipant = assessorService.getFIOParticipantSitting();
         System.out.println(selectParticipant);
-        verifyAutocompleteOptionsText(changeWordPressSymbol(windowMeetingScheduling.getParticipantsList()), selectParticipant);
+        verifyAutocompleteOptionsText(changeWordPressSymbol(windowSittingPlanning.getParticipantsList()), selectParticipant);
 
 
         //--Сохранение запланированного заседания
-        CurrentMeetingPage currentMeetingPage = windowMeetingScheduling.clickSaveButtonPlanning();
+        CurrentMeetingPage currentMeetingPage = windowSittingPlanning.clickSaveButtonPlanning();
         String selectSecretary = assessorService.getFIOSecretaryOfCommittee().get(0);
         assertThat(".", String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextStatusField()));
     }
@@ -100,10 +99,10 @@ public class PlaningSittingTest extends BaseWebDriverTest {
     public void checkCancelAndCloseButtonPlanning() {
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
-        WindowMeetingScheduling windowMeetingScheduling = planningTabPage.clickPlanningEventButton();
-        windowMeetingScheduling.clickCancelButtonPlanningSitting();
+        WindowSittingPlanning windowSittingPlanning = planningTabPage.clickPlanningEventButton();
+        windowSittingPlanning.clickCancelButtonPlanningSitting();
         planningTabPage.clickPlanningEventButton();
-        windowMeetingScheduling.clickCloseButtonPlanningSitting();
+        windowSittingPlanning.clickCloseButtonPlanningSitting();
     }
 
 

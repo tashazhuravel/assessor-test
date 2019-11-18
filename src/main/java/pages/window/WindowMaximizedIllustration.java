@@ -15,5 +15,10 @@ public class WindowMaximizedIllustration extends IllustrationsPage {
         super(webDriver);
     }
 
-    public IllustrationsPage clickTab( )
+   public IllustrationsPage clickTabFIOParticipant(){
+        usersFIOTab.iterator().next().click();
+        return this;
+   }
+
+
 }
