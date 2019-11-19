@@ -51,6 +51,7 @@ public class FirstTest extends BaseWebDriverTest {
         windowAboutSystem.closeWindowAboutSystemByX();
         mainPage.clickButtonAboutSystem();
         windowAboutSystem.closeWindowAboutSystemByButton();
+
     }
 
     @Test
@@ -114,6 +115,8 @@ public class FirstTest extends BaseWebDriverTest {
             windowNotification.clickCloseButton();
             assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
         }
+
+
     }
 
     @Test
