@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.window.WindowMailingNotificationInvitations;
+import pages.window.WindowsChooseQuestions;
+import sittingPage.CurrentMeetingPage;
 
 public class ProtocolPage {
 
@@ -32,10 +35,44 @@ public class ProtocolPage {
     @FindBy(xpath = "//table[@id='btnSecretarySignedProtocolSend']//button")
     private WebElement sendForReviewButton;
 
+    @FindBy(xpath = "//table[@id='protocolDownloadBtn']//button")
+    private WebElement downloadThisTextButton;
+
+    @FindBy(xpath = "//table[@id='protocolUploadBtn']//button")
+    private WebElement uploadEditedTextButton;
+
+    @FindBy(xpath = "//table[@id='agendaEditBtn']//button")
+    private WebElement editInWordButton;
+
+    @FindBy(xpath = "//div[@class='textLayer']/div")
+    private WebElement textFromProtocol;
+
     public ProtocolPage(WebDriver webDriver){
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver,this);
     }
+
+    public CurrentMeetingPage clickCloseProtocolButton(){
+        actions.moveToElement(closeProtocol).click().perform();
+        return new CurrentMeetingPage(webDriver);
+    }
+
+    public ProtocolPage clickRefreshProtocolButton(){
+        actions.moveToElement(refreshProtocol).click().perform();
+        return this;
+    }
+
+    public WindowMailingNotificationInvitations clickSendProtocolButton(){
+        actions.moveToElement(sendProtocolButton).click().perform();
+        return new WindowMailingNotificationInvitations(webDriver);
+    }
+
+    public WindowsChooseQuestions clickCreateStatementButton(){
+        actions.moveToElement(createStatementButton).click().perform();
+        return new WindowsChooseQuestions(webDriver);
+    }
+
+
 
 }
