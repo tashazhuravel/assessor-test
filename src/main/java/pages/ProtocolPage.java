@@ -17,6 +17,21 @@ public class ProtocolPage {
     @FindBy(xpath = "//table[@id='btnSecretaryProtocolRefresh']//button")
     private WebElement refreshProtocol;
 
+    @FindBy(xpath = "//table[@id='btnSecretarySignedProtocolSend']//button")
+    private WebElement sendProtocolButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretaryProtocolRecord']//button")
+    private WebElement createStatementButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretaryProtocolEndorsement']//button")
+    private WebElement setMeetingStatusProtocolUnderApprovalButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretaryProtocolConfirm']//button")
+    private  WebElement setMeetingStatusProtocolApprovalButton;
+
+    @FindBy(xpath = "//table[@id='btnSecretarySignedProtocolSend']//button")
+    private WebElement sendForReviewButton;
+
     public ProtocolPage(WebDriver webDriver){
         this.webDriver = webDriver;
         actions = new Actions(webDriver);

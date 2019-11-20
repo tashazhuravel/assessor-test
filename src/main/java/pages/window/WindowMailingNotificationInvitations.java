@@ -16,6 +16,7 @@ public class WindowMailingNotificationInvitations {
     private Actions actions;
 
     private By headerNotificationInvitations = By.xpath("//div[@class='x-window-header x-unselectable x-window-draggable']//span");
+    private By headerMailing = By.xpath("//div[@class='x-window-header x-unselectable']//span");
 
     @FindBy(xpath = "//div[@id='checkboxgroup']//input")
     private List<WebElement> checkboxFIOParticipant;
@@ -110,5 +111,9 @@ public class WindowMailingNotificationInvitations {
 
     public By getHeaderNotificationInvitations() {
         return headerNotificationInvitations;
+    }
+
+    public By getHeaderMailing() {
+        return headerMailing;
     }
 }
