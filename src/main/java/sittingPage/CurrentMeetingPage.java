@@ -74,7 +74,7 @@ public class CurrentMeetingPage {
     private WebElement windowAddUnallocatedQuestion;
 
     @FindBy(xpath = "//div[@id='winPlanningControlAttributesButton']")
-    private  WebElement windowEditRequisitesSitting;
+    private WebElement windowEditRequisitesSitting;
 
     @FindBy(xpath = "//table[@id='btnSecretaryBack']//button")
     private WebElement backOnListSitting;
@@ -102,7 +102,7 @@ public class CurrentMeetingPage {
         return result;
     }
 
-    public WindowEditMeetingRequisites clickEditRequisitesSitting(){
+    public WindowEditMeetingRequisites clickEditRequisitesSitting() {
         actions.moveToElement(editRequisites).click().perform();
         return new WindowEditMeetingRequisites(webDriver);
     }
@@ -112,64 +112,65 @@ public class CurrentMeetingPage {
         return new PlanningTabPage(webDriver);
     }
 
-    public MainPage clickCancelSitting(){
+    public MainPage clickCancelSitting() {
         actions.moveToElement(cancelSittingButton).click().perform();
         return new MainPage(webDriver);
     }
 
-    public WindowKindOfQuestion clickCreateNewQuestion(){
+    public WindowKindOfQuestion clickCreateNewQuestion() {
         actions.moveToElement(createNewQuestionButton).click().perform();
         return new WindowKindOfQuestion(webDriver);
     }
 
-    public WindowAddUnllocatedQuestion clickAddUnllocatedQuestion(){
+    public WindowAddUnllocatedQuestion clickAddUnllocatedQuestion() {
         actions.moveToElement(addUnallocatedQuestionButton).click().perform();
         return new WindowAddUnllocatedQuestion(webDriver);
     }
 
-    public AgendaPage clickAgendaButton(){
+    public AgendaPage clickAgendaButton() {
         actions.moveToElement(agendaButton).click().perform();
         return new AgendaPage(webDriver);
     }
 
-    public InformationTablePage clickOpenInformationTableButton(){
+    public InformationTablePage clickOpenInformationTableButton() {
         actions.moveToElement(openInformationTableButton).click().perform();
         return new InformationTablePage(webDriver);
     }
 
-    public IllustrationsPage clickOpenPicturesButton(){
+    public IllustrationsPage clickOpenPicturesButton() {
         actions.moveToElement(openPicturesButton).click().perform();
         return new IllustrationsPage(webDriver);
     }
 
-    public WindowPhoneManagementConsole clickOpenPhonesConsoleButton(){
+    public WindowPhoneManagementConsole clickOpenPhonesConsoleButton() {
         actions.moveToElement(openPhonesConsoleButton).click().perform();
         return new WindowPhoneManagementConsole(webDriver);
     }
 
-    public CurrentMeetingPage clickOpenSittingButton(){
+    public CurrentMeetingPage clickOpenSittingButton() {
         actions.moveToElement(openSittingButton).click().perform();
         return this;
     }
 
-    public WindowOpenGroupVote clickGroupVoteButton(){
+    public WindowOpenGroupVote clickGroupVoteButton() {
         actions.moveToElement(openGroupVoteButton).click().perform();
         return new WindowOpenGroupVote(webDriver);
     }
 
-    public VotingResultsProtocolPage clickOpenVotingResultProtocol(){
+    public VotingResultsProtocolPage clickOpenVotingResultProtocol() {
         actions.moveToElement(openVotingResultProtocol).click().perform();
         return new VotingResultsProtocolPage(webDriver);
     }
 
+    public ProtocolPage clickOpenProtocol() {
+        actions.moveToElement(openProtocol).click().perform();
+        return new ProtocolPage(webDriver);
+    }
 
-
-
-
-
-
-
-
+    public WindowEditSittingRequisiteArchive clickPutMeetingMaterialsInArchive() {
+        actions.moveToElement(putMeetingMaterialsInArchiveButton).click().perform();
+        return new WindowEditSittingRequisiteArchive(webDriver);
+    }
 
     public WebElement getInformationFieldAboutSitting() {
         return informationFieldAboutSitting;

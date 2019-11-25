@@ -63,5 +63,7 @@ public class WindowsChooseQuestions {
         return new ProtocolPage(webDriver);
     }
 
-
+    public By getHeaderChooseQuestions() {
+        return headerChooseQuestions;
+    }
 }

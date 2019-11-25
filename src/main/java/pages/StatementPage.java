@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.window.WindowUploadFile;
+
+import java.util.List;
 
 public class StatementPage {
 
@@ -27,12 +30,43 @@ public class StatementPage {
     private WebElement refreshStatement;
 
     @FindBy(xpath = "//div[@class='textLayer']/div")
-    private WebElement textFromProtocol;
+    private WebElement textFromStatement;
+
+    @FindBy(xpath = "//table[@id='excerptSendBtn']//button")
+    private WebElement sendStatement;
 
 
-    public StatementPage(WebDriver webDriver){
+    public StatementPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
+    }
+
+    public StatementPage clickDownloadThisTextButton(){
+        actions.moveToElement(downloadThisText).click().perform();
+        return this;
+    }
+
+    public WindowUploadFile clickUploadEditedTextButton(){
+        actions.moveToElement(uploadEditedTextButton).click().perform();
+        return new WindowUploadFile(webDriver);
+    }
+
+    public StatementPage clickEditInWordButton(){
+        actions.moveToElement(editInWordButton).click().perform();
+        return this;
+    }
+
+    public StatementPage clickRefreshStatement(){
+        actions.moveToElement(refreshStatement).click().perform();
+        return this;
+    }
+
+    public By getHeaderStatement() {
+        return headerStatement;
+    }
+
+    public WebElement getTextFromStatement() {
+        return textFromStatement;
     }
 }
