@@ -57,4 +57,48 @@ public class QuestionList {
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
     }
+
+    public QuestionList clickHideQuestionListButton(){
+        actions.moveToElement(hideQuestionListButton).click().perform();
+        return this;
+    }
+
+    public String getQuestionListText(){return questionListText.iterator().next().getText();}
+
+    public QuestionList selectQuestionList(){
+        questionList.iterator().next().click();
+        return this;
+    }
+
+    public WebElement getHeaderQuestionList() {
+        return headerQuestionList;
+    }
+
+    public List<WebElement> getQuestionStatusVotingWork() {
+        return questionStatusVotingWork;
+    }
+
+    public List<WebElement> getQuestionStatusVotingInternal() {
+        return questionStatusVotingInternal;
+    }
+
+    public List<WebElement> getQuestionStatusVotingAnonym() {
+        return questionStatusVotingAnonym;
+    }
+
+    public List<WebElement> getQuestionStatusVotingAnonymWork() {
+        return questionStatusVotingAnonymWork;
+    }
+
+    public List<WebElement> getQuestionStatusVoted() {
+        return questionStatusVoted;
+    }
+
+    public List<WebElement> getQuestionStatusAllVoted() {
+        return questionStatusAllVoted;
+    }
+
+    public WebElement getQuestionStatusExamine() {
+        return questionStatusExamine;
+    }
 }
