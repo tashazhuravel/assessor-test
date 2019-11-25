@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.MainPage;
+import pages.attentionWindow.AttentionWindow;
 
 public class WindowEditSittingRequisiteArchive {
 
@@ -35,17 +37,54 @@ public class WindowEditSittingRequisiteArchive {
     @FindBy(xpath = "(//div[@class=' x-window']//table[@class='x-btn x-btn-noicon']//button)[2]")
     private WebElement cancelButton;
 
-    public WindowEditSittingRequisiteArchive(WebDriver webDriver){
+    public WindowEditSittingRequisiteArchive(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 
+    public void typeNumberProtocol(String number) {
+        numberProtocolField.sendKeys(number);
+    }
 
+    public String getNumberProtocol() {
+        return numberProtocolField.getText();
+    }
 
+    public void typeDateProtocol(String date) {
+        dateProtocolField.sendKeys(date);
+    }
 
+    public String getDateProtocol() {
+        return dateProtocolField.getText();
+    }
 
+    public WindowEditSittingRequisiteArchive clickCalendarButton() {
+        actions.moveToElement(calendar).click().perform();
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
 
+    public WindowEditSittingRequisiteArchive clickTodayButton() {
+        actions.moveToElement(todayButton).click().perform();
+        return this;
+    }
 
+    public AttentionWindow clickSaveButton() {
+        actions.moveToElement(saveButton).click().perform();
+        return new AttentionWindow(webDriver);
+    }
 
+    public MainPage clickCancelButton() {
+        actions.moveToElement(cancelButton).click().perform();
+        return new MainPage(webDriver);
+    }
+
+    public By getHeaderWindow() {
+        return headerWindow;
+    }
 }

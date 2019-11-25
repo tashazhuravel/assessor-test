@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sittingPage.CurrentMeetingPage;
 
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class WindowEditMeetingRequisites {
     private WebElement sittingPlaceDropDownButton;
 
     @FindBy(xpath = "(//div[@class='x-combo-list-inner'])[3]/div")
-    private WebElement sittingPlaceDropDown;
+    private List<WebElement> sittingPlaceDropDown;
 
     @FindBy(xpath = "//input[@id='city_sittings']")
     private WebElement cityField;
@@ -101,20 +102,195 @@ public class WindowEditMeetingRequisites {
     private By headerWindow = By.xpath("//div[@id='winPlanningControlAttributesButton']//span");
 
 
-
-    public WindowEditMeetingRequisites(WebDriver webDriver){
+    public WindowEditMeetingRequisites(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
     }
 
-    public String getNameCommitteeText(){ return nameCommitteeField.getText();}
+    public String getNameCommitteeText() {
+        return nameCommitteeField.getText();
+    }
 
-    public String getNumberSittingText(){return numberSittingField.getText();}
+    public String getNumberSittingText() {
+        return numberSittingField.getText();
+    }
 
-    public void inputNumberSitting(String number){ numberSittingField.sendKeys(number);}
+    public void typeNumberSitting(String number) {
+        numberSittingField.sendKeys(number);
+    }
 
-    public String getStartTimeText(){return startTimeField.getText();}
+    public String getStartTimeText() {
+        return startTimeField.getText();
+    }
 
+    public void typeStartTime(String start) {
+        startTimeField.sendKeys(start);
+    }
 
+    public List<WebElement> clickStartTimeDropDownButton() {
+        actions.moveToElement(startTimeDropDownButton).click().perform();
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return startTimeDropDown;
+    }
+
+    public WindowEditMeetingRequisites clickStartTimeDropDown() {
+        startTimeDropDown.iterator().next().click();
+        return this;
+    }
+
+    public String getEndTimeText() {
+        return endTimeField.getText();
+    }
+
+    public void typeEndTime(String end) {
+        endTimeField.sendKeys(end);
+    }
+
+    public List<WebElement> clickEndTimDropDownButton() {
+        actions.moveToElement(endTimeDropDownButton).click().perform();
+
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return endTimeDropDown;
+    }
+
+    public WindowEditMeetingRequisites clickEndTimeDropDown() {
+        endTimeDropDown.iterator().next().click();
+        return this;
+    }
+
+    public String getSittingDateText() {
+        return sittingDateField.getText();
+    }
+
+    public void typeDateSitting(String date) {
+        sittingDateField.sendKeys(date);
+    }
+
+    public WindowEditMeetingRequisites clickCalendarButton() {
+        actions.moveToElement(calendarButton).click().perform();
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public String getSittingPlaceText() {
+        return sittingPlaceField.getText();
+    }
+
+    public void typeSittingPlace(String place) {
+        sittingPlaceField.sendKeys(place);
+    }
+
+    public List<WebElement> clickSittingPlaceDropDownButton() {
+        actions.moveToElement(sittingPlaceDropDownButton).click().perform();
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return sittingPlaceDropDown;
+    }
+
+    public WindowEditMeetingRequisites clickSittingPlaceDropDown() {
+        sittingPlaceDropDown.iterator().next().click();
+        return this;
+    }
+
+    public String getCityField() {
+        return cityField.getText();
+    }
+
+    public void typeCityField(String city) {
+        cityField.sendKeys(city);
+    }
+
+    public WindowEditMeetingRequisites clickParticipantCheckbox() {
+        participantList.iterator().next().click();
+        return this;
+    }
+
+    public String getParticipantFIO() {
+        return participantList.iterator().next().getText();
+    }
+
+    public String getPresidingFIOText() {
+        return presidingField.getText();
+    }
+
+    public List<WebElement> clickPresidingDropDownButton() {
+        actions.moveToElement(presidingDropDownButton).click().perform();
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return presidingDropDown;
+    }
+
+    public WindowEditMeetingRequisites clickPresidingDropDown() {
+        presidingDropDown.iterator().next().click();
+        return this;
+    }
+
+    public String getPresentFIO() {
+        return presentField.getText();
+    }
+
+    public void typePresentFIO(String name) {
+        presentField.sendKeys(name);
+    }
+
+    public WindowEditMeetingRequisites clickPublicCheckbox() {
+        actions.moveToElement(publicCheckbox).click().perform();
+        return this;
+    }
+
+    public String getFormVoteText() {
+        return formVoteField.getText();
+    }
+
+    public void typeFormVote(String form) {
+        formVoteField.sendKeys(form);
+    }
+
+    public List<WebElement> clickFormVoteDropDownButton() {
+        actions.moveToElement(formVoteDropDownButton).click().perform();
+        try {
+            Thread.sleep(500L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return formVoteDropDown;
+    }
+
+    public WindowEditMeetingRequisites clickFormVoteDropDown() {
+        formVoteDropDown.iterator().next().click();
+        return this;
+    }
+
+    public CurrentMeetingPage clickSaveButton() {
+        actions.moveToElement(saveButton).click().perform();
+        return new CurrentMeetingPage(webDriver);
+    }
+
+    public CurrentMeetingPage clickCancelButton() {
+        actions.moveToElement(cancelButton).click().perform();
+        return new CurrentMeetingPage(webDriver);
+    }
+
+    public By getHeaderWindow() {
+        return headerWindow;
+    }
 }
