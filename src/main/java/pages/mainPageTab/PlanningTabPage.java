@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
-import pages.UnallocatedQuestions;
+import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowSittingPlanning;
 
 import java.util.List;

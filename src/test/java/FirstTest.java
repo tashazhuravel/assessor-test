@@ -1,10 +1,9 @@
-import dataBase.AssessorService;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
-import pages.UnallocatedQuestions;
+import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;

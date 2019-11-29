@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.window.WindowOpenResultsVote;
+import pages.window.WindowOpenVote;
 
 import java.util.List;
 
@@ -183,5 +185,30 @@ public class SelectedQuestion {
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver,this);
     }
+    //TODO дописать методы
+
+    public SelectedQuestion clickSaveQuestionButton(){
+        actions.moveToElement(saveQuestionButton).click().perform();
+        return this;
+    }
+
+    public SelectedQuestion clickUnderConsiderationButton(){
+        actions.moveToElement(underConsiderationButton).click().perform();
+        return this;
+    }
+
+    public WindowOpenVote clickOpenVoteButton(){
+        actions.moveToElement(openVoteButton).click().perform();
+        return new WindowOpenVote(webDriver);
+    }
+
+    public WindowOpenResultsVote clickOpenResultsVoteButton(){
+        actions.moveToElement(voteResultButton).click().perform();
+        return new WindowOpenResultsVote(webDriver);
+    }
+
+
+
+
 
 }

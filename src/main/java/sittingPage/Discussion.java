@@ -43,5 +43,5 @@ public class Discussion {
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
     }
-
+//TODO дописать методы
 }
