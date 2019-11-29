@@ -121,7 +121,7 @@ public class SelectedQuestion {
     private WebElement actedFIOField;
 
     @FindBy(xpath = "(//div[@class = 'x-layer x-combo-list ']/div[@class='x-combo-list-inner']/div//span)[4]")
-    private List<WebElement>actedFIOList;
+    private List<WebElement> actedFIOList;
 
     @FindBy(xpath = "//table[@id='btnAddActed']//button")
     private WebElement addActedButton;
@@ -354,10 +354,11 @@ public class SelectedQuestion {
         return addedCoRepporteurList.iterator().next().getText();
     }
 
-    public SelectedQuestion clickDeleteAddedCoRepporteur(){
+    public SelectedQuestion clickDeleteAddedCoRepporteur() {
         actions.moveToElement(deleteCoRreporteurButton).click().perform();
         return this;
     }
+
     public String getInvitedFIOFieldText() {
         return invitedFIOField.getText();
     }
@@ -385,7 +386,7 @@ public class SelectedQuestion {
         return addedInvitedList.iterator().next().getText();
     }
 
-    public SelectedQuestion clickDeleteAddedInvited(){
+    public SelectedQuestion clickDeleteAddedInvited() {
         actions.moveToElement(deleteInvitedButton).click().perform();
         return this;
     }
@@ -417,46 +418,82 @@ public class SelectedQuestion {
         return addedActedList.iterator().next().getText();
     }
 
-    public SelectedQuestion clickDeleteAddedActed(){
+    public SelectedQuestion clickDeleteAddedActed() {
         actions.moveToElement(deleteActedButton).click().perform();
         return this;
     }
 
-    public void clickChoseFileMaterials(String file){
-       addFileMaterials.sendKeys(file);
+    public void clickChoseFileMaterials(String file) {
+        addFileMaterials.sendKeys(file);
     }
 
-    public String getTextPathChosenMaterials(){
+    public String getTextPathChosenMaterials() {
         return fileMaterialsField.getText();
     }
 
-    public void typeNameFileMaterials(String name){
+    public void typeNameFileMaterials(String name) {
         nameFileMaterials.sendKeys(name);
     }
 
-    public String getNameFileMaterials(){
+    public String getNameFileMaterials() {
         return nameFileMaterials.getText();
     }
 
-    public List<WebElement> clickAddDocumentButton(){
+    public List<WebElement> clickAddDocumentButton() {
         actions.moveToElement(addDocumentsButton).click().perform();
         return addedMaterialsList;
     }
 
-    public SelectedQuestion clickAddedMaterialsList(){
+    public SelectedQuestion clickAddedMaterialsList() {
         addedMaterialsList.iterator().next().click();
         return this;
     }
 
-    public SelectedQuestion clickDeleteMaterialsButton(){
+    public SelectedQuestion clickDeleteMaterialsButton() {
         actions.moveToElement(deleteDocumentButton).click().perform();
         return this;
     }
 
+    public void typeListenText(String text) {
+        listenTextField.sendKeys(text);
+    }
 
+    public String getListenText() {
+        return listenTextField.getText();
+    }
 
+    public void typeDecideText(String text) {
+        decideTextField.sendKeys(text);
+    }
 
+    public String getDecideText() {
+        return decideTextField.getText();
+    }
 
+    public String getHistoryQuestionText(){
+        return historyField.getText();
+    }
+
+    public void typeHistoryQuestionText(String text){
+        historyField.sendKeys(text);
+    }
+
+    public SelectedQuestion clickClearHistoryButton(){
+        actions.moveToElement(clearHistoryButton).click().perform();
+        return this;
+    }
+
+    public WindowCreateLinkBetweenQuestions clickAddLinkButton(){
+        actions.moveToElement(addLinkButton).click().perform();
+        return new WindowCreateLinkBetweenQuestions(webDriver);
+    }
+
+    public SelectedQuestion clickCheckboxLink(){
+        actions.moveToElement(checkboxLinkQuestion).click().perform();
+        return this;
+    }
+
+    public
 
 
 }
