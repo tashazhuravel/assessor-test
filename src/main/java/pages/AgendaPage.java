@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -18,13 +19,13 @@ public class AgendaPage {
 
     private Actions actions;
 
-    @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaClose']")
+    @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaClose ru']")
     private WebElement backToQuestionListButton;
 
-    @FindBy(xpath = "//table[@id='btnSecretaryAgendaRefresh']//button")
+    @FindBy(xpath = "//table[@id='btnSecretaryAgendaRefresh ru']//button")
     private WebElement reformAgendaButton;
 
-    @FindBy(xpath = "//table[@id='btnSecretaryAgendaSend']//button")
+    @FindBy(xpath = "//table[@id='btnSecretaryAgendaSend ru']//button")
     private WebElement sendAgendaButton;
 
     @FindBy(xpath = "//table[@id='btnSecretaryAgendaEndorsementSetSended']//button")
@@ -47,6 +48,9 @@ public class AgendaPage {
 
     @FindBy(xpath = "//div[@class='textLayer']/div")
     private WebElement textFromAgenda;
+
+    @FindBy(xpath = "//div[@id='agendaContent']/div/div/div/div/span")
+    private WebElement headerAgenda;
 
 
     public AgendaPage(WebDriver webDriver) {
@@ -102,5 +106,9 @@ public class AgendaPage {
 
     public WebElement getTextFromAgenda() {
         return textFromAgenda;
+    }
+
+    public String getHeaderAgenda() {
+        return headerAgenda.getText();
     }
 }

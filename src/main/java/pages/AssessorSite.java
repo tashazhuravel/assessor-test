@@ -39,7 +39,7 @@ public class AssessorSite {
         return new ManageTabPage(webDriver);
     }
 
-    public CurrentMeetingPage geyCurrentMeetingPage() {
+    public CurrentMeetingPage getCurrentMeetingPage() {
         return new CurrentMeetingPage(webDriver);
     }
 

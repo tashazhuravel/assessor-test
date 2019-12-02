@@ -184,10 +184,13 @@ public class SelectedQuestion {
     private WebElement deleteLinkButton;
 
     @FindBy(xpath = "//div[@id='historyListBox']//input")
-    private WebElement checkboxLinkQuestion;
+    private List<WebElement> checkboxLinkQuestion;
 
     @FindBy(xpath = "//div[@id='historyListBox']//a")
     private List<WebElement> linkQuestions;
+
+    @FindBy(xpath = "//div[@id='planningQuestionTree']//span/span")
+    private WebElement headerQuestionList;
 
     public SelectedQuestion(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -489,11 +492,29 @@ public class SelectedQuestion {
     }
 
     public SelectedQuestion clickCheckboxLink(){
-        actions.moveToElement(checkboxLinkQuestion).click().perform();
+        checkboxLinkQuestion.iterator().next().click();
         return this;
     }
 
-    public
+    public String getSelectQuestionText(){
+        return linkQuestions.iterator().next().getText();
+    }
+
+    public WindowViewQuestionLink clickQuestionLink(){
+        linkQuestions.iterator().next().click();
+        return new WindowViewQuestionLink(webDriver);
+    }
+
+    public SelectedQuestion clickDeleteLinkButton(){
+        actions.moveToElement(deleteLinkButton).click().perform();
+        return this;
+    }
+
+    public String getHeaderQuestionListText(){return headerQuestionList.getText();}
+
+
+
+
 
 
 }

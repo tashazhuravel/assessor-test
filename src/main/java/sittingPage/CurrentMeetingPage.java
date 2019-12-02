@@ -37,7 +37,7 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//button[@class=' x-btn-text btnQuestionMove']")
     private WebElement addUnallocatedQuestionButton;
 
-    @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaOpen']")
+    @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaOpen ru']")
     private WebElement agendaButton;
 
     @FindBy(xpath = "//table[@id='planningControlManagmentButtonInfoOpen']//button")
@@ -78,6 +78,9 @@ public class CurrentMeetingPage {
 
     @FindBy(xpath = "//table[@id='btnSecretaryBack']//button")
     private WebElement backOnListSitting;
+
+    @FindBy(xpath = "//div[@id='planningQuestionTree']//span/span")
+    private WebElement headerQuestionList;
 
     private By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");
 
@@ -171,6 +174,8 @@ public class CurrentMeetingPage {
         actions.moveToElement(putMeetingMaterialsInArchiveButton).click().perform();
         return new WindowEditSittingRequisiteArchive(webDriver);
     }
+
+    public String getHeaderQuestionListText(){return headerQuestionList.getText();}
 
     public WebElement getInformationFieldAboutSitting() {
         return informationFieldAboutSitting;

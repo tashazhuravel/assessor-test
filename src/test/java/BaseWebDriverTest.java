@@ -168,6 +168,10 @@ public class BaseWebDriverTest {
 
     }
 
+    String deleteSpaceBetweenWords(String phrase){
+        return phrase.replace(" ","");
+    }
+
     @SuppressWarnings("unchecked")
     boolean isElementVisible(WebElement webElement) {
         try {
@@ -215,6 +219,7 @@ public class BaseWebDriverTest {
             return false;
         }
     }
+
 
     void waitWhileElementPresent(By myElement) {
         try {

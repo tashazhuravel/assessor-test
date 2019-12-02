@@ -13,9 +13,9 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class FirstTest extends BaseWebDriverTest {
+public class MainPageTest extends BaseWebDriverTest {
 
-    public FirstTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
+    public MainPageTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;

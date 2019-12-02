@@ -16,7 +16,7 @@ import pages.window.WindowUserAccount;
 public class MainPage {
 
     protected WebDriver webDriver;
-    private Actions actions;
+    protected Actions actions;
 
     @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a[2]")
     WebElement planningTab;

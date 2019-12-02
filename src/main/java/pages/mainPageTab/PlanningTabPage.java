@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
 import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowSittingPlanning;
+import sittingPage.CurrentMeetingPage;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class PlanningTabPage extends MainPage {
     public PlanningTabPage(WebDriver webDriver) {
         super(webDriver);
     }
+
 
     @FindBy(xpath = "//div[@id=64]")
     private WebElement nameCommittee;
@@ -27,6 +29,9 @@ public class PlanningTabPage extends MainPage {
 
     @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]")
     private WebElement committeeButton;
+
+    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingNum']")
+    private WebElement numberCommitteeLastButton;
 
     @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//button[contains(@class ,'btnSittingUndistributed')]")
     private WebElement unllocatedQuestions;
@@ -45,6 +50,23 @@ public class PlanningTabPage extends MainPage {
     public UnallocatedQuestions clickUnallocatedQuestionsButton() {
         unllocatedQuestions.click();
         return new UnallocatedQuestions(webDriver);
+    }
+
+    public CurrentMeetingPage clickCommitteeButton() {
+        actions.moveToElement(committeeButton).click().perform();
+        return new CurrentMeetingPage(webDriver);
+    }
+
+    public WebElement getNameCommittee() {
+        return nameCommittee;
+    }
+
+    public String getCommitteeButtonText() {
+        return committeeButton.getText();
+    }
+
+    public String getNumberCommitteeLastButtonText() {
+        return numberCommitteeLastButton.getText();
     }
 
     public String getAllNumberSittingCommittee() {

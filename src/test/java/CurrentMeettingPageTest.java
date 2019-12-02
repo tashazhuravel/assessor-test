@@ -3,9 +3,9 @@ import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
 
-class CurrentMettingPageTest extends BaseWebDriverTest {
+class CurrentMeettingPageTest extends BaseWebDriverTest {
 
-    public CurrentMettingPageTest(String login, String password, String fioUserAccount, String unllocatedQuestionsStatusField, String sittingPlace) {
+    public CurrentMeettingPageTest(String login, String password, String fioUserAccount, String unllocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
@@ -14,7 +14,7 @@ class CurrentMettingPageTest extends BaseWebDriverTest {
     }
 
     @Before
-    public void setUp() {
+    public void authorization() {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
