@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
 import pages.MainPage;
+import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -50,8 +51,29 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
+    @Ignore
     public void downloadFile(){
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
+        assessorService = new AssessorService(dataBaseConnection.stmt);
+        planningTabPage = assessorSite.getPlanningPage();
+        planningTabPage.clickTab(MainPage.ETab.PLANNING);
+        String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
+        String dateCommitteeButton = planningTabPage.getDate();
+        log.info(numberCommitteeButton + " " + dateCommitteeButton);
+        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
+        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        agendaPage.clickDownloadThisTextButton();
+        downloadFile(String.format("ПОВЕСТКА %s_%s.docx",deleteSymbolInPhrase(numberCommitteeButton),dateCommitteeButton));
+
+
+    }
+
+    @Test
+    @Ignore
+    public void uploadFile(){
+        log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -61,9 +83,9 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
-        agendaPage.clickDownloadThisTextButton();
-        downloadFile(String.format("ПОВЕСТКА %s_%s.docx",deleteSymbolInPhrase(numberCommitteeButton),planningTabPage.getDate()));
-
+        WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
+        windowUploadFile.setInputFile("C:\\Users\\iluyshn\\Downloads\\Testauto.docx");
+        windowUploadFile.clickUploadFileButton();
 
     }
 
@@ -80,7 +102,10 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        agendaPage.clickSetMeetingStatusAgendaUnderApprovalButton();
+        assertEquals("Статус не установлен","Формируется повестка дня",currentMeettingPage.getTextStatusField());
 
 
     }
+
 }

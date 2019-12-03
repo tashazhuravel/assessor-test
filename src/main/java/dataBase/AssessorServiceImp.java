@@ -9,4 +9,6 @@ public interface AssessorServiceImp {
     List<String> getFIOParticipantSitting();
 
     List<String> getFIOSecretaryOfCommittee();
+
+    List<String> getFIOAllParticipant();
 }

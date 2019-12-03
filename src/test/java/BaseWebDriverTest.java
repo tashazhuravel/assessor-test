@@ -250,7 +250,7 @@ public class BaseWebDriverTest {
         File[] listOfFiles = folder.listFiles();
         boolean found = false;
         File f = null;
-        assert listOfFiles != null;
+        listOfFiles = null;
         for (File listOfFile : listOfFiles){
             if (listOfFile.isFile()){
                 String fileName = listOfFile.getName();

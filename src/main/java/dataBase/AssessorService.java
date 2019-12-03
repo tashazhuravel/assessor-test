@@ -66,4 +66,13 @@ public class AssessorService implements AssessorServiceImp {
         }
         return secretaryFio;
     }
+
+    @Override
+    public List<String> getFIOAllParticipant(){
+        List<String> allParticipantFio = new ArrayList<>();
+        ResultSet resultSet = null;
+        try{
+            resultSet = statement.executeQuery("")
+        }
+    }
 }

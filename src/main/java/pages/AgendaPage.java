@@ -1,5 +1,6 @@
 package pages;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,10 +23,10 @@ public class AgendaPage {
     @FindBy(xpath = "//button[@class=' x-btn-text btnAgendaClose ru']")
     private WebElement backToQuestionListButton;
 
-    @FindBy(xpath = "//table[@id='btnSecretaryAgendaRefresh ru']//button")
+    @FindBy(xpath = "//table[@id='btnSecretaryAgendaRefresh']//button")
     private WebElement reformAgendaButton;
 
-    @FindBy(xpath = "//table[@id='btnSecretaryAgendaSend ru']//button")
+    @FindBy(xpath = "//table[@id= 'btnSecretaryAgendaSend']//button")
     private WebElement sendAgendaButton;
 
     @FindBy(xpath = "//table[@id='btnSecretaryAgendaEndorsementSetSended']//button")

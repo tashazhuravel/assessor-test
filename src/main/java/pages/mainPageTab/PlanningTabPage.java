@@ -80,7 +80,8 @@ public class PlanningTabPage extends MainPage {
 
     public String getDate(){
         String date;
-        return date = day.getText()+month.getText()+year.getText();
+        String year =".2019";
+        return date = day.getText()+month.getText()+year;
     }
 
     public String getAllNumberSittingCommittee() {

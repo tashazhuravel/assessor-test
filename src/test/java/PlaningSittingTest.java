@@ -56,7 +56,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         windowSittingPlanning.setSelectPlanningPlace("Переговорная");
         assertEquals("Поле Город содержит текст", StringUtils.EMPTY, windowSittingPlanning.getCityFieldText());
         windowSittingPlanning.typeCityField("Витебск, пр-т Строителей 11а");
-        System.out.println("Город" + windowSittingPlanning.getCityFieldText());
+        log.info("Город" + windowSittingPlanning.getCityFieldText());
 
         log.info("Проверка поля 'Дата'");
         assertNotEquals("Поле Дата не может быть пустым", StringUtils.EMPTY, windowSittingPlanning.getDateFieldText());
@@ -64,27 +64,27 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         windowSittingPlanning.clickCalendarButton();
         assertFalse("Не открылся календарь, либо нет данных внутри календаря", windowSittingPlanning.emptyCalendar());
         windowSittingPlanning.clickDateInCalendar();
-        System.out.println(windowSittingPlanning.getDateFieldText());
+        log.info(windowSittingPlanning.getDateFieldText());
         windowSittingPlanning.clickCalendarButton().clickTodayButton();
-        System.out.println(windowSittingPlanning.getDateFieldText());
+        log.info(windowSittingPlanning.getDateFieldText());
 
         //--Время начала заседания
-        System.out.println(windowSittingPlanning.getTimeStartText());
+        log.info(windowSittingPlanning.getTimeStartText());
         assertNotEquals("Поле время начала заседания не может быть пустым", StringUtils.EMPTY, windowSittingPlanning.getTimeStartText());
         windowSittingPlanning.clickAndOpenDropDownSelectSittingTimeStart();
         windowSittingPlanning.clickTimeStartInDropDown();
-        System.out.println(windowSittingPlanning.getTimeStartText());
+        log.info(windowSittingPlanning.getTimeStartText());
 
         //--Время окончания заседания
         System.out.println(windowSittingPlanning.getTimeEndText());
         assertNotEquals("Поле время окончания заседания не может быть пустым", StringUtils.EMPTY, windowSittingPlanning.getTimeEndText());
         windowSittingPlanning.clickAndOpenSelectSittingTimeEnd();
         windowSittingPlanning.clickTimeEndInDropDown();
-        System.out.println(windowSittingPlanning.getTimeEndText());
+        log.info(windowSittingPlanning.getTimeEndText());
 
         //--Список участников
         List<String> selectParticipant = assessorService.getFIOParticipantSitting();
-        System.out.println(selectParticipant);
+        log.info(selectParticipant);
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowSittingPlanning.getParticipantsList()), selectParticipant);
 
 
