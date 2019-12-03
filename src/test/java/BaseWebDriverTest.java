@@ -4,6 +4,7 @@ import log.EventHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.MethodRule;
@@ -172,6 +173,10 @@ public class BaseWebDriverTest {
         return phrase.replace(" ","");
     }
 
+    String deleteSymbolInPhrase(String phrase){
+        return phrase.replace("№","");
+    }
+
     @SuppressWarnings("unchecked")
     boolean isElementVisible(WebElement webElement) {
         try {
@@ -236,6 +241,28 @@ public class BaseWebDriverTest {
         } catch (TimeoutException exception) {
             log.error(myElement, exception);
         }
+    }
+
+    //Загрузка файлов
+    void downloadFile( String file) {
+        File folder = new File(System.getProperty("user.dir"));
+        //List the files on that folder
+        File[] listOfFiles = folder.listFiles();
+        boolean found = false;
+        File f = null;
+        assert listOfFiles != null;
+        for (File listOfFile : listOfFiles){
+            if (listOfFile.isFile()){
+                String fileName = listOfFile.getName();
+                log.info("File" + listOfFile.getName());
+                if (fileName.matches(file)){
+                    f= new File(fileName);
+                    found = true;
+                }
+            }
+        }
+        Assert.assertTrue("Downloaded document is not found",found);
+        f.deleteOnExit();
     }
 
     protected boolean isAlertPresent() {

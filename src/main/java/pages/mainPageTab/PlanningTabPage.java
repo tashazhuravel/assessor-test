@@ -30,6 +30,15 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]")
     private WebElement committeeButton;
 
+    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDate']")
+    private  WebElement day;
+
+    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDateMonth']")
+    private WebElement month;
+
+    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDateYear']")
+    private WebElement year;
+
     @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingNum']")
     private WebElement numberCommitteeLastButton;
 
@@ -67,6 +76,11 @@ public class PlanningTabPage extends MainPage {
 
     public String getNumberCommitteeLastButtonText() {
         return numberCommitteeLastButton.getText();
+    }
+
+    public String getDate(){
+        String date;
+        return date = day.getText()+month.getText()+year.getText();
     }
 
     public String getAllNumberSittingCommittee() {

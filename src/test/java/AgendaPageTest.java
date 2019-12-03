@@ -1,12 +1,11 @@
+import com.sun.javafx.binding.StringFormatter;
 import dataBase.AssessorService;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
 import pages.MainPage;
-import pages.mainPageTab.PlanningTabPage;
 import sittingPage.CurrentMeetingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -22,7 +21,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         this.sittingPlace = sittingPlace;
     }
 
-    @Before
+    @Test
     public void authorization() {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
@@ -32,6 +31,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
+    @Ignore
     public void openAndCloseAgenda() {
         log.info("Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -46,10 +46,29 @@ public class AgendaPageTest extends BaseWebDriverTest {
         agendaPage.clickBackFromQuestionListButton();
         assertEquals("Не осуществлен переход к форме Текущее заседание", "Список вопросов", currentMeettingPage.getHeaderQuestionListText());
         currentMeettingPage.clickBackOnListSitting();
-        assertTrue("/", isElementVisible(planningTabPage.getNameCommittee()));
+        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
     }
 
     @Test
+    public void downloadFile(){
+        log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
+        assessorService = new AssessorService(dataBaseConnection.stmt);
+        planningTabPage = assessorSite.getPlanningPage();
+        planningTabPage.clickTab(MainPage.ETab.PLANNING);
+        String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
+        log.info(numberCommitteeButton);
+        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
+        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        agendaPage.clickDownloadThisTextButton();
+        downloadFile(String.format("ПОВЕСТКА %s_%s.docx",deleteSymbolInPhrase(numberCommitteeButton),planningTabPage.getDate()));
+
+
+    }
+
+    @Test
+    @Ignore
     public void setStatusAgendaUnderApproval() {
         log.info("Уставновить статус 'Повестка дня проходит согласование'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -60,7 +79,6 @@ public class AgendaPageTest extends BaseWebDriverTest {
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
-
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
 
