@@ -1,4 +1,3 @@
-import com.sun.javafx.binding.StringFormatter;
 import dataBase.AssessorService;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -41,7 +40,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickBackFromQuestionListButton();
@@ -52,7 +51,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
     @Test
     @Ignore
-    public void downloadFile(){
+    public void downloadFile() {
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -61,18 +60,18 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickDownloadThisTextButton();
-        downloadFile(String.format("ПОВЕСТКА %s_%s.docx",deleteSymbolInPhrase(numberCommitteeButton),dateCommitteeButton));
+        downloadFile(String.format("ПОВЕСТКА %s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton), dateCommitteeButton));
 
 
     }
 
     @Test
     @Ignore
-    public void uploadFile(){
+    public void uploadFile() {
         log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -80,7 +79,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
@@ -90,8 +89,8 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
-    public void setStatusAgendaUnderApproval() {
+    // @Ignore
+    public void setStatusAgendaApproval() {
         log.info("Уставновить статус 'Повестка дня проходит согласование'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -99,13 +98,42 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+
+        assertEquals("Статус Формируется повестка дня", "Формируется повестка дня", currentMeettingPage.getTextStatusField());
         agendaPage.clickSetMeetingStatusAgendaUnderApprovalButton();
-        assertEquals("Статус не установлен","Формируется повестка дня",currentMeettingPage.getTextStatusField());
 
+        messageWindow = assessorSite.getMessageWindow();
+        //TODO дописать проверку сообщения Enum
+        messageWindow.clickMessageOkButton();
+        //не удалять ждет отрисовки нового статуса, иначе тест фейлится.
+        try {
+            Thread.sleep(5000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
 
+        agendaPage.clickSetMeetingStatusAgendaApprovedButton();
+        attentionWindow = assessorSite.getAttentionWindow();
+        //TODO дописать проверку сообщения Enum
+        attentionWindow.clickNoAttentionButton();
+        assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+        attentionWindow.clickAttentionCloseByXButton();
+        assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+        attentionWindow.clickYesAttentionButton();
+        //TODO дописать проверку сообщения Enum
+        messageWindow.clickMessageOkButton();
+
+        try {
+            Thread.sleep(5000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
     }
 
 }

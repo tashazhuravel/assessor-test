@@ -105,7 +105,7 @@ public class MainPageTest extends BaseWebDriverTest {
             System.out.println(textOldNotificationMessage);
             CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
             // assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
-            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeetingPage.getTextStatusField(), containsString(textOldNotificationMessage));
+            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeetingPage.getTextInformationField(), containsString(textOldNotificationMessage));
             currentMeetingPage.clickBackOnListSitting();
 
             mainPage.clickNotificationButtonHaveNewMessage();

@@ -66,4 +66,12 @@ public class WindowPreliminaryAcquaintanceWithAgenda {
     public WebElement getDisabledSendButton() {
         return disabledSendButton;
     }
+
+    public List<WebElement> getCheckboxFIOParticipants() {
+        return checkboxFIOParticipants;
+    }
+
+    public WebElement getSendButton() {
+        return sendButton;
+    }
 }

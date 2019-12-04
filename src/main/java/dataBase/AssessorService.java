@@ -71,8 +71,16 @@ public class AssessorService implements AssessorServiceImp {
     public List<String> getFIOAllParticipant(){
         List<String> allParticipantFio = new ArrayList<>();
         ResultSet resultSet = null;
-        try{
-            resultSet = statement.executeQuery("")
+        try {
+            resultSet = statement.executeQuery("SELECT s.members FROM sittings s INNER JOIN committee c ON c.num=s.num WHERE c.id = '64'");
+            while (resultSet.next()) {
+                allParticipantFio.add(resultSet.getString("members"));
+            }
+            resultSet.close();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
+        return  allParticipantFio;
     }
+
 }

@@ -91,11 +91,15 @@ public class CurrentMeetingPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public String getTextStatusField() {
+    public String getTextInformationField() {
         return informationFieldAboutSitting.getAttribute("value");
     }
 
-    public String getPartOfTextStatusField(String nameCommittee) {
+    public String getTextStatusField(){
+        return statusField.getText();
+    }
+
+    public String getPartOfTextInformationField(String nameCommittee) {
         String result = StringUtils.EMPTY;
         Pattern regex = Pattern.compile("№\\d+");
         Matcher m = regex.matcher(nameCommittee);

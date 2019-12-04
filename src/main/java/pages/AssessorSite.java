@@ -1,9 +1,11 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
+import pages.attentionWindow.AttentionWindow;
 import pages.mainPageTab.ArchiveTabPage;
 import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
+import pages.messageWindow.MessageWindow;
 import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowSittingPlanning;
@@ -60,5 +62,9 @@ public class AssessorSite {
     public UnallocatedQuestions getUnllocatedQuestions() {
         return new UnallocatedQuestions(webDriver);
     }
+
+    public MessageWindow getMessageWindow(){return new MessageWindow(webDriver);}
+
+    public AttentionWindow getAttentionWindow(){return new AttentionWindow(webDriver);}
 
 }

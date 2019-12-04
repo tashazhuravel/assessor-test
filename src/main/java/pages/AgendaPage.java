@@ -1,14 +1,12 @@
 package pages;
 
-import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.attentionWindow.AttentionWindow;
-import pages.messageWindow.MessageWindowAgenda;
+import pages.messageWindow.MessageWindow;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import pages.window.WindowUploadFile;
@@ -75,9 +73,9 @@ public class AgendaPage {
         return new WindowPreliminaryAcquaintanceWithAgenda(webDriver);
     }
 
-    public MessageWindowAgenda clickSetMeetingStatusAgendaUnderApprovalButton(){
+    public MessageWindow clickSetMeetingStatusAgendaUnderApprovalButton(){
         actions.moveToElement(setMeetingStatusAgendaUnderApprovalButton).click().perform();
-        return new MessageWindowAgenda(webDriver);
+        return new MessageWindow(webDriver);
     }
 
     public AttentionWindow clickSetMeetingStatusAgendaApprovedButton(){

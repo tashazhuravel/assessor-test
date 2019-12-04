@@ -1,19 +1,22 @@
 import dataBase.AssessorService;
-import dataBase.DataBaseConnection;
-import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
 import pages.MainPage;
+import pages.messageWindow.MessageType;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import sittingPage.CurrentMeetingPage;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertFalse;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -45,13 +48,25 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextStatusField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         WindowPreliminaryAcquaintanceWithAgenda windowPreliminaryAcquaintanceWithAgenda = agendaPage.clickSendAgendaButton();
-        List<String> fioRecipient = assessorService.getFIOParticipantSitting();
+        String fioRecipient = assessorService.getFIOAllParticipant().get(0);
         log.info(fioRecipient);
-        verifyAutocompleteOptions(windowPreliminaryAcquaintanceWithAgenda.getListFIOParticipants(),fioRecipient);
+        List <String> fioRecipientList = Stream.of(fioRecipient.split(",")).collect(Collectors.toList());
+        Collections.swap(fioRecipientList, 0,2);
+        verifyAutocompleteOptionsText(changeWordPressSymbol(windowPreliminaryAcquaintanceWithAgenda.getListFIOParticipants()),fioRecipientList);
+        if (isAllCheckboxSelected(windowPreliminaryAcquaintanceWithAgenda.getCheckboxFIOParticipants())){
+            windowPreliminaryAcquaintanceWithAgenda.clickSendButton();
+            log.info("Письмо отправлено"); //TODO не приходит письмо
+        }else{
+            isButtonDisabled(windowPreliminaryAcquaintanceWithAgenda.getSendButton());
+        }
+
+        messageWindow = assessorSite.getMessageWindow();
+        assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED,messageWindow.getTextMessage());
+        messageWindow.clickMessageOkButton();
     }
 
 

@@ -23,7 +23,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import pages.AssessorSite;
 import pages.AuthorizationPage;
+import pages.attentionWindow.AttentionWindow;
 import pages.mainPageTab.PlanningTabPage;
+import pages.messageWindow.MessageWindow;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +48,8 @@ public class BaseWebDriverTest {
     private boolean acceptNextAlert = true;
     private static Wait wait;
     PlanningTabPage planningTabPage;
+    MessageWindow messageWindow;
+    AttentionWindow attentionWindow;
     AssessorServiceImp assessorService;
     String login;
     String password;
@@ -169,12 +173,12 @@ public class BaseWebDriverTest {
 
     }
 
-    String deleteSpaceBetweenWords(String phrase){
-        return phrase.replace(" ","");
+    String deleteSpaceBetweenWords(String phrase) {
+        return phrase.replace(" ", "");
     }
 
-    String deleteSymbolInPhrase(String phrase){
-        return phrase.replace("№","");
+    String deleteSymbolInPhrase(String phrase) {
+        return phrase.replace("№", "");
     }
 
     @SuppressWarnings("unchecked")
@@ -215,6 +219,16 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    boolean isAllCheckboxSelected(List<WebElement> my_element) {
+       // WebElement element = my_element.iterator().next();
+        try {
+            wait.until(ExpectedConditions.attributeToBe(my_element.iterator().next(), "checked","true"));
+        } catch (TimeoutException exception) {
+            return false;
+        }
+        return true;
+    }
+
 
     boolean isElementPresent(By my_element) {
         try {
@@ -223,6 +237,15 @@ public class BaseWebDriverTest {
         } catch (NoSuchElementException ex) {
             return false;
         }
+    }
+
+    boolean isButtonDisabled(WebElement my_element) {
+        try {
+            wait.until(ExpectedConditions.attributeToBe(my_element, "disabled", "true"));
+        } catch (TimeoutException ex) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -244,24 +267,24 @@ public class BaseWebDriverTest {
     }
 
     //Загрузка файлов
-    void downloadFile( String file) {
+    void downloadFile(String file) {
         File folder = new File(System.getProperty("user.dir"));
         //List the files on that folder
         File[] listOfFiles = folder.listFiles();
         boolean found = false;
         File f = null;
         listOfFiles = null;
-        for (File listOfFile : listOfFiles){
-            if (listOfFile.isFile()){
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
                 String fileName = listOfFile.getName();
                 log.info("File" + listOfFile.getName());
-                if (fileName.matches(file)){
-                    f= new File(fileName);
+                if (fileName.matches(file)) {
+                    f = new File(fileName);
                     found = true;
                 }
             }
         }
-        Assert.assertTrue("Downloaded document is not found",found);
+        Assert.assertTrue("Downloaded document is not found", found);
         f.deleteOnExit();
     }
 

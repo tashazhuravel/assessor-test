@@ -10,10 +10,11 @@ import pages.AgendaPage;
 
 import java.util.List;
 
-public class MessageWindowAgenda {
-    private WebDriver webDriver;
+public class MessageWindow {
 
+    private WebDriver webDriver;
     private Actions actions;
+
 
     private By headerMessageByPreliminaryAcquaintanceWithAgenda = By.xpath("//div[@class=' x-window x-window-plain x-window-dlg']//span");
 
@@ -26,7 +27,7 @@ public class MessageWindowAgenda {
     @FindBy(xpath = "//table[@class='x-btn x-btn-noicon']//button")
     private WebElement messageOkButton;
 
-    public MessageWindowAgenda(WebDriver webDriver){
+    public MessageWindow(WebDriver webDriver){
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
@@ -47,4 +48,6 @@ public class MessageWindowAgenda {
     public By getHeaderMessageByPreliminaryAcquaintanceWithAgenda() {
         return headerMessageByPreliminaryAcquaintanceWithAgenda;
     }
+
+
 }

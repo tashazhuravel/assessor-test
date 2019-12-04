@@ -7,7 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
-import pages.messageWindow.MessageWindowAgenda;
+import pages.messageWindow.MessageWindow;
 import sittingPage.CurrentMeetingPage;
 
 public class AttentionWindow {
@@ -19,13 +19,13 @@ public class AttentionWindow {
     @FindBy(xpath = "(//div[@class=' x-window x-window-plain x-window-dlg']//span)[2]")
     private WebElement textAttention;
 
-    @FindBy(css = ".x-tool")
+    @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     private WebElement attentionCloseButtonByX;
 
-    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[1]")
+    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[2]")
     private WebElement yesAttentionButton;
 
-    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[2]")
+    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[3]")
     private WebElement noAttentionButton;
 
 
@@ -38,9 +38,9 @@ public class AttentionWindow {
 
     public String getTextAttention(){return textAttention.getText();}
 
-    public MessageWindowAgenda clickYesAttentionButton(){
+    public MessageWindow clickYesAttentionButton(){
         actions.moveToElement(yesAttentionButton).click().perform();
-        return new MessageWindowAgenda(webDriver);
+        return new MessageWindow(webDriver);
     }
 
     public AgendaPage clickNoAttentionButton(){
