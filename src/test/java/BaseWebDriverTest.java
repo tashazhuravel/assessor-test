@@ -266,17 +266,6 @@ public class BaseWebDriverTest {
         }
     }
 
-    boolean isTextPresent(String currentText, WebElement element) {
-        try {
-            assertEquals(element.getText(),currentText);
-        } catch (NoSuchElementException ex) {
-            log.error(element, ex);
-            return false;
-        }
-        return true;
-    }
-
-
     void waitToTextChanged(final WebElement webElement) {
         final String currentText = webElement.getText();
         wait.until((driver) -> !webElement.getText().equals(currentText));
@@ -296,16 +285,14 @@ public class BaseWebDriverTest {
     //Загрузка файлов
     void downloadFile(String file) {
         File folder = new File(System.getProperty("user.dir"));
-        //List the files on that folder
         File[] listOfFiles = folder.listFiles();
         boolean found = false;
         File f = null;
-        listOfFiles = null;
         for (File listOfFile : listOfFiles) {
             if (listOfFile.isFile()) {
                 String fileName = listOfFile.getName();
                 log.info("File" + listOfFile.getName());
-                if (fileName.matches(file)) {
+                if (fileName.equals(file)) {
                     f = new File(fileName);
                     found = true;
                 }

@@ -24,7 +24,7 @@ public class MessageWindow {
     @FindBy(css = ".x-tool")
     private WebElement messageCloseButtonByX;
 
-    @FindBy(xpath = "//table[@class='x-btn x-btn-noicon']//button")
+    @FindBy(xpath = "//div[@class=' x-window x-window-plain x-window-dlg']//td[@class='x-toolbar-cell']//button")
     private WebElement messageOkButton;
 
     public MessageWindow(WebDriver webDriver){
@@ -36,7 +36,7 @@ public class MessageWindow {
     public String getTextMessage(){ return textMessage.iterator().next().getText();}
 
     public AgendaPage clickMessageOkButton(){
-        actions.moveToElement(messageOkButton).click();
+        actions.moveToElement(messageOkButton).click().perform();
         return new AgendaPage(webDriver);
     }
 
