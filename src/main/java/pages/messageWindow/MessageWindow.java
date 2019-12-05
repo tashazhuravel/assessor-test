@@ -36,7 +36,7 @@ public class MessageWindow {
     public String getTextMessage(){ return textMessage.iterator().next().getText();}
 
     public AgendaPage clickMessageOkButton(){
-        actions.moveToElement(messageOkButton).click().perform();
+        actions.moveToElement(messageOkButton).click();
         return new AgendaPage(webDriver);
     }
 

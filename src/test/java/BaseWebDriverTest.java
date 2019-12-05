@@ -1,5 +1,5 @@
-import dataBase.DataBaseConnection;
 import dataBase.AssessorServiceImp;
+import dataBase.DataBaseConnection;
 import log.EventHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -220,9 +220,9 @@ public class BaseWebDriverTest {
     }
 
     boolean isAllCheckboxSelected(List<WebElement> my_element) {
-       // WebElement element = my_element.iterator().next();
+        // WebElement element = my_element.iterator().next();
         try {
-            wait.until(ExpectedConditions.attributeToBe(my_element.iterator().next(), "checked","true"));
+            wait.until(ExpectedConditions.attributeToBe(my_element.iterator().next(), "checked", "true"));
         } catch (TimeoutException exception) {
             return false;
         }
@@ -264,6 +264,33 @@ public class BaseWebDriverTest {
         } catch (TimeoutException exception) {
             log.error(myElement, exception);
         }
+    }
+
+    boolean isTextPresent(String currentText, WebElement element) {
+        try {
+            assertEquals(element.getText(),currentText);
+        } catch (NoSuchElementException ex) {
+            log.error(element, ex);
+            return false;
+        }
+        return true;
+    }
+
+
+    void waitToTextChanged(final WebElement webElement) {
+        final String currentText = webElement.getText();
+        wait.until((driver) -> !webElement.getText().equals(currentText));
+    }
+
+    boolean isTextChanged(final WebElement element) {
+        final String currentText = element.getText();
+        try {
+            wait.until((driver) -> !element.getText().equals(currentText));
+        } catch (TimeoutException exception) {
+            log.error(element, exception);
+            return false;
+        }
+        return true;
     }
 
     //Загрузка файлов

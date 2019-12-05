@@ -22,10 +22,10 @@ public class AttentionWindow {
     @FindBy(xpath = "//div[@class='x-tool x-tool-close']")
     private WebElement attentionCloseButtonByX;
 
-    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[2]")
+    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[1]")
     private WebElement yesAttentionButton;
 
-    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[3]")
+    @FindBy(xpath = "(//table[@class='x-btn x-btn-noicon']//button)[2]")
     private WebElement noAttentionButton;
 
 
@@ -39,7 +39,7 @@ public class AttentionWindow {
     public String getTextAttention(){return textAttention.getText();}
 
     public MessageWindow clickYesAttentionButton(){
-        actions.moveToElement(yesAttentionButton).click().perform();
+        actions.moveToElement(yesAttentionButton).click();
         return new MessageWindow(webDriver);
     }
 

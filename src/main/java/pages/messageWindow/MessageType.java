@@ -12,13 +12,13 @@ public enum MessageType {
 
 
 
-    private String message;
+    private String label;
 
-    MessageType(String message) {
-        this.message = message;
+    MessageType(String label) {
+        this.label = label;
     }
 
-    public String getMessage() {
-        return message;
+    public String getLabel() {
+        return label;
     }
 }

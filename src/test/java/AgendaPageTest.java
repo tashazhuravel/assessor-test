@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
 import pages.MainPage;
+import pages.attentionWindow.AttentionType;
+import pages.messageWindow.MessageType;
 import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
 
@@ -102,38 +104,52 @@ public class AgendaPageTest extends BaseWebDriverTest {
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
-        assertEquals("Статус Формируется повестка дня", "Формируется повестка дня", currentMeettingPage.getTextStatusField());
-        agendaPage.clickSetMeetingStatusAgendaUnderApprovalButton();
+        String status = currentMeettingPage.getTextStatusField();
+        log.info(currentMeettingPage.getStatusField());
+        if(isTextPresent(status,currentMeettingPage.getStatusField())) {
 
-        messageWindow = assessorSite.getMessageWindow();
-        //TODO дописать проверку сообщения Enum
-        messageWindow.clickMessageOkButton();
-        //не удалять ждет отрисовки нового статуса, иначе тест фейлится.
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            assertEquals("Статус не установлен", "Формируется повестка дня", currentMeettingPage.getTextStatusField());
+            agendaPage.clickSetMeetingStatusAgendaUnderApprovalButton();
+            waitToTextChanged(currentMeettingPage.getStatusField());
+            assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+
+            messageWindow = assessorSite.getMessageWindow();
+            assertEquals("", MessageType.MEETING_STATUS_AGENDA_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET.getLabel(),messageWindow.getTextMessage());
+            //TODO дописать проверку сообщения Enum
+            messageWindow.clickMessageOkButton();
+            waitToTextChanged(currentMeettingPage.getStatusField());
+            assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+            log.info(currentMeettingPage.getStatusField());
+
+        }else if (isTextPresent(status,currentMeettingPage.getStatusField())) {
+
+                agendaPage.clickSetMeetingStatusAgendaApprovedButton();
+                attentionWindow = assessorSite.getAttentionWindow();
+                assertEquals("", AttentionType.SET_MEETING_STATUS_AGENDA_APPROVED.getLabel(), attentionWindow.getTextAttention());
+                //TODO дописать проверку сообщения Enum
+                attentionWindow.clickNoAttentionButton();
+                assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+
+                agendaPage.clickSetMeetingStatusAgendaApprovedButton();
+                attentionWindow.clickAttentionCloseByXButton();
+                assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+
+                agendaPage.clickSetMeetingStatusAgendaApprovedButton();
+                attentionWindow.clickYesAttentionButton();
+
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                messageWindow.clickMessageOkButton();
+                assertEquals("", MessageType.MEETING_STATUS_AGENDA_APPROVED_HAS_BEEN_SET.getLabel(),messageWindow.getTextMessage());
+
+                waitToTextChanged(currentMeettingPage.getStatusField());
+
+                assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
+                log.info(currentMeettingPage.getStatusField());
+            }
         }
-        assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
-
-        agendaPage.clickSetMeetingStatusAgendaApprovedButton();
-        attentionWindow = assessorSite.getAttentionWindow();
-        //TODO дописать проверку сообщения Enum
-        attentionWindow.clickNoAttentionButton();
-        assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
-        attentionWindow.clickAttentionCloseByXButton();
-        assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
-        attentionWindow.clickYesAttentionButton();
-        //TODO дописать проверку сообщения Enum
-        messageWindow.clickMessageOkButton();
-
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
-    }
 
 }
