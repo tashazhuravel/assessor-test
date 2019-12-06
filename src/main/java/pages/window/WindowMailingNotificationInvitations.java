@@ -15,7 +15,8 @@ public class WindowMailingNotificationInvitations {
     private WebDriver webDriver;
     private Actions actions;
 
-    private By headerNotificationInvitations = By.xpath("//div[@class='x-window-header x-unselectable x-window-draggable']//span");
+    @FindBy(xpath = "//div[@class='x-window-header x-unselectable x-window-draggable']//span")
+    private WebElement headerNotificationInvitations;
     private By headerMailing = By.xpath("//div[@class='x-window-header x-unselectable']//span");
 
     @FindBy(xpath = "//div[@id='checkboxgroup']//input")
@@ -62,8 +63,8 @@ public class WindowMailingNotificationInvitations {
         return this;
     }
 
-    public String getFIOParticipantText() {
-        return listFIOParticipant.iterator().next().getText();
+    public List<WebElement> getFIOParticipantText() {
+        return listFIOParticipant;
     }
 
     public WindowMailingNotificationInvitations clickCheckboxSelectAll() {
@@ -109,11 +110,23 @@ public class WindowMailingNotificationInvitations {
         return new AgendaPage(webDriver);
     }
 
-    public By getHeaderNotificationInvitations() {
-        return headerNotificationInvitations;
+    public String getHeaderNotificationInvitations() {
+        return headerNotificationInvitations.getText();
+    }
+
+    public List<WebElement> getCheckboxAllFIOParticipant(){
+        return checkboxFIOParticipant;
     }
 
     public By getHeaderMailing() {
         return headerMailing;
+    }
+
+    public List<WebElement> getListMaterials() {
+        return listMaterials;
+    }
+
+    public String getTextCommentField() {
+        return commentField.getText();
     }
 }

@@ -2,6 +2,7 @@ import dataBase.AssessorServiceImp;
 import dataBase.DataBaseConnection;
 import log.EventHandler;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -280,6 +281,16 @@ public class BaseWebDriverTest {
         try {
             wait.until((driver) -> !element.getText().equals(currentText));
         } catch (TimeoutException exception) {
+            log.error(element, exception);
+            return false;
+        }
+        return true;
+    }
+
+    boolean isFieldEmpty(WebElement element){
+        try{
+            assertEquals(StringUtils.EMPTY,element.getText());
+        }catch (Exception exception){
             log.error(element, exception);
             return false;
         }

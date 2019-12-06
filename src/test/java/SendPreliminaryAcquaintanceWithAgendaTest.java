@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertFalse;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -59,9 +58,10 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowPreliminaryAcquaintanceWithAgenda.getListFIOParticipants()),fioRecipientList);
         if (isAllCheckboxSelected(windowPreliminaryAcquaintanceWithAgenda.getCheckboxFIOParticipants())){
             windowPreliminaryAcquaintanceWithAgenda.clickSendButton();
-            log.info("Письмо отправлено"); //TODO не приходит письмо
+            log.info("Письмо отправлено");
         }else{
             isButtonDisabled(windowPreliminaryAcquaintanceWithAgenda.getSendButton());
+            log.info("Ни один получателей не выбран");
         }
 
         messageWindow = assessorSite.getMessageWindow();

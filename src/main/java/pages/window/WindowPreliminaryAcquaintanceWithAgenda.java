@@ -74,4 +74,6 @@ public class WindowPreliminaryAcquaintanceWithAgenda {
     public WebElement getSendButton() {
         return sendButton;
     }
+
+
 }
