@@ -65,7 +65,7 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
         }
 
         messageWindow = assessorSite.getMessageWindow();
-        assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED,messageWindow.getMessage());
+        assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED.getLabel(),messageWindow.getMessage());
         messageWindow.clickMessageOkButton();
     }
 

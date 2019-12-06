@@ -35,7 +35,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+   // @Ignore
     public void openAndCloseAgenda() {
         log.info("Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -51,10 +51,11 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertEquals("Не осуществлен переход к форме Текущее заседание", "Список вопросов", currentMeettingPage.getHeaderQuestionListText());
         currentMeettingPage.clickBackOnListSitting();
         assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+
     }
 
     @Test
-    @Ignore
+   // @Ignore
     public void downloadFile() {
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -74,6 +75,10 @@ public class AgendaPageTest extends BaseWebDriverTest {
             e.printStackTrace();
         }
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        agendaPage.clickBackFromQuestionListButton();
+        currentMeettingPage.clickBackOnListSitting();
+        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+
 
 
     }
