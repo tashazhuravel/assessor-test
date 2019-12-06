@@ -268,7 +268,11 @@ public class BaseWebDriverTest {
 
     void waitToTextChanged(final WebElement webElement) {
         final String currentText = webElement.getText();
-        wait.until((driver) -> !webElement.getText().equals(currentText));
+        try {
+            wait.until((driver) -> !webElement.getText().equals(currentText));
+        } catch (TimeoutException exception) {
+            log.error(webElement, exception);
+        }
     }
 
     boolean isTextChanged(final WebElement element) {
@@ -291,7 +295,7 @@ public class BaseWebDriverTest {
         for (File listOfFile : listOfFiles) {
             if (listOfFile.isFile()) {
                 String fileName = listOfFile.getName();
-                log.info("File" + listOfFile.getName());
+                log.info("File:" + " " + listOfFile.getName());
                 if (fileName.equals(file)) {
                     f = new File(fileName);
                     found = true;

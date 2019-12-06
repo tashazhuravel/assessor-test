@@ -19,7 +19,7 @@ public class MessageWindow {
     private By headerMessageByPreliminaryAcquaintanceWithAgenda = By.xpath("//div[@class=' x-window x-window-plain x-window-dlg']//span");
 
     @FindBy(xpath = "//div[@class='ext-mb-content']//span")
-    private List<WebElement> textMessage;
+    private WebElement textMessage;
 
     @FindBy(css = ".x-tool")
     private WebElement messageCloseButtonByX;
@@ -33,7 +33,7 @@ public class MessageWindow {
         PageFactory.initElements(webDriver, this);
     }
 
-    public String getTextMessage(){ return textMessage.iterator().next().getText();}
+    public String getMessage(){ return textMessage.getText();}
 
     public AgendaPage clickMessageOkButton(){
         actions.moveToElement(messageOkButton).click().perform();
@@ -49,5 +49,7 @@ public class MessageWindow {
         return headerMessageByPreliminaryAcquaintanceWithAgenda;
     }
 
-
+    public WebElement getTextMessage() {
+        return textMessage;
+    }
 }

@@ -9,6 +9,7 @@ import pages.MainPage;
 import pages.window.WindowSittingPlanning;
 import utils.DateUtil;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -84,6 +85,9 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
         //--Список участников
         List<String> selectParticipant = assessorService.getFIOParticipantSitting();
+        log.info(selectParticipant);
+        Collections.swap(selectParticipant, 1,3);
+        Collections.swap(selectParticipant, 2,3);
         log.info(selectParticipant);
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowSittingPlanning.getParticipantsList()), selectParticipant);
 

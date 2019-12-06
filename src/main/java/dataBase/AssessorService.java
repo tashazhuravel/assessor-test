@@ -36,10 +36,12 @@ public class AssessorService implements AssessorServiceImp {
         ResultSet resultSet = null;
         try {
             resultSet = statement.executeQuery("SELECT u.user_real_name FROM committee_secretary c2 LEFT JOIN user u ON u.user_id = c2.user_id  WHERE c2.committee_id = '64' " +
-                    "UNION " +
-                    "SELECT u.user_real_name FROM committee c1 LEFT JOIN user u ON u.user_id = c1.deputy  WHERE c1.id = '64'" +
-                    "UNION " +
-                    "SELECT u.user_real_name FROM committee c1 LEFT JOIN user u ON u.user_id = c1.chairman  WHERE c1.id = '64' "
+                    "UNION" +
+                    " SELECT u.user_real_name FROM committee c1 LEFT JOIN user u ON u.user_id = c1.deputy WHERE c1.id = '64' " +
+                    "UNION" +
+                    " SELECT u.user_real_name FROM committee c1 LEFT JOIN user u ON u.user_id = c1.chairman WHERE c1.id = '64' " +
+                    "UNION" +
+                    " SELECT u.user_real_name FROM committee_users c3 JOIN user u ON u.user_id = c3.user_id WHERE c3.committee_id = '64'"
             );
             while (resultSet.next()) {
                 participantFio.add(resultSet.getString("user_real_name"));
@@ -68,7 +70,7 @@ public class AssessorService implements AssessorServiceImp {
     }
 
     @Override
-    public List<String> getFIOAllParticipant(){
+    public List<String> getFIOAllParticipant() {
         List<String> allParticipantFio = new ArrayList<>();
         ResultSet resultSet = null;
         try {
@@ -77,10 +79,10 @@ public class AssessorService implements AssessorServiceImp {
                 allParticipantFio.add(resultSet.getString("members"));
             }
             resultSet.close();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  allParticipantFio;
+        return allParticipantFio;
     }
 
 }

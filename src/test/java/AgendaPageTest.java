@@ -54,7 +54,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void downloadFile() {
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -98,7 +98,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void setStatusAgendaApproval() {
         log.info("Уставновить статус 'Повестка дня согласована'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -119,10 +119,11 @@ public class AgendaPageTest extends BaseWebDriverTest {
             assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
 
             messageWindow = assessorSite.getMessageWindow();
-            assertEquals("", MessageType.MEETING_STATUS_AGENDA_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET.getLabel(), messageWindow.getTextMessage());
+            assertEquals("", MessageType.MEETING_STATUS_AGENDA_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
+            log.info(currentMeettingPage.getTextStatusField());
 
-            waitToTextChanged(currentMeettingPage.getStatusField());
+            waitWhileElementPresent(currentMeettingPage.getStatusField());
             assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
 
@@ -138,15 +139,14 @@ public class AgendaPageTest extends BaseWebDriverTest {
             assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
 
             agendaPage.clickSetMeetingStatusAgendaApprovedButton();
-
             attentionWindow.clickYesAttentionButton();
 
-            assertEquals("", MessageType.MEETING_STATUS_AGENDA_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getTextMessage());
+            waitWhileElementPresent(messageWindow.getTextMessage());
+            assertEquals("Статус 'Повестка дня утверждена' не установлен", MessageType.MEETING_STATUS_AGENDA_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
 
 
             waitToTextChanged(currentMeettingPage.getStatusField());
-
             assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
 
@@ -157,12 +157,11 @@ public class AgendaPageTest extends BaseWebDriverTest {
             assertEquals("", AttentionType.SET_MEETING_STATUS_AGENDA_APPROVED.getLabel(), attentionWindow.getTextAttention());
             attentionWindow.clickYesAttentionButton();
 
-
-            assertEquals("", MessageType.MEETING_STATUS_AGENDA_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getTextMessage());
+            waitWhileElementPresent(currentMeettingPage.getStatusField());
+            assertEquals("", MessageType.MEETING_STATUS_AGENDA_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
 
             waitToTextChanged(currentMeettingPage.getStatusField());
-
             assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
         }
