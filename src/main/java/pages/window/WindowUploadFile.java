@@ -32,7 +32,7 @@ public class WindowUploadFile {
         PageFactory.initElements(webDriver,this);
     }
 
-    public void setInputFile(String path){inputFile.sendKeys();}
+    public void setInputFile(String path){inputFile.sendKeys(path);}
 
     public AgendaPage clickUploadFileButton(){
         actions.moveToElement(uploadFileButton).click().perform();

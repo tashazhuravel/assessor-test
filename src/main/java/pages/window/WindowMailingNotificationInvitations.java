@@ -126,6 +126,11 @@ public class WindowMailingNotificationInvitations {
         return listMaterials;
     }
 
+
+    public List<WebElement> getCheckboxMaterials() {
+        return checkboxMaterials;
+    }
+
     public String getTextCommentField() {
         return commentField.getText();
     }

@@ -4,6 +4,8 @@ import log.EventHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -29,6 +31,7 @@ import pages.mainPageTab.PlanningTabPage;
 import pages.messageWindow.MessageWindow;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -45,7 +48,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(value = Parameterized.class)
 public class BaseWebDriverTest {
     private static SeleniumAssessor seleniumAssessor;
-    private static WebDriver driver;
+    protected static WebDriver driver;
     private boolean acceptNextAlert = true;
     private static Wait wait;
     PlanningTabPage planningTabPage;
@@ -230,6 +233,17 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    boolean isAllCheckboxDisabled(List<WebElement> my_element) {
+        try {
+            wait.until(ExpectedConditions.attributeToBe(my_element.iterator().next(), "disabled", "true"));
+        } catch (TimeoutException exception) {
+            return false;
+        }
+        return true;
+    }
+
+
+
 
     boolean isElementPresent(By my_element) {
         try {
@@ -315,6 +329,25 @@ public class BaseWebDriverTest {
         }
         Assert.assertTrue("Downloaded document is not found", found);
         f.deleteOnExit();
+    }
+
+    //чтение docx файлов
+    String readDocxFile(String fileName){
+        StringBuilder fileText = new StringBuilder(StringUtils.EMPTY);
+        try{
+            File file = new File(fileName);
+            FileInputStream fis = new FileInputStream(file.getAbsolutePath());
+            XWPFDocument document = new XWPFDocument(fis);
+            List<XWPFParagraph> paragraphs =document.getParagraphs();
+            for(int i=0;i<paragraphs.size();i++){
+                fileText.append(paragraphs.get(i).getParagraphText());
+                log.info(paragraphs.get(i).getParagraphText());
+            }
+            fis.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return fileText.toString();
     }
 
     protected boolean isAlertPresent() {

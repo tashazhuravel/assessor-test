@@ -12,6 +12,8 @@ import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
 
+import java.util.List;
+
 public class AgendaPage {
 
     private WebDriver webDriver;
@@ -44,9 +46,6 @@ public class AgendaPage {
 
     @FindBy(xpath = "//table[@id='agendaEditBtn']//button")
     private WebElement editInWordButton;
-
-    @FindBy(xpath = "//div[@class='textLayer']/div")
-    private WebElement textFromAgenda;
 
     @FindBy(xpath = "//div[@id='agendaContent']/div/div/div/div/span")
     private WebElement headerAgenda;
@@ -101,10 +100,6 @@ public class AgendaPage {
     public AgendaPage clickEditInWordButton(){
         actions.moveToElement(editInWordButton).click().perform();
         return this;
-    }
-
-    public WebElement getTextFromAgenda() {
-        return textFromAgenda;
     }
 
     public String getHeaderAgenda() {

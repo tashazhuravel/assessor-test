@@ -1,14 +1,20 @@
 import dataBase.AssessorService;
+import org.apache.commons.lang3.StringUtils;
+import org.hamcrest.Matcher;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import pages.AgendaPage;
 import pages.MainPage;
 import pages.attentionWindow.AttentionType;
 import pages.messageWindow.MessageType;
 import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
@@ -35,7 +41,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-   // @Ignore
+    @Ignore
     public void openAndCloseAgenda() {
         log.info("Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -55,7 +61,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-   // @Ignore
+    @Ignore
     public void downloadFile() {
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -80,11 +86,10 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
 
 
-
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void uploadFile() {
         log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -92,14 +97,36 @@ public class AgendaPageTest extends BaseWebDriverTest {
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
+        String dateCommitteeButton = planningTabPage.getDate();
+        log.info(numberCommitteeButton + " " + dateCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        Matcher<String> numberSitting = containsString(deleteSpaceBetweenWords(numberCommitteeButton));
+
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), numberSitting);
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
-        WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile("C:\\Users\\iluyshn\\Downloads\\Testauto.docx");
-        windowUploadFile.clickUploadFileButton();
 
+        WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
+        windowUploadFile.setInputFile("C:\\Projects\\AssessorTest\\Testauto.docx");
+        windowUploadFile.clickUploadFileButton();
+        try {
+            Thread.sleep(5000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        agendaPage.clickDownloadThisTextButton();
+        try {
+            Thread.sleep(5000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String textFileBeforeUpload = readDocxFile("Testauto.docx");
+        String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        assertEquals("Файл не загружен", textFileBeforeUpload, textAfterUpload);
+
+        agendaPage.clickBackFromQuestionListButton();
+        currentMeettingPage.clickBackOnListSitting();
+        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
     }
 
     @Test
@@ -155,7 +182,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
             assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
 
-        }else {
+        } else {
             agendaPage.clickSetMeetingStatusAgendaApprovedButton();
             attentionWindow = assessorSite.getAttentionWindow();
 
@@ -170,6 +197,10 @@ public class AgendaPageTest extends BaseWebDriverTest {
             assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
         }
+
+        agendaPage.clickBackFromQuestionListButton();
+        currentMeettingPage.clickBackOnListSitting();
+        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
     }
 
 }

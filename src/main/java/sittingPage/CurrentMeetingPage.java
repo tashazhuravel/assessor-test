@@ -136,6 +136,7 @@ public class CurrentMeetingPage {
 
     public AgendaPage clickAgendaButton() {
         actions.moveToElement(agendaButton).click().perform();
+
         return new AgendaPage(webDriver);
     }
 

@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
@@ -71,6 +72,11 @@ public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
                 messageWindow.clickMessageOkButton();
             }else{
                 //TODO дописать проверку добавленных материалов
+                isAllCheckboxDisabled(windowMailingNotificationInvitations.getCheckboxMaterials());
+                windowMailingNotificationInvitations.clickCheckboxSelectAll();
+                isAllCheckboxSelected(windowMailingNotificationInvitations.getCheckboxMaterials());
+                windowMailingNotificationInvitations.clickCheckboxUnselectAll();
+                isAllCheckboxDisabled(windowMailingNotificationInvitations.getCheckboxMaterials());
             }
         }else{
             //TODO проверка когда никто не выбран, задизейблена кнопка Разослать
