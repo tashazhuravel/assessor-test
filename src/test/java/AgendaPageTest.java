@@ -109,17 +109,9 @@ public class AgendaPageTest extends BaseWebDriverTest {
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
         windowUploadFile.setInputFile("C:\\Projects\\AssessorTest\\Testauto.docx");
         windowUploadFile.clickUploadFileButton();
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         agendaPage.clickDownloadThisTextButton();
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleepAnyTime(5000L); //долгая загрузка файла
         String textFileBeforeUpload = readDocxFile("Testauto.docx");
         String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         assertEquals("Файл не загружен", textFileBeforeUpload, textAfterUpload);
@@ -201,6 +193,34 @@ public class AgendaPageTest extends BaseWebDriverTest {
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
         assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+    }
+
+    @Test
+    public void reformAgenda(){
+
+        log.info("Уставновить статус 'Повестка дня согласована'");
+        assessorService = new AssessorService(dataBaseConnection.stmt);
+        planningTabPage = assessorSite.getPlanningPage();
+        planningTabPage.clickTab(MainPage.ETab.PLANNING);
+        String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
+        log.info(numberCommitteeButton);
+        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
+        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+
+        WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
+        windowUploadFile.setInputFile("C:\\Projects\\AssessorTest\\Testauto.docx"); //TODO вынести путь в константу и заменить по коду
+        windowUploadFile.clickUploadFileButton();
+        sleepAnyTime(5000L);
+        agendaPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);
+
+        agendaPage.clickReformAgendaButton();
+        sleepAnyTime(5000L);
+        agendaPage.clickDownloadThisTextButton();
+
+
     }
 
 }

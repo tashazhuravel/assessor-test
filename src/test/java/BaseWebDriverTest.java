@@ -349,7 +349,13 @@ public class BaseWebDriverTest {
         }
         return fileText.toString();
     }
-
+    void sleepAnyTime(long seconds){
+        try {
+            Thread.sleep(seconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
