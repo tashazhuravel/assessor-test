@@ -1,13 +1,11 @@
 import dataBase.AssessorService;
 import org.hamcrest.Matcher;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
 import pages.MainPage;
 import pages.attentionWindow.AttentionType;
-import pages.attentionWindow.AttentionWindow;
 import pages.messageWindow.MessageType;
 import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
@@ -18,7 +16,7 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AgendaPageTest extends BaseWebDriverTest {
 
-    public static final String STATUS = "Формируется повестка дня";
+    protected static final String STATUS = "Формируется повестка дня";
 
 
     public AgendaPageTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
