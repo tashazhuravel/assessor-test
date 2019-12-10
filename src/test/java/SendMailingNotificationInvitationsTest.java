@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
@@ -60,8 +60,7 @@ public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowMailingNotificationInvitations.getFIOParticipantText()), fioRecipientList);
 
         if(isAllCheckboxSelected(windowMailingNotificationInvitations.getCheckboxAllFIOParticipant())){
-            assertEquals("Добавлены материалы заседания", StringUtils.EMPTY, windowMailingNotificationInvitations.getTextListMaterials());
-            //assertEquals("Поле комментария содержит текст. По умолчанию д.б. пусто", StringUtils.EMPTY,windowMailingNotificationInvitations.getTextCommentField());
+            //assertNotEquals("Добавлены материалы заседания", StringUtils.EMPTY, windowMailingNotificationInvitations.getTextListMaterials());
             if(windowMailingNotificationInvitations.getListMaterials().isEmpty()) {
                 windowMailingNotificationInvitations.typeCommentField("Отправка письма автотестом");
                 log.info(windowMailingNotificationInvitations.getTextCommentField());
@@ -70,21 +69,27 @@ public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
                 assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED.getLabel(),messageWindow.getMessage());
                 messageWindow.clickMessageOkButton();
             }else{
-                //TODO дописать проверку добавленных материалов
+
                 isAllCheckboxDisabled(windowMailingNotificationInvitations.getCheckboxMaterials());
                 windowMailingNotificationInvitations.clickCheckboxSelectAll();
                 isAllCheckboxSelected(windowMailingNotificationInvitations.getCheckboxMaterials());
+
                 windowMailingNotificationInvitations.clickCheckboxUnselectAll();
                 isAllCheckboxDisabled(windowMailingNotificationInvitations.getCheckboxMaterials());
+
+                windowMailingNotificationInvitations.clickCheckboxInvertSelect();
+                isAllCheckboxSelected(windowMailingNotificationInvitations.getCheckboxMaterials());
+
+                windowMailingNotificationInvitations.typeCommentField("Отправка письма автотестом");
+                log.info(windowMailingNotificationInvitations.getTextCommentField());
+                windowMailingNotificationInvitations.clickSendButton();
+                messageWindow = assessorSite.getMessageWindow();
+                assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED.getLabel(),messageWindow.getMessage());
+                messageWindow.clickMessageOkButton();
             }
         }else{
-            //TODO проверка когда никто не выбран, задизейблена кнопка Разослать
+            isButtonDisabled(windowMailingNotificationInvitations.getSendButton());
         }
-
-
-
-
-
 
     }
 

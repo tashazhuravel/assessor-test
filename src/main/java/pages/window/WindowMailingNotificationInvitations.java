@@ -131,6 +131,10 @@ public class WindowMailingNotificationInvitations {
         return checkboxMaterials;
     }
 
+    public WebElement getSendButton() {
+        return sendButton;
+    }
+
     public String getTextCommentField() {
         return commentField.getText();
     }
