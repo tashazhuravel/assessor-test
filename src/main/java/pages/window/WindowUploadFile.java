@@ -17,16 +17,16 @@ public class WindowUploadFile {
     private By headerWindowUploadFile = By.xpath("//div[@class=' x-window']//span");
 
     @FindBy(xpath = "//div[@class=' x-window']//input[@name='file']")
-    WebElement inputFile;
+    private WebElement inputFile;
 
     @FindBy(xpath = "//div[@class=' x-window']//button[1]")
-    WebElement chooseFileButton;
+    private WebElement chooseFileButton;
 
     @FindBy(xpath = "(//div[@class=' x-window']//button)[2]")
-    WebElement uploadFileButton;
+    private WebElement uploadFileButton;
 
     @FindBy(xpath = "(//div[@class=' x-window']//button)[3]")
-    WebElement cancelUploadFileButton;
+   private WebElement cancelUploadFileButton;
 
     public WindowUploadFile(WebDriver webDriver) {
         this.webDriver = webDriver;

@@ -63,7 +63,8 @@ public class BaseWebDriverTest {
     static AuthorizationPage authorizationPage;
     static AssessorSite assessorSite;
     static Logger log = EventHandler.LOG;
-    protected static final String PATH_UPLOAD_FILE = "C:\\Projects\\AssessorTest\\Testauto.docx";
+    protected static final String PATH_UPLOAD_FILE = "C:\\Projects\\AssessorTest\\Temp\\UploadFile\\Testauto.docx";
+    protected static final String PATH_DOWNLOAD_FILE ="C:\\Projects\\AssessorTest\\Temp\\Download\\";
 
 
     @Parameters
@@ -329,7 +330,7 @@ public class BaseWebDriverTest {
             }
         }
         Assert.assertTrue("Downloaded document is not found", found);
-        f.deleteOnExit();
+        f.delete();
     }
 
     //чтение docx файлов
@@ -350,6 +351,7 @@ public class BaseWebDriverTest {
         }
         return fileText.toString();
     }
+
     void sleepAnyTime(long seconds){
         try {
             Thread.sleep(seconds);
