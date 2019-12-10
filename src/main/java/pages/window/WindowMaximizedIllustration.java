@@ -3,17 +3,12 @@ package pages.window;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import pages.IllustrationsPage;
 
 public class WindowMaximizedIllustration extends IllustrationsPage {
 
-
     private By headerMaximizedIllustration = By.xpath("//div[@id='windowIllustration']//span/center");
-
-    Actions actions;
 
     @FindBy(xpath = "//div[@id='windowIllustration']//div[@class='x-tool x-tool-close']")
     private WebElement closeByXButton;
@@ -21,7 +16,6 @@ public class WindowMaximizedIllustration extends IllustrationsPage {
     public WindowMaximizedIllustration(WebDriver webDriver) {
         super(webDriver);
     }
-
 
     public IllustrationsPage clickTabFIOParticipant() {
         usersFIOTab.iterator().next().click();

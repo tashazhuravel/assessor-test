@@ -15,7 +15,10 @@ import java.util.List;
 public class IllustrationsPage {
 
     private WebDriver webDriver;
-    private Actions actions;
+
+    protected Actions actions;
+
+    private By headerIllustrations = By.xpath("(//div[@id='sittingContent']//div/span)[1]");
 
     @FindBy(xpath = "//table[@id='planningControlManagmentButtonInfoClose']//button")
     private WebElement backToQuestionListButton;
@@ -33,7 +36,7 @@ public class IllustrationsPage {
     protected List<WebElement> usersFIOTab;
 
     @FindBy(xpath = "//div[@id='pictureView']//ul/li//span/span")
-    protected List<WebElement> usersFIOTabText;
+    private List<WebElement> usersFIOTabText;
 
     @FindBy(xpath = "//span[@id='currentQuestionName']")
     protected WebElement subjectSelectedQuestion;
@@ -53,8 +56,6 @@ public class IllustrationsPage {
 
     @FindBy(xpath = "//div[@id='pictureViewPanel']//div/img")
     protected WebElement imageContent;
-
-    private By headerIllustrations = By.xpath("(//div[@id='sittingContent']//div/span)[1]");
 
     public IllustrationsPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -115,5 +116,9 @@ public class IllustrationsPage {
 
     public By getHeaderIllustrations() {
         return headerIllustrations;
+    }
+
+    public void setUsersFIOTabText(List<WebElement> usersFIOTabText) {
+        this.usersFIOTabText = usersFIOTabText;
     }
 }

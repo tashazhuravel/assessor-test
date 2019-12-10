@@ -9,14 +9,12 @@ import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowSittingPlanning;
 import sittingPage.CurrentMeetingPage;
 
+import java.time.Year;
 import java.util.List;
 
 public class PlanningTabPage extends MainPage {
 
-    public PlanningTabPage(WebDriver webDriver) {
-        super(webDriver);
-    }
-
+    private By windowCreatePlanning = By.cssSelector(".x-window-header-text");
 
     @FindBy(xpath = "//div[@id=64]")
     private WebElement nameCommittee;
@@ -31,7 +29,7 @@ public class PlanningTabPage extends MainPage {
     private WebElement committeeButton;
 
     @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDate']")
-    private  WebElement day;
+    private WebElement day;
 
     @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDateMonth']")
     private WebElement month;
@@ -48,8 +46,9 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//button[contains(@class ,'btnSittingNew')]")
     private WebElement planningEventButton;
 
-    private By windowCreatePlanning = By.cssSelector(".x-window-header-text");
-
+    public PlanningTabPage(WebDriver webDriver) {
+        super(webDriver);
+    }
 
     public WindowSittingPlanning clickPlanningEventButton() {
         planningEventButton.click();
@@ -78,10 +77,8 @@ public class PlanningTabPage extends MainPage {
         return numberCommitteeLastButton.getText();
     }
 
-    public String getDate(){
-        String date;
-        String year =".2019";
-        return date = day.getText()+month.getText()+year;
+    public String getDate() {
+        return String.format("%s%s.%d", day.getText(), month.getText(), Year.now().getValue());
     }
 
     public String getAllNumberSittingCommittee() {

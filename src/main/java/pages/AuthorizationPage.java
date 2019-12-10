@@ -12,16 +12,16 @@ public class AuthorizationPage {
     private WebDriver webDriver;
 
     @FindBy(id = "wpName")
-    WebElement inputLogin;
+    private WebElement inputLogin;
 
     @FindBy(name = "wpPassword")
-    WebElement inputPassword;
+    private WebElement inputPassword;
 
     @FindBy(id = "wpLoginattempt")
-    WebElement buttonLogining;
+    private WebElement buttonLogining;
 
     @FindBy(xpath = "//div[@id='layoutTabs']")
-    List<WebElement> elementsFromMainPage;
+    private List<WebElement> elementsFromMainPage;
 
     public AuthorizationPage(WebDriver webDriver) {
         this.webDriver = webDriver;

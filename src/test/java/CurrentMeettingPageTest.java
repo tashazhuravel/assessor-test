@@ -1,4 +1,3 @@
-import dataBase.AssessorService;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;

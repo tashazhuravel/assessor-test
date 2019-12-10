@@ -9,10 +9,12 @@ import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
 
 public class WindowUploadFile {
+
     private WebDriver webDriver;
+
     private Actions actions;
 
-    By headerWindowUploadFile = By.xpath("//div[@class=' x-window']//span");
+    private By headerWindowUploadFile = By.xpath("//div[@class=' x-window']//span");
 
     @FindBy(xpath = "//div[@class=' x-window']//input[@name='file']")
     WebElement inputFile;
@@ -24,22 +26,24 @@ public class WindowUploadFile {
     WebElement uploadFileButton;
 
     @FindBy(xpath = "(//div[@class=' x-window']//button)[3]")
-    WebElement  cancelUploadFileButton;
+    WebElement cancelUploadFileButton;
 
-    public WindowUploadFile(WebDriver webDriver){
+    public WindowUploadFile(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 
-    public void setInputFile(String path){inputFile.sendKeys(path);}
+    public void setInputFile(String path) {
+        inputFile.sendKeys(path);
+    }
 
-    public AgendaPage clickUploadFileButton(){
+    public AgendaPage clickUploadFileButton() {
         actions.moveToElement(uploadFileButton).click().perform();
         return new AgendaPage(webDriver);
     }
 
-    public AgendaPage clickCancelUploadButton(){
+    public AgendaPage clickCancelUploadButton() {
         actions.moveToElement(cancelUploadFileButton).click().perform();
         return new AgendaPage(webDriver);
     }

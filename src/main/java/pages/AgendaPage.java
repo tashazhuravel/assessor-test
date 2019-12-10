@@ -12,8 +12,6 @@ import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
 
-import java.util.List;
-
 public class AgendaPage {
 
     private WebDriver webDriver;
@@ -57,47 +55,47 @@ public class AgendaPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickBackFromQuestionListButton(){
+    public CurrentMeetingPage clickBackFromQuestionListButton() {
         actions.moveToElement(backToQuestionListButton).click().perform();
         return new CurrentMeetingPage(webDriver);
     }
 
-    public AgendaPage clickReformAgendaButton(){
+    public AgendaPage clickReformAgendaButton() {
         actions.moveToElement(reformAgendaButton).click().perform();
         return this;
     }
 
-    public WindowPreliminaryAcquaintanceWithAgenda clickSendAgendaButton(){
+    public WindowPreliminaryAcquaintanceWithAgenda clickSendAgendaButton() {
         actions.moveToElement(sendAgendaButton).click().perform();
         return new WindowPreliminaryAcquaintanceWithAgenda(webDriver);
     }
 
-    public MessageWindow clickSetMeetingStatusAgendaUnderApprovalButton(){
+    public MessageWindow clickSetMeetingStatusAgendaUnderApprovalButton() {
         actions.moveToElement(setMeetingStatusAgendaUnderApprovalButton).click().perform();
         return new MessageWindow(webDriver);
     }
 
-    public AttentionWindow clickSetMeetingStatusAgendaApprovedButton(){
+    public AttentionWindow clickSetMeetingStatusAgendaApprovedButton() {
         actions.moveToElement(setMeetingStatusAgendaApprovedButton).click().perform();
         return new AttentionWindow(webDriver);
     }
 
-    public WindowMailingNotificationInvitations clickSendInvitationButton(){
+    public WindowMailingNotificationInvitations clickSendInvitationButton() {
         actions.moveToElement(sendInvitationButton).click().perform();
         return new WindowMailingNotificationInvitations(webDriver);
     }
 
-    public AgendaPage clickDownloadThisTextButton(){
+    public AgendaPage clickDownloadThisTextButton() {
         actions.moveToElement(downloadThisTextButton).click().perform();
         return this;
     }
 
-    public WindowUploadFile clickUploadEditedTextButton(){
+    public WindowUploadFile clickUploadEditedTextButton() {
         actions.moveToElement(uploadEditedTextButton).click().perform();
         return new WindowUploadFile(webDriver);
     }
 
-    public AgendaPage clickEditInWordButton(){
+    public AgendaPage clickEditInWordButton() {
         actions.moveToElement(editInWordButton).click().perform();
         return this;
     }

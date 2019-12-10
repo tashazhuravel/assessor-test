@@ -13,6 +13,7 @@ import java.util.List;
 public class SelectedQuestion {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     @FindBy(xpath = "//div[@id='planningQuestionButtonSave']//button")
@@ -473,48 +474,46 @@ public class SelectedQuestion {
         return decideTextField.getText();
     }
 
-    public String getHistoryQuestionText(){
+    public String getHistoryQuestionText() {
         return historyField.getText();
     }
 
-    public void typeHistoryQuestionText(String text){
+    public void typeHistoryQuestionText(String text) {
         historyField.sendKeys(text);
     }
 
-    public SelectedQuestion clickClearHistoryButton(){
+    public SelectedQuestion clickClearHistoryButton() {
         actions.moveToElement(clearHistoryButton).click().perform();
         return this;
     }
 
-    public WindowCreateLinkBetweenQuestions clickAddLinkButton(){
+    public WindowCreateLinkBetweenQuestions clickAddLinkButton() {
         actions.moveToElement(addLinkButton).click().perform();
         return new WindowCreateLinkBetweenQuestions(webDriver);
     }
 
-    public SelectedQuestion clickCheckboxLink(){
+    public SelectedQuestion clickCheckboxLink() {
         checkboxLinkQuestion.iterator().next().click();
         return this;
     }
 
-    public String getSelectQuestionText(){
+    public String getSelectQuestionText() {
         return linkQuestions.iterator().next().getText();
     }
 
-    public WindowViewQuestionLink clickQuestionLink(){
+    public WindowViewQuestionLink clickQuestionLink() {
         linkQuestions.iterator().next().click();
         return new WindowViewQuestionLink(webDriver);
     }
 
-    public SelectedQuestion clickDeleteLinkButton(){
+    public SelectedQuestion clickDeleteLinkButton() {
         actions.moveToElement(deleteLinkButton).click().perform();
         return this;
     }
 
-    public String getHeaderQuestionListText(){return headerQuestionList.getText();}
-
-
-
-
+    public String getHeaderQuestionListText() {
+        return headerQuestionList.getText();
+    }
 
 
 }

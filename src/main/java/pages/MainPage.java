@@ -16,40 +16,39 @@ import pages.window.WindowUserAccount;
 public class MainPage {
 
     protected WebDriver webDriver;
+
     protected Actions actions;
 
-    @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a[2]")
-    WebElement planningTab;
-
-    @FindBy(xpath = "//ul/li[@id='layoutTabs__archivesearch']/a[2]")
-    WebElement archiveSearchTab;
-
-    @FindBy(xpath = "//ul/li[@id='layoutTabs__manage']/a[2]")
-    WebElement manageTab;
-
-    @FindBy(xpath = "//button[text()='Завершение сеанса']")
-    WebElement logOutButton;
-
-    @FindBy(xpath = "//table/tbody//td//table//em/button")
-    WebElement userFIOButton;
-
-    @FindBy(xpath = "//button[@class=' x-btn-text notificationBtn']")
-    WebElement notificationButton;
-
-    @FindBy(xpath = "//div[@id='windowNotifications']")
-    WebElement notificationWindow;
-
-    @FindBy(xpath = "//button[@class=' x-btn-text hasNews']")
-    WebElement notificationButtonHaveMessage;
-
-    // By notificationButtonHaveMessage = By.xpath("//button[@class=' x-btn-text hasNews']");
-    By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
-    // By findUserFIOButton = By.xpath("//table/tbody//td//table//em/button");
+    private By notificationMessageButton = By.xpath("//button[@class=' x-btn-text notificationBtn']");
 
     private By divMainPage = By.xpath("//div[@id='layoutTabs']");
 
+    @FindBy(xpath = "//ul/li[@id='layoutTabs__planning']/a[2]")
+    private WebElement planningTab;
+
+    @FindBy(xpath = "//ul/li[@id='layoutTabs__archivesearch']/a[2]")
+    private WebElement archiveSearchTab;
+
+    @FindBy(xpath = "//ul/li[@id='layoutTabs__manage']/a[2]")
+    private WebElement manageTab;
+
+    @FindBy(xpath = "//button[text()='Завершение сеанса']")
+    private WebElement logOutButton;
+
+    @FindBy(xpath = "//table/tbody//td//table//em/button")
+    private WebElement userFIOButton;
+
+    @FindBy(xpath = "//button[@class=' x-btn-text notificationBtn']")
+    private WebElement notificationButton;
+
+    @FindBy(xpath = "//div[@id='windowNotifications']")
+    private WebElement notificationWindow;
+
+    @FindBy(xpath = "//button[@class=' x-btn-text hasNews']")
+    private WebElement notificationButtonHaveMessage;
+
     @FindBy(xpath = "//button[text()='О системе']")
-    WebElement aboutSystemButton;
+    private WebElement aboutSystemButton;
 
     public MainPage(WebDriver webDriver) {
         this.webDriver = webDriver;

@@ -19,9 +19,9 @@ import static org.junit.Assert.assertThat;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest{
+public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest {
 
-    public SendPreliminaryAcquaintanceWithAgendaTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace){
+    public SendPreliminaryAcquaintanceWithAgendaTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
@@ -30,7 +30,7 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
     }
 
     @Test
-    public void authorization(){
+    public void authorization() {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
@@ -39,7 +39,7 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
     }
 
     @Test
-    public void sendPreliminaryAcquaintance(){
+    public void sendPreliminaryAcquaintance() {
         log.info("Повестка дня. Отправка писем 'Предварительное ознакомление'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -53,24 +53,21 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
         WindowPreliminaryAcquaintanceWithAgenda windowPreliminaryAcquaintanceWithAgenda = agendaPage.clickSendAgendaButton();
         String fioRecipient = assessorService.getFIOAllParticipant().get(0);
         log.info(fioRecipient);
-        List <String> fioRecipientList = Stream.of(fioRecipient.split(",")).collect(Collectors.toList());
-        Collections.swap(fioRecipientList, 0,2);
-        verifyAutocompleteOptionsText(changeWordPressSymbol(windowPreliminaryAcquaintanceWithAgenda.getListFIOParticipants()),fioRecipientList);
-        if (isAllCheckboxSelected(windowPreliminaryAcquaintanceWithAgenda.getCheckboxFIOParticipants())){
+        List<String> fioRecipientList = Stream.of(fioRecipient.split(",")).collect(Collectors.toList());
+        Collections.swap(fioRecipientList, 0, 2);
+        verifyAutocompleteOptionsText(changeWordPressSymbol(windowPreliminaryAcquaintanceWithAgenda.getListFIOParticipants()), fioRecipientList);
+        if (isAllCheckboxSelected(windowPreliminaryAcquaintanceWithAgenda.getCheckboxFIOParticipants())) {
             windowPreliminaryAcquaintanceWithAgenda.clickSendButton();
             log.info("Письмо отправлено");
-        }else{
+        } else {
             isButtonDisabled(windowPreliminaryAcquaintanceWithAgenda.getSendButton());
             log.info("Ни один получателей не выбран");
         }
 
         messageWindow = assessorSite.getMessageWindow();
-        assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED.getLabel(),messageWindow.getMessage());
+        assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED.getLabel(), messageWindow.getMessage());
         messageWindow.clickMessageOkButton();
     }
-
-
-
 
 
 }

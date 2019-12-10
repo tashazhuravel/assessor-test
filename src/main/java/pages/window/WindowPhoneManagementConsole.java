@@ -11,6 +11,7 @@ import sittingPage.CurrentMeetingPage;
 public class WindowPhoneManagementConsole {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     @FindBy(xpath = "//div[@class='x-window x-resizable-pinned']//div[@class='x-tool x-tool-close']")
@@ -24,7 +25,7 @@ public class WindowPhoneManagementConsole {
 
     //TODO дописать оставшиееся кнопки и чекбоксы и методы к ним
 
-    By headerTelephoneConsole = By.xpath("//div[@class='x-window x-resizable-pinned']//span[@class='x-window-header-text']");
+    private By headerTelephoneConsole = By.xpath("//div[@class='x-window x-resizable-pinned']//span[@class='x-window-header-text']");
 
     public WindowPhoneManagementConsole(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -32,12 +33,12 @@ public class WindowPhoneManagementConsole {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickСloseByXButton(){
+    public CurrentMeetingPage clickСloseByXButton() {
         actions.moveToElement(closeByXButton).click().perform();
         return new CurrentMeetingPage(webDriver);
     }
 
-    public CurrentMeetingPage clickCloseButton(){
+    public CurrentMeetingPage clickCloseButton() {
         actions.moveToElement(closeButton).click().perform();
         return new CurrentMeetingPage(webDriver);
     }

@@ -1,6 +1,5 @@
 package pages;
 
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +13,7 @@ import sittingPage.CurrentMeetingPage;
 public class VotingResultsProtocolPage {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerVotingResultsProtocol = By.xpath("(//div[@id='protocolVotingContent']//span)[1]");
@@ -37,33 +37,33 @@ public class VotingResultsProtocolPage {
     private WebElement textVotingResultsProtocol;
 
 
-    public VotingResultsProtocolPage(WebDriver webDriver){
+    public VotingResultsProtocolPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickCloseVotingResultsProtocol(){
+    public CurrentMeetingPage clickCloseVotingResultsProtocol() {
         actions.moveToElement(closeVotingResultsProtocol).click().perform();
         return new CurrentMeetingPage(webDriver);
     }
 
-    public VotingResultsProtocolPage clickRefreshVotingResultsProtocol(){
+    public VotingResultsProtocolPage clickRefreshVotingResultsProtocol() {
         actions.moveToElement(refreshVotingResultsProtocol).click().perform();
         return this;
     }
 
-    public VotingResultsProtocolPage clickDownloadThisTextButton(){
+    public VotingResultsProtocolPage clickDownloadThisTextButton() {
         actions.moveToElement(downloadThisTextButton).click().perform();
         return this;
     }
 
-    public WindowUploadFile clickUploadEditedTextButton(){
+    public WindowUploadFile clickUploadEditedTextButton() {
         actions.moveToElement(uploadEditedTextButton).click().perform();
         return new WindowUploadFile(webDriver);
     }
 
-    public VotingResultsProtocolPage clickEditInWordButton(){
+    public VotingResultsProtocolPage clickEditInWordButton() {
         actions.moveToElement(editInWordButton).click().perform();
         return this;
     }

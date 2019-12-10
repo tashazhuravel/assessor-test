@@ -9,9 +9,6 @@ public enum MessageType {
     MEETING_STATUS_PROTOCOL_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET("Установлен статус заседания \"Протокол проходит согласование\""),
     MEETING_STATUS_PROTOCOL_APPROVED_HAS_BEEN_SET("Установлен статус заседания \"Протокол утвержден\"");
 
-
-
-
     private String label;
 
     MessageType(String label) {

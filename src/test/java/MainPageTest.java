@@ -1,13 +1,13 @@
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
-import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.mainPageTab.PlanningTabPage;
+import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
+import sittingPage.CurrentMeetingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;

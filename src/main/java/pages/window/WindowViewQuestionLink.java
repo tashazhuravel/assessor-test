@@ -10,7 +10,9 @@ import sittingPage.CurrentMeetingPage;
 
 
 public class WindowViewQuestionLink {
+
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerViewLink = By.xpath("//div[@class=' x-window']//span/center");

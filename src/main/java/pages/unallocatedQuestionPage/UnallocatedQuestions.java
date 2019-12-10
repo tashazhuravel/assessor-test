@@ -10,6 +10,7 @@ import pages.mainPageTab.PlanningTabPage;
 public class UnallocatedQuestions {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     @FindBy(xpath = "//textarea[@id='planningCommittee']")
@@ -27,7 +28,7 @@ public class UnallocatedQuestions {
     }
 
     public PlanningTabPage clickButtonBack() {
-       actions.moveToElement(buttonBack).click().perform();
+        actions.moveToElement(buttonBack).click().perform();
         return new PlanningTabPage(webDriver);
     }
 

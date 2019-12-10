@@ -14,6 +14,7 @@ import java.util.List;
 public class WindowsChooseQuestions {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerChooseQuestions = By.xpath("//div[@id='registerWindow']//span");

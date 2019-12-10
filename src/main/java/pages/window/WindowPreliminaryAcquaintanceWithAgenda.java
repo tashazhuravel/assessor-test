@@ -11,7 +11,9 @@ import pages.AgendaPage;
 import java.util.List;
 
 public class WindowPreliminaryAcquaintanceWithAgenda {
+
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerWindowPreliminaryAcquaintanceWithAgenda = By.xpath("//div[@class='x-window-header x-unselectable']//span");
@@ -74,6 +76,5 @@ public class WindowPreliminaryAcquaintanceWithAgenda {
     public WebElement getSendButton() {
         return sendButton;
     }
-
 
 }

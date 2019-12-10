@@ -13,6 +13,7 @@ import java.util.List;
 public class WindowSendStatement {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerSendStatement = By.xpath("//div[@class='ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix']/span");

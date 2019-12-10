@@ -11,7 +11,9 @@ import pages.messageWindow.MessageWindow;
 import sittingPage.CurrentMeetingPage;
 
 public class AttentionWindow {
+
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerAttentionWindow = By.xpath("(//div[@class=' x-window x-window-plain x-window-dlg']//span)[1]");
@@ -28,17 +30,17 @@ public class AttentionWindow {
     @FindBy(xpath = "(//div[@class=' x-window x-window-plain x-window-dlg']//td[@class='x-toolbar-cell']//button)[2]")
     private WebElement noAttentionButton;
 
-
-
-    public AttentionWindow(WebDriver webDriver){
+    public AttentionWindow(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 
-    public String getTextAttention(){return textAttention.getText();}
+    public String getTextAttention() {
+        return textAttention.getText();
+    }
 
-    public MessageWindow clickYesAttentionButton(){
+    public MessageWindow clickYesAttentionButton() {
         actions.moveToElement(yesAttentionButton).click().perform();
         return new MessageWindow(webDriver);
     }

@@ -17,7 +17,10 @@ import java.util.regex.Pattern;
 public class CurrentMeetingPage {
 
     private WebDriver webDriver;
+
     private Actions actions;
+
+    private By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");
 
     @FindBy(xpath = "//textarea[@id='planningCommittee']")
     private WebElement informationFieldAboutSitting;
@@ -81,9 +84,6 @@ public class CurrentMeetingPage {
 
     @FindBy(xpath = "//div[@id='planningQuestionTree']//span/span")
     private WebElement headerQuestionList;
-
-    private By headerSelectedQuestion = By.xpath("//div[@id='questionContent']//span");
-
 
     public CurrentMeetingPage(WebDriver webDriver) {
         this.webDriver = webDriver;

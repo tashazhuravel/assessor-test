@@ -15,6 +15,8 @@ public class InformationTablePage {
 
     private Actions actions;
 
+    private By headerInformationTable = By.xpath("//div[@id='infoData']/div/span");
+
     @FindBy(xpath = "//table[@id='planningControlManagmentButtonInfoClose']//button")
     private WebElement backToQuestionListButton;
 
@@ -29,11 +31,6 @@ public class InformationTablePage {
 
     @FindBy(xpath = "//div[@id='textcontent']")
     private WebElement textContent;
-
-    private WebElement maximizedTextContent;
-
-    private By headerInformationTable = By.xpath("//div[@id='infoData']/div/span");
-
 
     public InformationTablePage(WebDriver webDriver) {
         this.webDriver = webDriver;

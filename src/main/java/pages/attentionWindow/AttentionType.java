@@ -2,7 +2,6 @@ package pages.attentionWindow;
 
 public enum AttentionType {
 
-
     SET_MEETING_STATUS_AGENDA_APPROVED("Установить статус заседания \"Повестка утверждена?\""),
     REFORMAT_AGENDA_TEXT("Переформировать текст повестки дня?"),
     OPEN_THE_MEETING("Открыть заседание?"),
@@ -17,9 +16,6 @@ public enum AttentionType {
     SET_MEETING_STATUS_PROTOCOL_APPROVED("Не ждать согласования протокола и установить статус заседания \"Протокол утверждён?\""),
     TASK_CREATION("Перейти к выдаче поручений?"),
     DELETE_QUESTION("Удалить вопрос?");
-
-
-
 
     private String label;
 

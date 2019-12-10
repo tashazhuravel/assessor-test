@@ -4,9 +4,9 @@ import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import sittingPage.CurrentMeetingPage;
 import pages.MainPage;
 import pages.window.WindowSittingPlanning;
+import sittingPage.CurrentMeetingPage;
 import utils.DateUtil;
 
 import java.util.Collections;

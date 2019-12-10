@@ -1,6 +1,5 @@
 package sittingPage;
 
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -12,6 +11,7 @@ import java.util.List;
 public class Discussion {
 
    private WebDriver webDriver;
+
    private Actions actions;
 
     @FindBy(xpath = "//div[@class=' x-panel chatClass x-border-panel']//span[@class='titlePanel']")

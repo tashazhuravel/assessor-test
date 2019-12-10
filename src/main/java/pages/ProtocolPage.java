@@ -13,10 +13,11 @@ import sittingPage.CurrentMeetingPage;
 
 public class ProtocolPage {
 
-    WebDriver webDriver;
-    Actions actions;
+    private WebDriver webDriver;
 
-    By headerProtocolPage = By.xpath("//div[@id='protocolContent']/div/div/div/div/span");
+    private Actions actions;
+
+    private By headerProtocolPage = By.xpath("//div[@id='protocolContent']/div/div/div/div/span");
 
     @FindBy(xpath = "//table[@id='btnSecretaryProtocolClose']//button")
     private WebElement closeProtocol;
@@ -34,7 +35,7 @@ public class ProtocolPage {
     private WebElement setMeetingStatusProtocolUnderApprovalButton;
 
     @FindBy(xpath = "//table[@id='btnSecretaryProtocolConfirm']//button")
-    private  WebElement setMeetingStatusProtocolApprovalButton;
+    private WebElement setMeetingStatusProtocolApprovalButton;
 
     @FindBy(xpath = "//table[@id='btnSecretarySignedProtocolSend']//button")
     private WebElement sendForReviewButton;
@@ -51,43 +52,43 @@ public class ProtocolPage {
     @FindBy(xpath = "//div[@class='textLayer']/div")
     private WebElement textFromProtocol;
 
-    public ProtocolPage(WebDriver webDriver){
+    public ProtocolPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
-        PageFactory.initElements(webDriver,this);
+        PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickCloseProtocolButton(){
+    public CurrentMeetingPage clickCloseProtocolButton() {
         actions.moveToElement(closeProtocol).click().perform();
         return new CurrentMeetingPage(webDriver);
     }
 
-    public ProtocolPage clickRefreshProtocolButton(){
+    public ProtocolPage clickRefreshProtocolButton() {
         actions.moveToElement(refreshProtocol).click().perform();
         return this;
     }
 
-    public WindowMailingNotificationInvitations clickSendProtocolButton(){
+    public WindowMailingNotificationInvitations clickSendProtocolButton() {
         actions.moveToElement(sendProtocolButton).click().perform();
         return new WindowMailingNotificationInvitations(webDriver);
     }
 
-    public WindowsChooseQuestions clickCreateStatementButton(){
+    public WindowsChooseQuestions clickCreateStatementButton() {
         actions.moveToElement(createStatementButton).click().perform();
         return new WindowsChooseQuestions(webDriver);
     }
 
-    public ProtocolPage clickDownloadThisTextButton(){
+    public ProtocolPage clickDownloadThisTextButton() {
         actions.moveToElement(downloadThisTextButton).click().perform();
         return this;
     }
 
-    public WindowUploadFile clickUploadEditedTextButton(){
+    public WindowUploadFile clickUploadEditedTextButton() {
         actions.moveToElement(uploadEditedTextButton).click().perform();
         return new WindowUploadFile(webDriver);
     }
 
-    public ProtocolPage clickEditInWordButton(){
+    public ProtocolPage clickEditInWordButton() {
         actions.moveToElement(editInWordButton).click().perform();
         return this;
     }

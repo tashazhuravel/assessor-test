@@ -8,11 +8,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.window.WindowUploadFile;
 
-import java.util.List;
-
 public class StatementPage {
 
     private WebDriver webDriver;
+
     private Actions actions;
 
     private By headerStatement = By.xpath("(//div[@id='viewPanel']//span)[1]");
@@ -34,7 +33,6 @@ public class StatementPage {
 
     @FindBy(xpath = "//table[@id='excerptSendBtn']//button")
     private WebElement sendStatement;
-
 
     public StatementPage(WebDriver webDriver) {
         this.webDriver = webDriver;

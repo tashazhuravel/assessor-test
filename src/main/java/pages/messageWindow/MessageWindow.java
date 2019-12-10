@@ -8,13 +8,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
 
-import java.util.List;
-
 public class MessageWindow {
 
     private WebDriver webDriver;
-    private Actions actions;
 
+    private Actions actions;
 
     private By headerMessageByPreliminaryAcquaintanceWithAgenda = By.xpath("//div[@class=' x-window x-window-plain x-window-dlg']//span");
 

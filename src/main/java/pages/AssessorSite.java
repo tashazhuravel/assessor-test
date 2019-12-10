@@ -8,8 +8,8 @@ import pages.mainPageTab.PlanningTabPage;
 import pages.messageWindow.MessageWindow;
 import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowAboutSystem;
-import pages.window.WindowSittingPlanning;
 import pages.window.WindowNotification;
+import pages.window.WindowSittingPlanning;
 import pages.window.WindowUserAccount;
 import sittingPage.CurrentMeetingPage;
 
