@@ -39,12 +39,7 @@ public class MainPageTest extends BaseWebDriverTest {
         log.info("Проверка модального окна 'О системе'");
         MainPage mainPage = assessorSite.getMainPage();
         waitWhileElementPresent(mainPage.getAboutSystemButton());
-        try {
-            Thread.sleep(1000);
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleepAnyTime(1000L);
         WindowAboutSystem windowAboutSystem = mainPage.clickButtonAboutSystem();
         assertTrue("Не открылось диалоговое окно 'О системе'.", isElementFind(windowAboutSystem.getHeaderWindowAboutSystem()));
         windowAboutSystem.closeWindowAboutSystemByX();
@@ -80,12 +75,7 @@ public class MainPageTest extends BaseWebDriverTest {
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification;
         assertFalse("Кнопка сообщение не отображена", mainPage.isNotificationMessageButtonDisplay());
-        try {
-            Thread.sleep(1000);
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleepAnyTime(1000L);
 
         if (isElementFind(mainPage.getNotificationMessageButton())) {
             windowNotification = mainPage.clickButtonNotification();

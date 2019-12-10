@@ -43,6 +43,11 @@ public class AttentionWindow {
         return new MessageWindow(webDriver);
     }
 
+    public AgendaPage clickYesButton(){
+        actions.moveToElement(yesAttentionButton).click().perform();
+        return new AgendaPage(webDriver);
+    }
+
     public AgendaPage clickNoAttentionButton(){
         actions.moveToElement(noAttentionButton).click().perform();
         return new AgendaPage(webDriver);

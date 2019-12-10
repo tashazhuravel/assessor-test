@@ -63,6 +63,7 @@ public class BaseWebDriverTest {
     static AuthorizationPage authorizationPage;
     static AssessorSite assessorSite;
     static Logger log = EventHandler.LOG;
+    protected static final String PATH_UPLOAD_FILE = "C:\\Projects\\AssessorTest\\Testauto.docx";
 
 
     @Parameters

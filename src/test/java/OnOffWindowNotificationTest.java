@@ -43,23 +43,13 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
         // Todo---провекрка нажат чекбокс Показывать уведомления о новых сообщениях
         if (isCheckboxSelected(checkboxEnabledShowNewNotificationsMessages)) {
             windowUserAccount.clickCheckboxEnabledShowNewNotificationsMessages();
-            try {
-                Thread.sleep(1000);
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-            }
+           sleepAnyTime(1000L);
             windowUserAccount.saveUserAccount();
         } else {
             windowUserAccount.saveUserAccount();
         }
         //Не удалять! Этот sleep необходим для ожидания обновления страницы после выполнения действия saveUserAccount, иначе не успевает отрабатываеть первое условие if.
-        try {
-            Thread.sleep(5000);
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleepAnyTime(5000L);
 
 
         WindowNotification windowNotification;
@@ -83,12 +73,7 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
 
         if (isCheckboxSelected(checkboxEnabledNotificationsMessages)) {
             windowUserAccount.clickCheckboxEnabledNotifications();
-            try {
-                Thread.sleep(500);
-            } catch (
-                    InterruptedException e) {
-                e.printStackTrace();
-            }
+            sleepAnyTime(500L);
             assertFalse("Активен чекбокс 'Показывать уведомления о новых сообщениях:'", windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages().isEnabled());
 
             windowUserAccount.saveUserAccount();

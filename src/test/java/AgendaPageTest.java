@@ -1,20 +1,16 @@
 import dataBase.AssessorService;
-import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.Matcher;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import pages.AgendaPage;
 import pages.MainPage;
 import pages.attentionWindow.AttentionType;
+import pages.attentionWindow.AttentionWindow;
 import pages.messageWindow.MessageType;
 import pages.window.WindowUploadFile;
 import sittingPage.CurrentMeetingPage;
-
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
@@ -23,6 +19,7 @@ import static org.junit.Assert.*;
 public class AgendaPageTest extends BaseWebDriverTest {
 
     public static final String STATUS = "Формируется повестка дня";
+
 
     public AgendaPageTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
@@ -75,11 +72,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickDownloadThisTextButton();
-        try {
-            Thread.sleep(5000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleepAnyTime(5000L);// ожидаем загрузки файла
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
@@ -89,14 +82,13 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void uploadFile() {
         log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
-        log.info(numberCommitteeButton);
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
@@ -107,7 +99,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile("C:\\Projects\\AssessorTest\\Testauto.docx");
+        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         agendaPage.clickDownloadThisTextButton();
@@ -122,7 +114,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void setStatusAgendaApproval() {
         log.info("Уставновить статус 'Повестка дня согласована'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -196,30 +188,54 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    public void reformAgenda(){
+    public void reformatAgenda(){
 
-        log.info("Уставновить статус 'Повестка дня согласована'");
+        log.info("'Повестка дня', переформировать повестки дня");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
-        log.info(numberCommitteeButton);
+        String dateCommitteeButton = planningTabPage.getDate();
+        log.info(numberCommitteeButton + " " + dateCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
-        WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile("C:\\Projects\\AssessorTest\\Testauto.docx"); //TODO вынести путь в константу и заменить по коду
-        windowUploadFile.clickUploadFileButton();
-        sleepAnyTime(5000L);
         agendaPage.clickDownloadThisTextButton();
-        sleepAnyTime(5000L);
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textBeforeUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+
+        WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
+        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.clickUploadFileButton();
+        sleepAnyTime(5000L);//ждем помещение файла в систему и перезагрузку страницы
+        agendaPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+
+        assertEquals("Файл не был загружен в систему",textBeforeUpload, textAfterUpload);
 
         agendaPage.clickReformAgendaButton();
-        sleepAnyTime(5000L);
+        attentionWindow = assessorSite.getAttentionWindow();
+        assertEquals(AttentionType.REFORMAT_AGENDA_TEXT.getLabel(),attentionWindow.getTextAttention());
+        attentionWindow.clickNoAttentionButton();
+        sleepAnyTime(5000L);// ждем переформирование текста и обновление странцы
         agendaPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textBeforeReformat = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        assertEquals("Переформирован Текст повестки ", textAfterUpload, textBeforeReformat);
 
+        agendaPage.clickReformAgendaButton();
+        attentionWindow = assessorSite.getAttentionWindow();
+        assertEquals(AttentionType.REFORMAT_AGENDA_TEXT.getLabel(),attentionWindow.getTextAttention());
+        attentionWindow.clickYesButton();
+        sleepAnyTime(5000L);// ждем переформирование текста и обновление странцы
+        agendaPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textAfterReformat = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        assertNotSame("Текст повестки не переформирован", textBeforeReformat, textAfterReformat);
 
     }
 
