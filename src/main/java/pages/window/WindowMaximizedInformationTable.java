@@ -1,5 +1,6 @@
 package pages.window;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,7 +21,8 @@ public class WindowMaximizedInformationTable {
     @FindBy(xpath = "//div[@class=' x-window x-window-maximized']//div[@id='textcontent']")
     private WebElement maximizedTextContent;
 
-    private By headerMaximizedWindow = By.xpath("//div[@class=' x-window x-window-maximized']//span/center");
+    @FindBy(xpath = "//div[@class=' x-window x-window-maximized']//span/center")
+    private WebElement headerMaximizedWindow;
 
     public WindowMaximizedInformationTable(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -37,7 +39,5 @@ public class WindowMaximizedInformationTable {
         return new InformationTablePage(webDriver);
     }
 
-    public By getHeaderMaximizedWindow() {
-        return headerMaximizedWindow;
-    }
+    public String getHeaderMaximizedWindow() { return headerMaximizedWindow.getText(); }
 }

@@ -15,7 +15,8 @@ public class InformationTablePage {
 
     private Actions actions;
 
-    private By headerInformationTable = By.xpath("//div[@id='infoData']/div/span");
+    @FindBy(xpath = "//div[@id='infoData']/div/span")
+    private WebElement headerInformationTable;
 
     @FindBy(xpath = "//table[@id='planningControlManagmentButtonInfoClose']//button")
     private WebElement backToQuestionListButton;
@@ -59,12 +60,20 @@ public class InformationTablePage {
         return this;
     }
 
-    public By getHeaderInformationTable() {
+    public WebElement getHeaderInformationTable() {
         return headerInformationTable;
+    }
+
+    public String getHeaderText() {
+        return headerInformationTable.getText();
     }
 
     public String getTextContent() {
         return textContent.getText();
+    }
+
+    public String getTransformTextSize(){
+        return textContent.getCssValue("transform");
     }
 
 
