@@ -71,6 +71,10 @@ public class QuestionList {
         return this;
     }
 
+    public String getStatusExamine(){
+        return questionStatusExamine.getCssValue("title");
+    }
+
     public WebElement getHeaderQuestionList() {
         return headerQuestionList;
     }
