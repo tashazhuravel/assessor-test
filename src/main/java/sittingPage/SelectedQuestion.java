@@ -10,7 +10,7 @@ import pages.window.*;
 
 import java.util.List;
 
-public class SelectedQuestion {
+public class SelectedQuestion extends QuestionList {
 
     private WebDriver webDriver;
 
@@ -194,6 +194,7 @@ public class SelectedQuestion {
     private WebElement headerQuestionList;
 
     public SelectedQuestion(WebDriver webDriver) {
+        super(webDriver);
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);

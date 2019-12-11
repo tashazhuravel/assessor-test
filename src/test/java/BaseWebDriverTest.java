@@ -187,10 +187,13 @@ public class BaseWebDriverTest {
         return phrase.replace("№", "");
     }
 
+    //String deleteSymbolInQuestion(String question){ return question.r}
+    //TODO дописать
+
     @SuppressWarnings("unchecked")
-    boolean isElementVisible(WebElement webElement) {
+    boolean isElementVisible(WebElement element) {
         try {
-            wait.until(ExpectedConditions.visibilityOf(webElement));
+            wait.until(ExpectedConditions.visibilityOf(element));
         } catch (TimeoutException exception) {
             return false;
         }
@@ -202,6 +205,15 @@ public class BaseWebDriverTest {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(my_element));
         } catch (TimeoutException exception) {
+            return false;
+        }
+        return true;
+    }
+
+    boolean isElementHaveTitle(WebElement element){
+        try{
+            wait.until(ExpectedConditions.attributeToBeNotEmpty(element,"title"));
+        }catch (TimeoutException exception){
             return false;
         }
         return true;
@@ -245,8 +257,6 @@ public class BaseWebDriverTest {
     }
 
 
-
-
     boolean isElementPresent(By my_element) {
         try {
             driver.findElement(my_element);
@@ -264,7 +274,6 @@ public class BaseWebDriverTest {
         }
         return true;
     }
-
 
     void waitWhileElementPresent(By myElement) {
         try {

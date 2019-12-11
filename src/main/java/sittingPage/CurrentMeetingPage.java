@@ -11,6 +11,7 @@ import pages.*;
 import pages.mainPageTab.PlanningTabPage;
 import pages.window.*;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,6 +85,9 @@ public class CurrentMeetingPage {
 
     @FindBy(xpath = "//div[@id='planningQuestionTree']//span/span")
     private WebElement headerQuestionList;
+
+    @FindBy(xpath = "//div[@class='x-tree-root-node']/li/div/a/span")
+    private List<WebElement> questionList;
 
     public CurrentMeetingPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -200,6 +204,11 @@ public class CurrentMeetingPage {
 
     public WebElement getStatusField() {
         return statusField;
+    }
+
+    public QuestionList QuestionList() {
+        questionList.iterator().next().getText();
+        return new QuestionList(webDriver);
     }
 }
 

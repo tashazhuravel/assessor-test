@@ -88,6 +88,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
     }
 
     @Test
+    @Ignore
     public void decreaseIncreaseFontSize(){
         log.info("Раскрыть иллюстрации на весь экран");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -126,31 +127,40 @@ public class InformationTablePageTest extends BaseWebDriverTest{
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
         CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
-        QuestionList questionList =;
+        QuestionList questionList = currentMeettingPage.QuestionList();
 
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
         String textAgenda = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         agendaPage.clickBackFromQuestionListButton();
 
+        String statusNow = currentMeettingPage.getTextStatusField();
+        boolean questionStatusExamine = isElementHaveTitle(questionList.getQuestionStatusExamine());
+
+        String subjectExamineQuestion = questionList.getTextExamineQuestion();//TODO обрезать символы 2.  и  ⚬ ⚬ ⚬(они на новой строке)
+        log.info(subjectExamineQuestion);
+
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
         assertEquals("Ой, открыта не та форма", "Информационное табло", informationTablePage.getHeaderText());
+        String textInformTable = informationTablePage.getTextContent();
+        log.info(textInformTable);
 
-        if (STATUS != currentMeettingPage.getTextStatusField()) {
-            if(STATUS_OPEN == currentMeettingPage.getTextStatusField()){
+       if (STATUS != statusNow) {
+            if(STATUS_OPEN == statusNow && questionStatusExamine){
+                log.info("Заседание открыто и есть вопрос на рассмотрении");
+                assertEquals("В Инф. табло отображен другой текст",textInformTable,subjectExamineQuestion);
+                //TODO дописать
 
 
             } else {
-
+                assertEquals("В Инф.табло отображен другой текст",textAgenda, textInformTable);
             }
 
         } else {
-
-            String textInformTable = informationTablePage.getTextContent();
-            log.info(textInformTable);
-            assertEquals(textAgenda, textInformTable);
+            assertEquals("В Инф.табло отображен другой текст",textAgenda, textInformTable);
         }
 
         informationTablePage.clickBackToQuestionListButton();

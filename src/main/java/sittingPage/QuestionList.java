@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class QuestionList {
+public class QuestionList extends CurrentMeetingPage{
 
     private WebDriver webDriver;
 
@@ -47,6 +47,9 @@ public class QuestionList {
     @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusExamine']")
     private WebElement questionStatusExamine;
 
+    @FindBy(xpath = "//span[@class='questionStatus']/div[@class='questionStatusExamine']//parent::span//parent::span")
+    private WebElement textQuestionExamine;
+
     //TODO добавить 2 статуса, они появляют при работе со сторонней системой
 
     @FindBy(xpath = "//div[@class='x-tree-node-el x-unselectable x-tree-node-collapsed x-tree-selected']")
@@ -54,6 +57,7 @@ public class QuestionList {
 
 
     public QuestionList(WebDriver webDriver){
+        super(webDriver);
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
@@ -73,6 +77,10 @@ public class QuestionList {
 
     public String getStatusExamine(){
         return questionStatusExamine.getCssValue("title");
+    }
+
+    public String getTextExamineQuestion(){
+        return textQuestionExamine.getText();
     }
 
     public WebElement getHeaderQuestionList() {
