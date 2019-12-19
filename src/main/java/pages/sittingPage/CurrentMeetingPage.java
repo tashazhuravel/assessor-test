@@ -1,4 +1,4 @@
-package sittingPage;
+package pages.sittingPage;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;

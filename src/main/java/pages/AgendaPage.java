@@ -10,7 +10,7 @@ import pages.messageWindow.MessageWindow;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import pages.window.WindowUploadFile;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 public class AgendaPage {
 

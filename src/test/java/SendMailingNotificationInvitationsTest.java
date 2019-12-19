@@ -1,5 +1,4 @@
 import dataBase.AssessorService;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -7,7 +6,7 @@ import pages.AgendaPage;
 import pages.MainPage;
 import pages.messageWindow.MessageType;
 import pages.window.WindowMailingNotificationInvitations;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 import java.util.Collections;
 import java.util.List;

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
 import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowSittingPlanning;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 import java.time.Year;
 import java.util.List;

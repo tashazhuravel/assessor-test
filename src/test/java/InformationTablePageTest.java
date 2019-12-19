@@ -6,10 +6,9 @@ import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
 import pages.InformationTablePage;
 import pages.MainPage;
-import pages.window.WindowMaximizedIllustration;
 import pages.window.WindowMaximizedInformationTable;
-import sittingPage.CurrentMeetingPage;
-import sittingPage.QuestionList;
+import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.QuestionList;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.errorWindow.ErrorByMeetingScheduling;
 import pages.mainPageTab.PlanningTabPage;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 import java.util.List;
 

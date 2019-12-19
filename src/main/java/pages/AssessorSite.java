@@ -11,7 +11,7 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowSittingPlanning;
 import pages.window.WindowUserAccount;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 public class AssessorSite {
 

@@ -6,7 +6,7 @@ import pages.AgendaPage;
 import pages.MainPage;
 import pages.messageWindow.MessageType;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 import java.util.Collections;
 import java.util.List;

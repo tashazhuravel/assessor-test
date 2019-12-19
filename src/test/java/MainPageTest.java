@@ -7,7 +7,7 @@ import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;

@@ -8,7 +8,7 @@ import pages.MainPage;
 import pages.attentionWindow.AttentionType;
 import pages.messageWindow.MessageType;
 import pages.window.WindowUploadFile;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;

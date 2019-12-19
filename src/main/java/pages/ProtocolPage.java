@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowUploadFile;
 import pages.window.WindowsChooseQuestions;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 
 public class ProtocolPage {
 

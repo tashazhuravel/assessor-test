@@ -1,7 +1,7 @@
 package pages.unallocatedQuestionPage;
 
 import org.openqa.selenium.WebDriver;
-import sittingPage.SelectedQuestion;
+import pages.sittingPage.SelectedQuestion;
 
 public class SelectedUnallocatedQuestion extends SelectedQuestion {
 

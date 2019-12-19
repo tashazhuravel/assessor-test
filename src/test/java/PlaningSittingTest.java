@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
 import pages.window.WindowSittingPlanning;
-import sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeetingPage;
 import utils.DateUtil;
 
 import java.util.Collections;
