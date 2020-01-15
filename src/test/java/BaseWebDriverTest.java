@@ -71,7 +71,7 @@ public class BaseWebDriverTest {
     public static Collection authorizationData() {
         return Arrays.asList(
                 new Object[][]{
-                        {"krug", "krug", "Секретарева И.О.", "Тестовая комиссия. Нераспределённые вопросы", "переговорная 1"}
+                        {"krug", "krug", "Секретарева И.О.", "Тестовая комиссия autoTests. Нераспределённые вопросы", "переговорная 1"}
                 }
         );
     }

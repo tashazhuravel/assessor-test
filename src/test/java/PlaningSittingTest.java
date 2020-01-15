@@ -95,7 +95,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         //--Сохранение запланированного заседания
         CurrentMeetingPage currentMeetingPage = windowSittingPlanning.clickSaveButtonPlanning();
         String selectSecretary = assessorService.getFIOSecretaryOfCommittee().get(0);
-        assertThat(".", String.format("Тестовая комиссия. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextInformationField()));
+        assertThat(".", String.format("Тестовая комиссия autoTests. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextInformationField()));
     }
 
     @Test
