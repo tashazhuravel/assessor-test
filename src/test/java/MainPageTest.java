@@ -1,4 +1,5 @@
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
@@ -49,7 +50,7 @@ public class MainPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    // @Ignore
+    //@Ignore
     public void checkWindowUserAccountTest() {
         log.info("Проверка модального окна 'Учетная запись пользователя'");
         MainPage mainPage = assessorSite.getMainPage();
