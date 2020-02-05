@@ -139,7 +139,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
         String statusNow = currentMeettingPage.getTextStatusField();
         boolean questionStatusExamine = isElementHaveTitle(questionList.getQuestionStatusExamine());
 
-        String subjectExamineQuestion = questionList.getTextExamineQuestion();//TODO обрезать символы 2.  и  ⚬ ⚬ ⚬(они на новой строке)
+        String subjectExamineQuestion = questionList.getTextExamineQuestion();//TODO переписать с учетом => в AssessorService есть запрос в БД getSubjectQuestion() на получение темы рассматриваемого вопроса.
         log.info(subjectExamineQuestion);
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
