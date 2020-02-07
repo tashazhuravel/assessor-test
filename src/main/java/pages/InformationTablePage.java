@@ -32,6 +32,10 @@ public class InformationTablePage {
     @FindBy(xpath = "//div[@id='textcontent']")
     private WebElement textContent;
 
+    @FindBy(xpath = "(//div[@id='textcontent']//td)[2]")
+    private WebElement textSubjectQuestion;
+
+
     public InformationTablePage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
@@ -71,7 +75,11 @@ public class InformationTablePage {
         return textContent.getText();
     }
 
-    public String getTransformTextSize(){
+    public String getSubjectQuestion() {
+        return textSubjectQuestion.getText();
+    }
+
+    public String getTransformTextSize() {
         return textContent.getCssValue("transform");
     }
 

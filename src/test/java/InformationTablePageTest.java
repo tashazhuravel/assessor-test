@@ -16,12 +16,12 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class InformationTablePageTest extends BaseWebDriverTest{
+public class InformationTablePageTest extends BaseWebDriverTest {
 
     protected static final String STATUS = "Повестка дня утверждена";
     protected static final String STATUS_OPEN = "Заседание открыто";
 
-    public InformationTablePageTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace){
+    public InformationTablePageTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
         this.login = login;
         this.password = password;
         this.fioUserAccount = fioUserAccount;
@@ -29,7 +29,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
     }
 
     @Test
-    public void authorization(){
+    public void authorization() {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
@@ -39,7 +39,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
 
     @Test
     @Ignore
-    public void openAndCloseInformationTable(){
+    public void openAndCloseInformationTable() {
         log.info("Переход на форму Информационное табло и вовзрат к форме со списком вопросов");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -60,7 +60,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
 
     @Test
     @Ignore
-    public void fullScreenModeInformTable(){
+    public void fullScreenModeInformTable() {
         log.info("Раскрыть иллюстрации на весь экран");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -77,7 +77,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
         log.info(textInformTable);
 
         WindowMaximizedInformationTable maximizedInformationTable = informationTablePage.clickFullScreenModeButton();
-        assertEquals("ISIDA Assessor. Meeting and Voting Management System",maximizedInformationTable.getHeaderMaximizedWindow());
+        assertEquals("ISIDA Assessor. Meeting and Voting Management System", maximizedInformationTable.getHeaderMaximizedWindow());
         String textMaxInformTable = maximizedInformationTable.getMaximizedTextContent();
         log.info(textMaxInformTable);
         assertEquals(textInformTable, textMaxInformTable);
@@ -90,7 +90,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
 
     @Test
     @Ignore
-    public void decreaseIncreaseFontSize(){
+    public void decreaseIncreaseFontSize() {
         log.info("Раскрыть иллюстрации на весь экран");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -104,13 +104,13 @@ public class InformationTablePageTest extends BaseWebDriverTest{
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
         assertEquals("Ой, открыта не та форма", "Информационное табло", informationTablePage.getHeaderText());
 
-       String increaseText = informationTablePage.clickIncreaseFontSizeButton().clickIncreaseFontSizeButton().getTransformTextSize();
-       log.info(informationTablePage.getTransformTextSize());
+        String increaseText = informationTablePage.clickIncreaseFontSizeButton().clickIncreaseFontSizeButton().getTransformTextSize();
+        log.info(informationTablePage.getTransformTextSize());
 
-       String decreaseText = informationTablePage.clickDecreaseFontSizeButton().getTransformTextSize();
-       log.info(informationTablePage.getTransformTextSize());
+        String decreaseText = informationTablePage.clickDecreaseFontSizeButton().getTransformTextSize();
+        log.info(informationTablePage.getTransformTextSize());
 
-       assertNotEquals(decreaseText, increaseText);
+        assertNotEquals(decreaseText, increaseText);
 
         informationTablePage.clickBackToQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
@@ -146,21 +146,27 @@ public class InformationTablePageTest extends BaseWebDriverTest{
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
         assertEquals("Ой, открыта не та форма", "Информационное табло", informationTablePage.getHeaderText());
-        String textInformTable = informationTablePage.getTextContent();
+        String textInformTable = informationTablePage.getSubjectQuestion();
         log.info(textInformTable);
 
-       if (STATUS != statusNow) {
-            if(STATUS_OPEN == statusNow && questionStatusExamine){
+        if (!STATUS.equals(statusNow)) {
+            if (STATUS_OPEN.equals(statusNow) && questionStatusExamine) {
                 log.info("Заседание открыто и есть вопрос на рассмотрении");
-                assertEquals("В Инф. табло отображен другой текст",textInformTable,subjectExamineQuestion);
-
+                boolean questionFind = false;
+                for (String question : subjectExamineQuestion) {
+                    if (question.equals(textInformTable)) {
+                        questionFind = true;
+                        break;
+                    }
+                }
+                assertTrue("В Инф. табло отображен другой текст", questionFind);
             } else {
                 log.info("Заседание открыто и вопросы в рабочем порядке или Статус заседания Закрыто");
-                assertEquals("В Инф.табло отображен другой текст",textAgenda, textInformTable);
+                assertEquals("В Инф.табло отображен другой текст", textAgenda, textInformTable);
             }
 
         } else {
-            assertEquals("В Инф.табло отображен другой текст",textAgenda, textInformTable);
+            assertEquals("В Инф.табло отображен другой текст", textAgenda, textInformTable);
         }
 
         informationTablePage.clickBackToQuestionListButton();
