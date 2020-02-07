@@ -10,6 +10,8 @@ import pages.window.WindowMaximizedInformationTable;
 import pages.sittingPage.CurrentMeetingPage;
 import pages.sittingPage.QuestionList;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
@@ -139,7 +141,7 @@ public class InformationTablePageTest extends BaseWebDriverTest{
         String statusNow = currentMeettingPage.getTextStatusField();
         boolean questionStatusExamine = isElementHaveTitle(questionList.getQuestionStatusExamine());
 
-        String subjectExamineQuestion = questionList.getTextExamineQuestion();//TODO переписать с учетом => в AssessorService есть запрос в БД getSubjectQuestion() на получение темы рассматриваемого вопроса.
+        List<String> subjectExamineQuestion = assessorService.getSubjectQuestion();//TODO запрос в БД getSubjectQuestion() на получение темы рассматриваемого вопроса.
         log.info(subjectExamineQuestion);
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
@@ -151,10 +153,9 @@ public class InformationTablePageTest extends BaseWebDriverTest{
             if(STATUS_OPEN == statusNow && questionStatusExamine){
                 log.info("Заседание открыто и есть вопрос на рассмотрении");
                 assertEquals("В Инф. табло отображен другой текст",textInformTable,subjectExamineQuestion);
-                //TODO дописать
-
 
             } else {
+                log.info("Заседание открыто и вопросы в рабочем порядке или Статус заседания Закрыто");
                 assertEquals("В Инф.табло отображен другой текст",textAgenda, textInformTable);
             }
 
