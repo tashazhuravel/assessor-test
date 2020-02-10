@@ -11,7 +11,7 @@ import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowSittingPlanning;
 import pages.window.WindowUserAccount;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 public class AssessorSite {
 
@@ -41,8 +41,8 @@ public class AssessorSite {
         return new ManageTabPage(webDriver);
     }
 
-    public CurrentMeetingPage getCurrentMeetingPage() {
-        return new CurrentMeetingPage(webDriver);
+    public CurrentMeettingPage getCurrentMeetingPage() {
+        return new CurrentMeettingPage(webDriver);
     }
 
     public WindowUserAccount getWindowUserAccount() {

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import pages.MainPage;
 import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowSittingPlanning;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import java.time.Year;
 import java.util.List;
@@ -60,9 +60,9 @@ public class PlanningTabPage extends MainPage {
         return new UnallocatedQuestions(webDriver);
     }
 
-    public CurrentMeetingPage clickCommitteeButton() {
+    public CurrentMeettingPage clickCommitteeButton() {
         actions.moveToElement(committeeButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public WebElement getNameCommittee() {

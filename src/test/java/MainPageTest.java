@@ -1,5 +1,4 @@
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
@@ -8,7 +7,7 @@ import pages.unallocatedQuestionPage.UnallocatedQuestions;
 import pages.window.WindowAboutSystem;
 import pages.window.WindowNotification;
 import pages.window.WindowUserAccount;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
@@ -94,10 +93,10 @@ public class MainPageTest extends BaseWebDriverTest {
             assertTrue("Не удалось открыть Уведомления, либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
             String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
             System.out.println(textOldNotificationMessage);
-            CurrentMeetingPage currentMeetingPage = windowNotification.clickLinkSittingNotificationMessage();
+            CurrentMeettingPage currentMeettingPage = windowNotification.clickLinkSittingNotificationMessage();
             // assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
-            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeetingPage.getTextInformationField(), containsString(textOldNotificationMessage));
-            currentMeetingPage.clickBackOnListSitting();
+            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeettingPage.getTextInformationField(), containsString(textOldNotificationMessage));
+            currentMeettingPage.clickBackOnListSitting();
 
             mainPage.clickNotificationButtonHaveNewMessage();
             windowNotification.clickClearButton();

@@ -6,7 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.window.WindowMaximizedInformationTable;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 public class InformationTablePage {
 
@@ -42,9 +42,9 @@ public class InformationTablePage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickBackToQuestionListButton() {
+    public CurrentMeettingPage clickBackToQuestionListButton() {
         actions.moveToElement(backToQuestionListButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public WindowMaximizedInformationTable clickFullScreenModeButton() {

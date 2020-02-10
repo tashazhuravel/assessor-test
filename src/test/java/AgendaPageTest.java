@@ -8,7 +8,7 @@ import pages.MainPage;
 import pages.attentionWindow.AttentionType;
 import pages.messageWindow.MessageType;
 import pages.window.WindowUploadFile;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
@@ -44,7 +44,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
@@ -65,7 +65,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
 
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
@@ -92,7 +92,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         Matcher<String> numberSitting = containsString(deleteSpaceBetweenWords(numberCommitteeButton));
 
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), numberSitting);
@@ -104,7 +104,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         agendaPage.clickDownloadThisTextButton();
-        sleepAnyTime(5000L); //долгая загрузка файла
+        sleepAnyTime(5000L); //ждем пока файл скачается
         String textFileBeforeUpload = readDocxFile(PATH_UPLOAD_FILE);
         String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
@@ -126,7 +126,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
@@ -202,7 +202,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
 
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();

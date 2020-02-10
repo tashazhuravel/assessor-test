@@ -7,7 +7,7 @@ import pages.AgendaPage;
 import pages.InformationTablePage;
 import pages.MainPage;
 import pages.window.WindowMaximizedInformationTable;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 import pages.sittingPage.QuestionList;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
@@ -68,7 +68,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
@@ -98,7 +98,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
@@ -126,7 +126,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         String dateCommitteeButton = planningTabPage.getDate();
         log.info(numberCommitteeButton + " " + dateCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         QuestionList questionList = currentMeettingPage.QuestionList();
 

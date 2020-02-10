@@ -7,7 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.window.WindowUploadFile;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 
 public class VotingResultsProtocolPage {
@@ -43,9 +43,9 @@ public class VotingResultsProtocolPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickCloseVotingResultsProtocol() {
+    public CurrentMeettingPage clickCloseVotingResultsProtocol() {
         actions.moveToElement(closeVotingResultsProtocol).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public VotingResultsProtocolPage clickRefreshVotingResultsProtocol() {

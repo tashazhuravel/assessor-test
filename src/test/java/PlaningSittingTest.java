@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
 import pages.window.WindowSittingPlanning;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 import utils.DateUtil;
 
 import java.util.Collections;
@@ -93,9 +93,9 @@ public class PlaningSittingTest extends BaseWebDriverTest {
 
 
         //--Сохранение запланированного заседания
-        CurrentMeetingPage currentMeetingPage = windowSittingPlanning.clickSaveButtonPlanning();
+        CurrentMeettingPage currentMeettingPage = windowSittingPlanning.clickSaveButtonPlanning();
         String selectSecretary = assessorService.getFIOSecretaryOfCommittee().get(0);
-        assertThat(".", String.format("Тестовая комиссия autoTests. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeetingPage.getTextInformationField()));
+        assertThat(".", String.format("Тестовая комиссия autoTests. %s. №%s. Очно-заочное. \nСекретарь: %s", DateUtil.getCurrentDateAsString(), numberSitting, selectSecretary), containsString(currentMeettingPage.getTextInformationField()));
     }
 
     @Test

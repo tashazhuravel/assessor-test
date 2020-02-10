@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 public class WindowPhoneManagementConsole {
 
@@ -33,14 +33,14 @@ public class WindowPhoneManagementConsole {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickСloseByXButton() {
+    public CurrentMeettingPage clickСloseByXButton() {
         actions.moveToElement(closeByXButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
-    public CurrentMeetingPage clickCloseButton() {
+    public CurrentMeettingPage clickCloseButton() {
         actions.moveToElement(closeButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public By getHeaderTelephoneConsole() {

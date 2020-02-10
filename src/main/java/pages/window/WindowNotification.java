@@ -8,7 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.mainPageTab.PlanningTabPage;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -65,9 +65,9 @@ public class WindowNotification {
         return this;
     }
 
-    public CurrentMeetingPage clickLinkSittingNotificationMessage() {
+    public CurrentMeettingPage clickLinkSittingNotificationMessage() {
         sittingLinkNotificationMessage.iterator().next().click();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public WindowNotification clickClearButton() {

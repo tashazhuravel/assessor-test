@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class QuestionList extends CurrentMeetingPage{
+public class QuestionList extends CurrentMeettingPage {
 
     private WebDriver webDriver;
 

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import java.util.List;
 
@@ -56,14 +56,14 @@ public class WindowAddUnllocatedQuestion {
        return listSubjectQuestion.iterator().next().getText();
     }
 
-    public CurrentMeetingPage clickAddButton(){
+    public CurrentMeettingPage clickAddButton(){
         actions.moveToElement(addButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
-    public CurrentMeetingPage clickCloseButton(){
+    public CurrentMeettingPage clickCloseButton(){
         actions.moveToElement(closeButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public By getHeaderWindowAddUnllocatedQuestion() {

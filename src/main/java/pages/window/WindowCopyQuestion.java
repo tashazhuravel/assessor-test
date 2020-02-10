@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 public class WindowCopyQuestion {
     private WebDriver webDriver;
@@ -25,9 +25,9 @@ public class WindowCopyQuestion {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickCloseCopyButton(){
+    public CurrentMeettingPage clickCloseCopyButton(){
         actions.moveToElement(closeCopyButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public By getHeaderCopyQuestion() {

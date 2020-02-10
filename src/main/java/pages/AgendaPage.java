@@ -10,7 +10,7 @@ import pages.messageWindow.MessageWindow;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import pages.window.WindowUploadFile;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 public class AgendaPage {
 
@@ -55,9 +55,9 @@ public class AgendaPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public CurrentMeetingPage clickBackFromQuestionListButton() {
+    public CurrentMeettingPage clickBackFromQuestionListButton() {
         actions.moveToElement(backToQuestionListButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public AgendaPage clickReformAgendaButton() {

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import java.util.List;
 
@@ -280,14 +280,14 @@ public class WindowEditMeetingRequisites {
         return this;
     }
 
-    public CurrentMeetingPage clickSaveButton() {
+    public CurrentMeettingPage clickSaveButton() {
         actions.moveToElement(saveButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
-    public CurrentMeetingPage clickCancelButton() {
+    public CurrentMeettingPage clickCancelButton() {
         actions.moveToElement(cancelButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
     public By getHeaderWindow() {

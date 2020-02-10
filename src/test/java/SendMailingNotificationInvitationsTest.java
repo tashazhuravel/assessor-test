@@ -6,7 +6,7 @@ import pages.AgendaPage;
 import pages.MainPage;
 import pages.messageWindow.MessageType;
 import pages.window.WindowMailingNotificationInvitations;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +44,7 @@ public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
-        CurrentMeetingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());

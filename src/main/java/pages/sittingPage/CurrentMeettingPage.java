@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CurrentMeetingPage {
+public class CurrentMeettingPage {
 
     private WebDriver webDriver;
 
@@ -89,7 +89,7 @@ public class CurrentMeetingPage {
     @FindBy(xpath = "//div[@class='x-tree-root-node']/li/div/a/span")
     private List<WebElement> questionList;
 
-    public CurrentMeetingPage(WebDriver webDriver) {
+    public CurrentMeettingPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);
@@ -159,7 +159,7 @@ public class CurrentMeetingPage {
         return new WindowPhoneManagementConsole(webDriver);
     }
 
-    public CurrentMeetingPage clickOpenSittingButton() {
+    public CurrentMeettingPage clickOpenSittingButton() {
         actions.moveToElement(openSittingButton).click().perform();
         return this;
     }

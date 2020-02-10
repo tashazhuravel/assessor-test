@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 import java.util.List;
 
@@ -44,14 +44,14 @@ public class WindowKindOfQuestion {
         return new WindowKindOfQuestion(webDriver);
     }
 
-    public CurrentMeetingPage clickCreateButton(){
+    public CurrentMeettingPage clickCreateButton(){
         actions.moveToElement(createButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
-    public CurrentMeetingPage clickCancelButton(){
+    public CurrentMeettingPage clickCancelButton(){
         actions.moveToElement(cancelButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
 }

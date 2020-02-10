@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.AgendaPage;
 import pages.messageWindow.MessageWindow;
-import pages.sittingPage.CurrentMeetingPage;
+import pages.sittingPage.CurrentMeettingPage;
 
 public class AttentionWindow {
 
@@ -60,13 +60,13 @@ public class AttentionWindow {
         return new AgendaPage(webDriver);
     }
 
-    public CurrentMeetingPage clickYesDeleteButton(){
+    public CurrentMeettingPage clickYesDeleteButton(){
         actions.moveToElement(yesAttentionButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
-    public CurrentMeetingPage clickNoDeleteButton(){
+    public CurrentMeettingPage clickNoDeleteButton(){
         actions.moveToElement(noAttentionButton).click().perform();
-        return new CurrentMeetingPage(webDriver);
+        return new CurrentMeettingPage(webDriver);
     }
 
 
