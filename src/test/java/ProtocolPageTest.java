@@ -109,7 +109,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
 
     @Test
     //@Ignore
-    public void setStatusProtocolApproval(){
+    public void setStatusProtocolApproval() {
         log.info("Установить статус 'Протокол утвержден'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
@@ -118,7 +118,9 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         String dateCommittee = planningTabPage.getDate();
         log.info(numberCommittee + " " + dateCommittee);
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommittee)));
+        ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
+        assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage().toString());
 
 
     }
