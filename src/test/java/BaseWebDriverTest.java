@@ -187,8 +187,7 @@ public class BaseWebDriverTest {
         return phrase.replace("№", "");
     }
 
-    //String deleteSymbolInQuestion(String question){ return question.r}
-    //TODO дописать
+    String deleteSymbolInTextContent(String question){ return question.replaceAll("\n","");}
 
     @SuppressWarnings("unchecked")
     boolean isElementVisible(WebElement element) {

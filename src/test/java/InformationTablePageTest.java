@@ -3,6 +3,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import pages.AgendaPage;
 import pages.InformationTablePage;
 import pages.MainPage;
@@ -61,7 +62,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
     @Test
     @Ignore
     public void fullScreenModeInformTable() {
-        log.info("Раскрыть иллюстрации на весь экран");
+        log.info("Раскрыть Инф.табло на весь экран");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -73,7 +74,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
         assertEquals("Ой, открыта не та форма", "Информационное табло", informationTablePage.getHeaderText());
-        String textInformTable = informationTablePage.getTextContent();
+        String textInformTable = informationTablePage.textFromTextContent();
         log.info(textInformTable);
 
         WindowMaximizedInformationTable maximizedInformationTable = informationTablePage.clickFullScreenModeButton();
@@ -89,9 +90,9 @@ public class InformationTablePageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+   @Ignore
     public void decreaseIncreaseFontSize() {
-        log.info("Раскрыть иллюстрации на весь экран");
+        log.info("Увеличить/Уменьшить текст на Инф.табло");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -118,8 +119,9 @@ public class InformationTablePageTest extends BaseWebDriverTest {
     }
 
     @Test
+    //@Ignore
     public void textContentInformTable() {
-        log.info("Раскрыть иллюстрации на весь экран");
+        log.info("Проверка содержимого Инф.табло.");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -146,7 +148,11 @@ public class InformationTablePageTest extends BaseWebDriverTest {
 
         InformationTablePage informationTablePage = currentMeettingPage.clickOpenInformationTableButton();
         assertEquals("Ой, открыта не та форма", "Информационное табло", informationTablePage.getHeaderText());
-        String textInformTable = informationTablePage.getSubjectQuestion();
+        String textQuestionInformTable = informationTablePage.getSubjectQuestion();
+        log.info(textQuestionInformTable);
+
+        String textInformTable = deleteSymbolInTextContent(informationTablePage.getTextContent().iterator().next().getText());
+
         log.info(textInformTable);
 
         if (!STATUS.equals(statusNow)) {
@@ -154,7 +160,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
                 log.info("Заседание открыто и есть вопрос на рассмотрении");
                 boolean questionFind = false;
                 for (String question : subjectExamineQuestion) {
-                    if (question.equals(textInformTable)) {
+                    if (question.equals(textQuestionInformTable)) {
                         questionFind = true;
                         break;
                     }

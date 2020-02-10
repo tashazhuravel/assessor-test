@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import pages.window.WindowMaximizedInformationTable;
 import pages.sittingPage.CurrentMeettingPage;
 
+import java.util.List;
+
 public class InformationTablePage {
 
     private WebDriver webDriver;
@@ -30,7 +32,10 @@ public class InformationTablePage {
     private WebElement decreaseFontSizeButton;
 
     @FindBy(xpath = "//div[@id='textcontent']")
-    private WebElement textContent;
+    private List<WebElement> textContent;
+
+    @FindBy(xpath = "//div[@id='textcontent']")
+    private WebElement textContentTransformSize;
 
     @FindBy(xpath = "(//div[@id='textcontent']//td)[2]")
     private WebElement textSubjectQuestion;
@@ -71,8 +76,12 @@ public class InformationTablePage {
         return headerInformationTable.getText();
     }
 
-    public String getTextContent() {
-        return textContent.getText();
+    public String textFromTextContent() {
+        return textContent.iterator().next().getText();
+    }
+
+    public List<WebElement> getTextContent() {
+        return textContent;
     }
 
     public String getSubjectQuestion() {
@@ -80,7 +89,7 @@ public class InformationTablePage {
     }
 
     public String getTransformTextSize() {
-        return textContent.getCssValue("transform");
+        return textContentTransformSize.getCssValue("transform");
     }
 
 

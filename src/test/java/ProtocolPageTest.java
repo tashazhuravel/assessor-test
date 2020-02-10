@@ -1,5 +1,6 @@
 import dataBase.AssessorService;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
@@ -108,7 +109,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void setStatusProtocolApproval() {
         log.info("Установить статус 'Протокол утвержден'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -120,7 +121,9 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommittee)));
         ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
-        assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage().toString());
+        assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage());
+
+
 
 
     }
