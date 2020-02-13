@@ -64,7 +64,7 @@ public class BaseWebDriverTest {
     static AssessorSite assessorSite;
     static Logger log = EventHandler.LOG;
     protected static final String PATH_UPLOAD_FILE = "C:\\Projects\\AssessorTest\\Temp\\UploadFile\\Testauto.docx";
-    protected static final String PATH_DOWNLOAD_FILE ="C:\\Projects\\AssessorTest\\Temp\\Download\\";
+    protected static final String PATH_DOWNLOAD_FILE = "C:\\Projects\\AssessorTest\\Temp\\Download\\";
 
 
     @Parameters
@@ -179,15 +179,27 @@ public class BaseWebDriverTest {
 
     }
 
+    String deleteAllWordPressSymbol(String phrase){ return  phrase.replaceAll(String.valueOf((char)160), "");}
+
     String deleteSpaceBetweenWords(String phrase) {
         return phrase.replace(" ", "");
+    }
+
+    String deleteAllSpaceBetweenWords(String phrase) {
+        return phrase.replaceAll(" ", "");
     }
 
     String deleteSymbolInPhrase(String phrase) {
         return phrase.replace("№", "");
     }
 
-    String deleteSymbolInTextContent(String question){ return question.replaceAll("\n","");}
+    String deleteSymbolInTextContent(String question) {
+        return question.replaceAll("\n", "");
+    }
+
+    String deleteSymbolInTextAgenda(String question) {
+        return question.replaceAll("\t", " ");
+    }
 
     @SuppressWarnings("unchecked")
     boolean isElementVisible(WebElement element) {
@@ -209,10 +221,10 @@ public class BaseWebDriverTest {
         return true;
     }
 
-    boolean isElementHaveTitle(WebElement element){
-        try{
-            wait.until(ExpectedConditions.attributeToBeNotEmpty(element,"title"));
-        }catch (TimeoutException exception){
+    boolean isElementHaveTitle(WebElement element) {
+        try {
+            wait.until(ExpectedConditions.attributeToBeNotEmpty(element, "title"));
+        } catch (TimeoutException exception) {
             return false;
         }
         return true;
@@ -311,10 +323,10 @@ public class BaseWebDriverTest {
         return true;
     }
 
-    boolean isFieldEmpty(WebElement element){
-        try{
-            assertEquals(StringUtils.EMPTY,element.getText());
-        }catch (Exception exception){
+    boolean isFieldEmpty(WebElement element) {
+        try {
+            assertEquals(StringUtils.EMPTY, element.getText());
+        } catch (Exception exception) {
             log.error(element, exception);
             return false;
         }
@@ -342,31 +354,32 @@ public class BaseWebDriverTest {
     }
 
     //чтение docx файлов
-    String readDocxFile(String fileName){
+    String readDocxFile(String fileName) {
         StringBuilder fileText = new StringBuilder(StringUtils.EMPTY);
-        try{
+        try {
             File file = new File(fileName);
             FileInputStream fis = new FileInputStream(file.getAbsolutePath());
             XWPFDocument document = new XWPFDocument(fis);
-            List<XWPFParagraph> paragraphs =document.getParagraphs();
-            for(int i=0;i<paragraphs.size();i++){
+            List<XWPFParagraph> paragraphs = document.getParagraphs();
+            for (int i = 0; i < paragraphs.size(); i++) {
                 fileText.append(paragraphs.get(i).getParagraphText());
                 log.info(paragraphs.get(i).getParagraphText());
             }
             fis.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return fileText.toString();
     }
 
-    void sleepAnyTime(long seconds){
+    void sleepAnyTime(long seconds) {
         try {
             Thread.sleep(seconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
     protected boolean isAlertPresent() {
         try {
             driver.switchTo().alert();

@@ -13,6 +13,7 @@ import pages.sittingPage.QuestionList;
 
 import java.util.List;
 
+import static io.netty.util.internal.SystemPropertyUtil.contains;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
@@ -138,6 +139,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         sleepAnyTime(5000L);//ждем загрузку файла
         String textAgenda = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        String agendaText = deleteAllWordPressSymbol(textAgenda);
         agendaPage.clickBackFromQuestionListButton();
 
         String statusNow = currentMeettingPage.getTextStatusField();
@@ -168,11 +170,11 @@ public class InformationTablePageTest extends BaseWebDriverTest {
                 assertTrue("В Инф. табло отображен другой текст", questionFind);
             } else {
                 log.info("Заседание открыто и вопросы в рабочем порядке или Статус заседания Закрыто");
-                assertEquals("В Инф.табло отображен другой текст", textAgenda, textInformTable);
+                assertTrue("В Инф.табло отображен другой текст", (deleteAllSpaceBetweenWords((textInformTable))).contains((deleteAllSpaceBetweenWords(deleteSymbolInTextAgenda(agendaText)))));
             }
 
         } else {
-            assertEquals("В Инф.табло отображен другой текст", textAgenda, textInformTable);
+            assertEquals("В Инф.табло отображен другой текст", deleteSymbolInTextAgenda(agendaText), textInformTable);
         }
 
         informationTablePage.clickBackToQuestionListButton();
