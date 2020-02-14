@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pages.attentionWindow.AttentionWindow;
+import pages.messageWindow.MessageWindow;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowUploadFile;
 import pages.window.WindowsChooseQuestions;
@@ -17,7 +19,8 @@ public class ProtocolPage {
 
     private Actions actions;
 
-    private By headerProtocolPage = By.xpath("//div[@id='protocolContent']/div/div/div/div/span");
+    @FindBy(xpath = "//div[@id='protocolContent']/div/div/div/div/span")
+    private WebElement headerProtocolPage;
 
     @FindBy(xpath = "//table[@id='btnSecretaryProtocolClose']//button")
     private WebElement closeProtocol;
@@ -93,11 +96,21 @@ public class ProtocolPage {
         return this;
     }
 
+    public MessageWindow clickSetStatusProtocolUnderApprovalButton(){
+        actions.moveToElement(setMeetingStatusProtocolUnderApprovalButton).click().perform();
+        return new MessageWindow(webDriver);
+    }
+
+    public AttentionWindow clicksetStatusProtocolApprovalButton(){
+        actions.moveToElement(setMeetingStatusProtocolApprovalButton).click().perform();
+        return new AttentionWindow(webDriver);
+    }
+
     public WebElement getTextFromProtocol() {
         return textFromProtocol;
     }
 
-    public By getHeaderProtocolPage() {
-        return headerProtocolPage;
+    public String getHeaderProtocolPage() {
+        return headerProtocolPage.getText();
     }
 }

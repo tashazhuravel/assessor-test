@@ -133,7 +133,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         if (STATUS.equals(currentMeettingPage.getTextStatusField())) {
 
-            assertEquals("Статус не установлен", STATUS, currentMeettingPage.getTextStatusField());
+            //assertEquals("Статус не установлен", STATUS, currentMeettingPage.getTextStatusField());
             agendaPage.clickSetMeetingStatusAgendaUnderApprovalButton();
             waitToTextChanged(currentMeettingPage.getStatusField());
             assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());

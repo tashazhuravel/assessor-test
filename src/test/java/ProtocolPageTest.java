@@ -34,7 +34,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void openAndCloseProtocol() {
         log.info("Перейти на форму 'Протокол' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -54,7 +54,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void downloadFile() {
         log.info("Протокол, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -70,7 +70,8 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage());
         protocolPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);
-        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee.trim()), dateCommittee));
+
+        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
 
         protocolPage.clickCloseProtocolButton();
         currentMeettingPage.clickBackOnListSitting();
@@ -78,7 +79,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void uploadFile() {
         log.info("Протокол. Проверка помещения файла в систему по кнопке 'Поместить измененный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -91,7 +92,6 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommittee)));
 
         ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
-        assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage().toString());
         WindowUploadFile windowUploadFile = protocolPage.clickUploadEditedTextButton();
         windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
         windowUploadFile.clickUploadFileButton();
@@ -99,8 +99,8 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         protocolPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L); //ждем пока файл скачается
         String textBeforeUploadFile = readDocxFile(PATH_UPLOAD_FILE);
-        String textAfterDownloadFile = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee.trim()), dateCommittee));
-        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee.trim()), dateCommittee));
+        String textAfterDownloadFile = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
         assertEquals("Файл не загружен", textBeforeUploadFile, textAfterDownloadFile);
 
         protocolPage.clickCloseProtocolButton();
@@ -123,8 +123,9 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
         assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage());
 
-
-
+        if(STATUS.equals(currentMeettingPage.getTextStatusField())){
+            protocolPage.сдш
+        }
 
     }
 
