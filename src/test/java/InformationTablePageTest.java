@@ -3,7 +3,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
+
 import pages.AgendaPage;
 import pages.InformationTablePage;
 import pages.MainPage;
@@ -13,7 +13,7 @@ import pages.sittingPage.QuestionList;
 
 import java.util.List;
 
-import static io.netty.util.internal.SystemPropertyUtil.contains;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
@@ -40,7 +40,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    // @Ignore
     public void openAndCloseInformationTable() {
         log.info("Переход на форму Информационное табло и вовзрат к форме со списком вопросов");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -61,7 +61,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void fullScreenModeInformTable() {
         log.info("Раскрыть Инф.табло на весь экран");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -91,7 +91,7 @@ public class InformationTablePageTest extends BaseWebDriverTest {
     }
 
     @Test
-   @Ignore
+    //@Ignore
     public void decreaseIncreaseFontSize() {
         log.info("Увеличить/Уменьшить текст на Инф.табло");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -133,13 +133,20 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         QuestionList questionList = currentMeettingPage.QuestionList();
 
+        if (!isElementVisible(currentMeettingPage.getOpenInformationTableButton())) {
+            log.info("Статус заседания Закрыто");
+            return;
+        }
+
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);//ждем загрузку файла
         String textAgenda = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
-        String agendaText = deleteAllWordPressSymbol(textAgenda);
+
+        String agendaText = deleteAllSpaceBetweenWords(deleteSymbolInTextAgenda(deleteAllWordPressSymbol(textAgenda)));
+        log.info(agendaText);
         agendaPage.clickBackFromQuestionListButton();
 
         String statusNow = currentMeettingPage.getTextStatusField();
@@ -153,29 +160,28 @@ public class InformationTablePageTest extends BaseWebDriverTest {
         String textQuestionInformTable = informationTablePage.getSubjectQuestion();
         log.info(textQuestionInformTable);
 
-        String textInformTable = deleteSymbolInTextContent(informationTablePage.getTextContent().iterator().next().getText());
+        String textInformTable = deleteAllSpaceBetweenWords(deleteSymbolInTextContent(informationTablePage.getTextContent().iterator().next().getText()));
 
         log.info(textInformTable);
 
-        if (!STATUS.equals(statusNow)) {
-            if (STATUS_OPEN.equals(statusNow) && questionStatusExamine) {
-                log.info("Заседание открыто и есть вопрос на рассмотрении");
-                boolean questionFind = false;
-                for (String question : subjectExamineQuestion) {
-                    if (question.equals(textQuestionInformTable)) {
-                        questionFind = true;
-                        break;
-                    }
+        if (STATUS_OPEN.equals(statusNow) && questionStatusExamine) {
+            log.info("Заседание открыто и есть вопрос на рассмотрении");
+            boolean questionFind = false;
+            for (String question : subjectExamineQuestion) {
+                if (question.equals(textQuestionInformTable)) {
+                    questionFind = true;
+                    break;
                 }
-                assertTrue("В Инф. табло отображен другой текст", questionFind);
-            } else {
-                log.info("Заседание открыто и вопросы в рабочем порядке или Статус заседания Закрыто");
-                assertTrue("В Инф.табло отображен другой текст", (deleteAllSpaceBetweenWords((textInformTable))).contains((deleteAllSpaceBetweenWords(deleteSymbolInTextAgenda(agendaText)))));
             }
-
+            assertTrue("В Инф. табло отображен другой текст", questionFind);
+        } else if (isElementVisible(currentMeettingPage.getOpenSittingButton())) {
+            log.info("Статус 'Повестка утверждена', заседание еще не открыто");
+            assertTrue("В Инф.табло отображен другой текст", ((agendaText).contains(textInformTable)));
         } else {
-            assertEquals("В Инф.табло отображен другой текст", deleteSymbolInTextAgenda(agendaText), textInformTable);
+            log.info("Заседание открыто и нет вопросов на рассмотрении, либо все вопросы в 'рабочем порядке'");
+            assertTrue("В Инф.табло отображен другой текст", ((agendaText).contains(textInformTable)));
         }
+
 
         informationTablePage.clickBackToQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();

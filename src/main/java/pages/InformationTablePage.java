@@ -31,7 +31,7 @@ public class InformationTablePage {
     @FindBy(xpath = "//table[@id='planningControlManagmentButtonInfoZoomOut']//button")
     private WebElement decreaseFontSizeButton;
 
-    @FindBy(xpath = "//div[@id='textcontent']")
+    @FindBy(xpath = "(//div[@id='textcontent']//p)[3]")
     private List<WebElement> textContent;
 
     @FindBy(xpath = "//div[@id='textcontent']")

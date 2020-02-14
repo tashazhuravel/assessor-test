@@ -12,6 +12,8 @@ import pages.window.WindowPreliminaryAcquaintanceWithAgenda;
 import pages.window.WindowUploadFile;
 import pages.sittingPage.CurrentMeettingPage;
 
+import java.util.List;
+
 public class AgendaPage {
 
     private WebDriver webDriver;
@@ -47,7 +49,6 @@ public class AgendaPage {
 
     @FindBy(xpath = "//div[@id='agendaContent']/div/div/div/div/span")
     private WebElement headerAgenda;
-
 
     public AgendaPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -103,4 +104,6 @@ public class AgendaPage {
     public String getHeaderAgenda() {
         return headerAgenda.getText();
     }
+
+
 }

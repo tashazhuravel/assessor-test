@@ -210,5 +210,13 @@ public class CurrentMeettingPage {
         questionList.iterator().next().getText();
         return new QuestionList(webDriver);
     }
+
+    public WebElement getOpenInformationTableButton() {
+        return openInformationTableButton;
+    }
+
+    public WebElement getOpenSittingButton() {
+        return openSittingButton;
+    }
 }
 
