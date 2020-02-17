@@ -101,7 +101,7 @@ public class ProtocolPage {
         return new MessageWindow(webDriver);
     }
 
-    public AttentionWindow clicksetStatusProtocolApprovalButton(){
+    public AttentionWindow clickSetStatusProtocolApprovalButton(){
         actions.moveToElement(setMeetingStatusProtocolApprovalButton).click().perform();
         return new AttentionWindow(webDriver);
     }

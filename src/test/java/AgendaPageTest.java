@@ -1,6 +1,7 @@
 import dataBase.AssessorService;
 import org.hamcrest.Matcher;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.AgendaPage;
@@ -36,7 +37,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void openAndCloseAgenda() {
         log.info("Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -56,7 +57,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void downloadFile() {
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -72,7 +73,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);// ожидаем загрузки файла
-        String fileName =  String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton);
+        String fileName = String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton);
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
 
         agendaPage.clickBackFromQuestionListButton();
@@ -83,7 +84,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void uploadFile() {
         log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -133,15 +134,12 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         if (STATUS.equals(currentMeettingPage.getTextStatusField())) {
 
-            //assertEquals("Статус не установлен", STATUS, currentMeettingPage.getTextStatusField());
             agendaPage.clickSetMeetingStatusAgendaUnderApprovalButton();
             waitToTextChanged(currentMeettingPage.getStatusField());
-            assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
 
             messageWindow = assessorSite.getMessageWindow();
-            assertEquals("", MessageType.MEETING_STATUS_AGENDA_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET.getLabel(), messageWindow.getMessage());
+            assertEquals("Статус не установлен", MessageType.MEETING_STATUS_AGENDA_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
-            log.info(currentMeettingPage.getTextStatusField());
 
             waitWhileElementPresent(currentMeettingPage.getStatusField());
             assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
@@ -152,7 +150,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
             assertEquals("", AttentionType.SET_MEETING_STATUS_AGENDA_APPROVED.getLabel(), attentionWindow.getTextAttention());
 
             attentionWindow.clickNoAttentionButton();
-            assertEquals("Статус не установлен", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
+            assertEquals("Изменен статус заседания", "Повестка дня проходит согласование", currentMeettingPage.getTextStatusField());
 
             agendaPage.clickSetMeetingStatusAgendaApprovedButton();
             attentionWindow.clickAttentionCloseByXButton();
@@ -184,7 +182,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
             waitToTextChanged(currentMeettingPage.getStatusField());
             assertEquals("Статус не установлен", "Повестка дня утверждена", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
-        }
+    }
 
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
@@ -192,7 +190,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void reformatAgenda() {
 
         log.info("'Повестка дня', переформировать повестки дня");

@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
 import pages.ProtocolPage;
+import pages.attentionWindow.AttentionType;
+import pages.messageWindow.MessageType;
 import pages.sittingPage.CurrentMeettingPage;
 import pages.window.WindowUploadFile;
 
@@ -123,10 +125,58 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
         assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage());
 
-        if(STATUS.equals(currentMeettingPage.getTextStatusField())){
-            protocolPage.сдш
+        if (STATUS.equals(currentMeettingPage.getTextStatusField())) {
+
+            protocolPage.clickSetStatusProtocolUnderApprovalButton();
+            waitToTextChanged(currentMeettingPage.getStatusField());
+
+            messageWindow = assessorSite.getMessageWindow();
+            assertEquals("Статус не установлен", MessageType.MEETING_STATUS_PROTOCOL_UNDER_APPROVAL_HAS_BEEN_SUCCESSFULLY_SET.getLabel(), messageWindow.getMessage());
+            messageWindow.clickMessageOkButton();
+            log.info(currentMeettingPage.getTextStatusField());
+
+            protocolPage.clickSetStatusProtocolApprovalButton();
+            attentionWindow = assessorSite.getAttentionWindow();
+            assertEquals("", AttentionType.SET_MEETING_STATUS_PROTOCOL_APPROVED.getLabel(), attentionWindow.getTextAttention());
+
+            attentionWindow.clickNoAttentionButton();
+            assertEquals("Изменен статус заседания", "Протокол проходит соглосование", currentMeettingPage.getTextStatusField());
+
+            protocolPage.clickSetStatusProtocolApprovalButton();
+            attentionWindow.clickAttentionCloseByXButton();
+            assertEquals("Изменен статус заседания", "Протокол проходит соглосование", currentMeettingPage.getTextStatusField());
+
+            protocolPage.clickSetStatusProtocolApprovalButton();
+            attentionWindow.clickYesAttentionButton();
+
+            waitWhileElementPresent(messageWindow.getTextMessage());
+            assertEquals("", MessageType.MEETING_STATUS_PROTOCOL_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getMessage());
+            messageWindow.clickMessageOkButton();
+
+            waitToTextChanged(currentMeettingPage.getStatusField());
+            assertEquals("Статус 'Протокол утвержден' не установлен", "Протокол утвержден", currentMeettingPage.getTextStatusField());
+            log.info(currentMeettingPage.getStatusField());
+        } else {
+
+            protocolPage.clickSetStatusProtocolApprovalButton();
+            attentionWindow = assessorSite.getAttentionWindow();
+            assertEquals("", AttentionType.SET_MEETING_STATUS_PROTOCOL_APPROVED.getLabel(), attentionWindow.getTextAttention());
+
+            protocolPage.clickSetStatusProtocolApprovalButton();
+            attentionWindow.clickYesAttentionButton();
+
+            waitWhileElementPresent(messageWindow.getTextMessage());
+            assertEquals("", MessageType.MEETING_STATUS_PROTOCOL_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getMessage());
+            messageWindow.clickMessageOkButton();
+
+            waitToTextChanged(currentMeettingPage.getStatusField());
+            assertEquals("Статус 'Протокол утвержден' не установлен", "Протокол утвержден", currentMeettingPage.getTextStatusField());
+            log.info(currentMeettingPage.getStatusField());
         }
 
+        protocolPage.clickCloseProtocolButton();
+        currentMeettingPage.clickBackOnListSitting();
+        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
     }
 
 
