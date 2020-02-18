@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,7 +9,7 @@ import pages.attentionWindow.AttentionWindow;
 import pages.messageWindow.MessageWindow;
 import pages.window.WindowMailingNotificationInvitations;
 import pages.window.WindowUploadFile;
-import pages.window.WindowsChooseQuestions;
+import pages.window.WindowCreateStatement;
 import pages.sittingPage.CurrentMeettingPage;
 
 public class ProtocolPage {
@@ -76,9 +75,9 @@ public class ProtocolPage {
         return new WindowMailingNotificationInvitations(webDriver);
     }
 
-    public WindowsChooseQuestions clickCreateStatementButton() {
+    public WindowCreateStatement clickCreateStatementButton() {
         actions.moveToElement(createStatementButton).click().perform();
-        return new WindowsChooseQuestions(webDriver);
+        return new WindowCreateStatement(webDriver);
     }
 
     public ProtocolPage clickDownloadThisTextButton() {

@@ -1,5 +1,5 @@
 import dataBase.AssessorService;
-import dataBase.DataBaseConnection;
+
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -167,7 +167,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
             protocolPage.clickSetStatusProtocolApprovalButton();
             attentionWindow.clickYesAttentionButton();
 
-           // waitWhileElementPresent(messageWindow.getTextMessage());
+            // waitWhileElementPresent(messageWindow.getTextMessage());
             assertEquals("", MessageType.MEETING_STATUS_PROTOCOL_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
 

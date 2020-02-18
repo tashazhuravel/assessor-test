@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import pages.errorWindow.ErrorByMeetingScheduling;
+import pages.errorWindow.ErrorWindow;
 import pages.mainPageTab.PlanningTabPage;
 import pages.sittingPage.CurrentMeettingPage;
 
@@ -255,7 +255,7 @@ public class WindowSittingPlanning {
         return headerWindowWettingScheduling;
     }
 
-    public ErrorByMeetingScheduling getErrorByMeetingScheduling() {
-        return new ErrorByMeetingScheduling(webDriver);
+    public ErrorWindow getErrorByMeetingScheduling() {
+        return new ErrorWindow(webDriver);
     }
 }

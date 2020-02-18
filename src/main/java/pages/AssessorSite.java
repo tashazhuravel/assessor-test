@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import pages.attentionWindow.AttentionWindow;
+import pages.errorWindow.ErrorWindow;
 import pages.mainPageTab.ArchiveTabPage;
 import pages.mainPageTab.ManageTabPage;
 import pages.mainPageTab.PlanningTabPage;
@@ -66,5 +67,7 @@ public class AssessorSite {
     public MessageWindow getMessageWindow(){return new MessageWindow(webDriver);}
 
     public AttentionWindow getAttentionWindow(){return new AttentionWindow(webDriver);}
+
+    public ErrorWindow getErrorWindow(){return new ErrorWindow(webDriver);}
 
 }

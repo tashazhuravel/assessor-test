@@ -10,7 +10,7 @@ import pages.window.WindowSittingPlanning;
 
 import java.util.List;
 
-public class ErrorByMeetingScheduling {
+public class ErrorWindow {
 
     private WebDriver webDriver;
 
@@ -27,7 +27,7 @@ public class ErrorByMeetingScheduling {
     @FindBy(xpath = "//div[@class=' x-window x-window-plain x-window-dlg']//div[@class='x-tool x-tool-close']")
     private WebElement errorCloseButton;
 
-    public ErrorByMeetingScheduling(WebDriver webDriver) {
+    public ErrorWindow(WebDriver webDriver) {
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver, this);

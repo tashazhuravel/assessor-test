@@ -8,16 +8,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.ProtocolPage;
 import pages.StatementPage;
+import pages.errorWindow.ErrorWindow;
 
 import java.util.List;
 
-public class WindowsChooseQuestions {
+public class WindowCreateStatement {
 
     private WebDriver webDriver;
 
     private Actions actions;
 
-    private By headerChooseQuestions = By.xpath("//div[@id='registerWindow']//span");
+    private By headerChooseQuestions = By.xpath("//div[@id='registerWindow']//form//div[text()]");
 
     @FindBy(xpath = "//div[@id='radiogroup']//input")
     private List<WebElement> checkboxSelectQuestion;
@@ -34,13 +35,13 @@ public class WindowsChooseQuestions {
     @FindBy(xpath = "//div[@id='registerWindow']//div[@class='x-tool x-tool-close']")
     private WebElement closeByXButton;
 
-    public WindowsChooseQuestions(WebDriver webDriver){
+    public WindowCreateStatement(WebDriver webDriver){
         this.webDriver = webDriver;
         actions = new Actions(webDriver);
         PageFactory.initElements(webDriver,this);
     }
 
-    public WindowsChooseQuestions clickCheckboxSelectQuestion(){
+    public WindowCreateStatement clickCheckboxSelectQuestion(){
         checkboxSelectQuestion.iterator().next().click();
         return this;
     }
@@ -62,6 +63,10 @@ public class WindowsChooseQuestions {
     public ProtocolPage clickCloseByXButton(){
         actions.moveToElement(cancelButton).click().perform();
         return new ProtocolPage(webDriver);
+    }
+
+    public List<WebElement> getCheckboxSelectQuestion() {
+        return checkboxSelectQuestion;
     }
 
     public By getHeaderChooseQuestions() {
