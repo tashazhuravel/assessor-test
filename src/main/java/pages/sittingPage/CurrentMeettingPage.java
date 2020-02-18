@@ -139,7 +139,7 @@ public class CurrentMeettingPage {
     }
 
     public AgendaPage clickAgendaButton() {
-        actions.moveToElement(agendaButton).click().perform();
+        agendaButton.click();
 
         return new AgendaPage(webDriver);
     }
@@ -175,7 +175,7 @@ public class CurrentMeettingPage {
     }
 
     public ProtocolPage clickOpenProtocol() {
-        actions.moveToElement(openProtocol).click().perform();
+        openProtocol.click();
         return new ProtocolPage(webDriver);
     }
 

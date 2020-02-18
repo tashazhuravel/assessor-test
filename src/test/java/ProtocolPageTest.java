@@ -1,4 +1,5 @@
 import dataBase.AssessorService;
+import dataBase.DataBaseConnection;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -101,8 +102,8 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         protocolPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L); //ждем пока файл скачается
         String textBeforeUploadFile = readDocxFile(PATH_UPLOAD_FILE);
-        String textAfterDownloadFile = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
         downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        String textAfterDownloadFile = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
         assertEquals("Файл не загружен", textBeforeUploadFile, textAfterDownloadFile);
 
         protocolPage.clickCloseProtocolButton();
@@ -123,6 +124,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommittee)));
         ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
+        sleepAnyTime(5000L);
         assertEquals("ой открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage());
 
         if (STATUS.equals(currentMeettingPage.getTextStatusField())) {
@@ -140,11 +142,11 @@ public class ProtocolPageTest extends BaseWebDriverTest {
             assertEquals("", AttentionType.SET_MEETING_STATUS_PROTOCOL_APPROVED.getLabel(), attentionWindow.getTextAttention());
 
             attentionWindow.clickNoAttentionButton();
-            assertEquals("Изменен статус заседания", "Протокол проходит соглосование", currentMeettingPage.getTextStatusField());
+            assertEquals("Изменен статус заседания", "Протокол проходит согласование", currentMeettingPage.getTextStatusField());
 
             protocolPage.clickSetStatusProtocolApprovalButton();
             attentionWindow.clickAttentionCloseByXButton();
-            assertEquals("Изменен статус заседания", "Протокол проходит соглосование", currentMeettingPage.getTextStatusField());
+            assertEquals("Изменен статус заседания", "Протокол проходит согласование", currentMeettingPage.getTextStatusField());
 
             protocolPage.clickSetStatusProtocolApprovalButton();
             attentionWindow.clickYesAttentionButton();
@@ -165,7 +167,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
             protocolPage.clickSetStatusProtocolApprovalButton();
             attentionWindow.clickYesAttentionButton();
 
-            waitWhileElementPresent(messageWindow.getTextMessage());
+           // waitWhileElementPresent(messageWindow.getTextMessage());
             assertEquals("", MessageType.MEETING_STATUS_PROTOCOL_APPROVED_HAS_BEEN_SET.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
 
@@ -173,6 +175,75 @@ public class ProtocolPageTest extends BaseWebDriverTest {
             assertEquals("Статус 'Протокол утвержден' не установлен", "Протокол утвержден", currentMeettingPage.getTextStatusField());
             log.info(currentMeettingPage.getStatusField());
         }
+
+        protocolPage.clickCloseProtocolButton();
+        currentMeettingPage.clickBackOnListSitting();
+        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+    }
+
+    @Test
+    //@Ignore
+    public void reformatProtocol() {
+        log.info("Протокол. Перефорировать текст протокола");
+        assessorService = new AssessorService(dataBaseConnection.stmt);
+        planningTabPage = assessorSite.getPlanningPage();
+        planningTabPage.clickTab(MainPage.ETab.PLANNING);
+        String numberCommittee = planningTabPage.getNumberCommitteeLastButtonText();
+        String dateCommittee = planningTabPage.getDate();
+        log.info(numberCommittee + " " + dateCommittee);
+        CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
+
+        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommittee)));
+        ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
+        assertEquals("Ой, открыта не та форма", "Протокол", protocolPage.getHeaderProtocolPage());
+
+        //--Скачиваем текст, который отображен в повестке при открытии формы "Протокол" и читаем его по параграфам.
+        protocolPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);
+        String textBeforeUpload = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+
+
+        //--Читаем документ по параграфам перед помещением в систему.Помещаем новый документ, ждем завершения, ждем пока отобразится новый текст.
+        WindowUploadFile windowUploadFile = protocolPage.clickUploadEditedTextButton();
+        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.clickUploadFileButton();
+        sleepAnyTime(5000L);//ждем помещение файла в систему и перезагрузку страницы
+
+        //--Скачиваем документ с новым текстом протокола, читаем по параграфам. Сравниваем тексты документов: до загрузки и после изменений.
+        protocolPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textAfterUpload = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+
+
+        assertNotEquals("Тексты совпадают, скорее всего файл не был загружен", textBeforeUpload, textAfterUpload);
+
+        //Нажимаем Переформировать повестку дня, в появившемся алерте жмем Нет и проверяем что текст не изменился
+        protocolPage.clickRefreshProtocolButton();
+        attentionWindow = assessorSite.getAttentionWindow();
+        assertEquals("", AttentionType.REFORMAT_PROTOCOL_TEXT.getLabel(), attentionWindow.getTextAttention());
+        attentionWindow.clickNoAttentionButton();
+        sleepAnyTime(5000L);//ждем переформирования текста протокола и обновление страницы
+        protocolPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textBeforeReformat = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        assertEquals("Текст протокола переформирован", textAfterUpload, textBeforeReformat);
+
+        /*Нажимаем Переформировать повестку дня, в появившемся алерте жмем Да, ждем пока переформируется и отобразится текст протокола по умолчанию(загружена в админке для этой орг.ед)
+        сравниваем текст до переформирования и после*/
+
+        protocolPage.clickRefreshProtocolButton();
+        assertEquals("", AttentionType.REFORMAT_PROTOCOL_TEXT.getLabel(), attentionWindow.getTextAttention());
+        attentionWindow.clickYesAttentionButton();
+        sleepAnyTime(5000L);//ждем переформирования текста протокола и обновление страницы
+        protocolPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);//ждем загрузку файла
+        String textAfterReformat = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
+        sleepAnyTime(5000L);//ждем пока удалит скачанный файл
+        assertNotSame("Текст протокола не переформатирован", textBeforeReformat, textAfterReformat);
 
         protocolPage.clickCloseProtocolButton();
         currentMeettingPage.clickBackOnListSitting();

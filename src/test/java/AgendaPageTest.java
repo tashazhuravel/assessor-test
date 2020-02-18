@@ -119,7 +119,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void setStatusAgendaApproval() {
         log.info("Уставновить статус 'Повестка дня согласована'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -130,6 +130,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
+        sleepAnyTime(5000L);//ждем формирования текста повестки, при первом переходе есть задержка
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         if (STATUS.equals(currentMeettingPage.getTextStatusField())) {
@@ -190,7 +191,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void reformatAgenda() {
 
         log.info("'Повестка дня', переформировать повестки дня");
@@ -204,13 +205,15 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
+        sleepAnyTime(10000L);
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         //--Скачиваем текст, который отображен в повестке при открытии формы "Повестка дня" и читаем его по параграфам.
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);//ждем загрузку файла
         String textBeforeUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
-        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));//удаляем после чтения
+
 
         //--Читаем документ по параграфам перед помещением в систему.Помещаем новый документ, ждем завершения, ждем пока отобразится новый текст.
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
@@ -224,6 +227,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
 
+
         assertNotEquals("Файл не был загружен в систему", textBeforeUpload, textAfterUpload);
 
         //Нажимаем Переформировать повестку дня, в появившемся алерте жмем Нет и проверяем что текст не изменился.
@@ -235,9 +239,10 @@ public class AgendaPageTest extends BaseWebDriverTest {
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);//ждем загрузку файла
         String textBeforeReformat = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         sleepAnyTime(5000L);//ждем пока удалит скачанный файл
         assertEquals("Переформирован Текст повестки ", textAfterUpload, textBeforeReformat);
-        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+
 
         /*Нажимаем Переформировать повестку дня, в появившемся алерте жмем Да, ждем пока переформируется и отобразится текст повестки по умолчанию(загружена в админке для этой орг.ед)
         сравниваем текст до переформирования и после*/
@@ -249,10 +254,10 @@ public class AgendaPageTest extends BaseWebDriverTest {
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);//ждем загрузку файла
         String textAfterReformat = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
-
+        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         sleepAnyTime(5000L);//ждем пока удалит скачанный файл
         assertNotSame("Текст повестки не переформирован", textBeforeReformat, textAfterReformat);
-        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+
 
 
         agendaPage.clickBackFromQuestionListButton();
