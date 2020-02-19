@@ -14,4 +14,6 @@ public interface AssessorServiceImp {
 
     List<String> getSubjectQuestion();
 
+    List<String> getIDSittingForExtract();
+
 }

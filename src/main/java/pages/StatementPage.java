@@ -14,7 +14,8 @@ public class StatementPage {
 
     private Actions actions;
 
-    private By headerStatement = By.xpath("(//div[@id='viewPanel']//span)[1]");
+    @FindBy(xpath = ("(//div[@id='viewPanel']//span)[1]"))
+    private WebElement headerStatement;
 
     @FindBy(xpath = "//table[@id='excerptDownloadBtn']//button")
     private WebElement downloadThisText;
@@ -60,8 +61,8 @@ public class StatementPage {
         return this;
     }
 
-    public By getHeaderStatement() {
-        return headerStatement;
+    public String getHeaderStatement() {
+        return headerStatement.getAttribute("content");
     }
 
     public WebElement getTextFromStatement() {

@@ -18,7 +18,8 @@ public class WindowCreateStatement {
 
     private Actions actions;
 
-    private By headerChooseQuestions = By.xpath("//div[@id='registerWindow']//form//div[text()]");
+    @FindBy(xpath = "//div[@id='registerWindow']//form//div[text()]")
+    private WebElement headerChooseQuestions;
 
     @FindBy(xpath = "//div[@id='radiogroup']//input")
     private List<WebElement> checkboxSelectQuestion;
@@ -69,7 +70,8 @@ public class WindowCreateStatement {
         return checkboxSelectQuestion;
     }
 
-    public By getHeaderChooseQuestions() {
-        return headerChooseQuestions;
+    public String getHeaderChooseQuestions() {
+        return headerChooseQuestions.getText();
     }
+
 }

@@ -87,18 +87,34 @@ public class AssessorService implements AssessorServiceImp {
 
     @Override
     public List<String> getSubjectQuestion() {
-        List<String> subjetQusetion = new ArrayList<>();
+        List<String> subjectQuestion = new ArrayList<>();
         ResultSet resultSet = null;
         try {
             resultSet = statement.executeQuery("SELECT q.subject FROM questions q INNER JOIN sittings s ON q.sitting = s.id AND s.committee = '64' WHERE q.status = '1'");
             while (resultSet.next()) {
-                subjetQusetion.add(resultSet.getString("subject"));
+                subjectQuestion.add(resultSet.getString("subject"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return subjetQusetion;
+        return subjectQuestion;
+    }
+
+    @Override
+    public List<String> getIDSittingForExtract() {
+        List<String> idSitting = new ArrayList<>();
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery("SELECT s.id FROM sittings s INNER JOIN committee c ON  s.num = c.num AND s.committee = c.id  WHERE s.committee = '64' AND is_archive ='0'");
+            while (resultSet.next()) {
+                idSitting.add(resultSet.getString("id"));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idSitting;
     }
 
 }

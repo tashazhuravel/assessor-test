@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.MainPage;
 import pages.ProtocolPage;
+import pages.StatementPage;
 import pages.sittingPage.CurrentMeettingPage;
 import pages.window.WindowCreateStatement;
 
@@ -39,7 +40,7 @@ public class StatementPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+ //   @Ignore
     public void createStatementFromProtocol() {
         log.info("Создание Выписки из Протокола");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -60,23 +61,16 @@ public class StatementPageTest extends BaseWebDriverTest {
 
         isCheckboxSelected(windowCreateStatement.getCheckboxSelectQuestion().iterator().next());
            // String subjectQuestion = windowCreateStatement.selectedQuestion();//TODO подумать как забрать текст выбранного вопроса
-        windowCreateStatement.clickCreateButton();
+        StatementPage statementPage = windowCreateStatement.clickCreateButton();
+        Set<String> newTab = driver.getWindowHandles();
+        sleepAnyTime(5000L);
+        driver.switchTo().window(newTab.iterator().next());
+        //log.info("New window title" +statementPage.getHeaderStatement());
+        statementPage.clickDownloadThisTextButton();
+        sleepAnyTime(5000L);
+        String idSitting = assessorService.getIDSittingForExtract().get(0);
+        downloadFile(String.format("Extract_%s_1.docx",idSitting));
 
-        String protocolTab = driver.getWindowHandle();
-        final Set<String> oldTabsSet = driver.getWindowHandles();
-
-        driver.findElement(By.tagName("g")).click();
-
-        String newTab = (new WebDriverWait(driver, 10)).until(new ExpectedCondition<String>() {
-            public String apply(WebDriver driver) {
-                Set<String> newTabSet = driver.getWindowHandles();
-                newTabSet.removeAll(oldTabsSet);
-                return newTabSet.size()>0 ? newTabSet.iterator().next() : null;
-            }
-        });
-
-        driver.switchTo().window(newTab);
-        log.info("New window title" + driver.getTitle());
 
 
 
