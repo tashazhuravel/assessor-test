@@ -62,7 +62,7 @@ public class StatementPage {
     }
 
     public String getHeaderStatement() {
-        return headerStatement.getAttribute("content");
+        return headerStatement.getText();
     }
 
     public WebElement getTextFromStatement() {
