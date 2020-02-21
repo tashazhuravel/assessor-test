@@ -42,7 +42,7 @@ public class StatementPage {
     }
 
     public StatementPage clickDownloadThisTextButton(){
-        actions.moveToElement(downloadThisText).click().perform();
+        downloadThisText.click();
         return this;
     }
 

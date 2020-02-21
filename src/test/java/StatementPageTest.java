@@ -14,6 +14,7 @@ import pages.StatementPage;
 import pages.sittingPage.CurrentMeettingPage;
 import pages.window.WindowCreateStatement;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -62,14 +63,17 @@ public class StatementPageTest extends BaseWebDriverTest {
         isCheckboxSelected(windowCreateStatement.getCheckboxSelectQuestion().iterator().next());
            // String subjectQuestion = windowCreateStatement.selectedQuestion();//TODO подумать как забрать текст выбранного вопроса
         StatementPage statementPage = windowCreateStatement.clickCreateButton();
-        Set<String> newTab = driver.getWindowHandles();
         sleepAnyTime(5000L);
-        driver.switchTo().window(newTab.iterator().next());
-        //log.info("New window title" +statementPage.getHeaderStatement());
+        ArrayList<String> Tabs = new ArrayList<String>(driver.getWindowHandles());
+        log.info(Tabs);
+        driver.switchTo().window(Tabs.get(1));
+
         statementPage.clickDownloadThisTextButton();
+        //driver.findElement(By.xpath("//table[@id='excerptDownloadBtn']//button")).click();
         sleepAnyTime(5000L);
         String idSitting = assessorService.getIDSittingForExtract().get(0);
         downloadFile(String.format("Extract_%s_1.docx",idSitting));
+
 
 
 
