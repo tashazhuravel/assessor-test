@@ -1,13 +1,8 @@
 import dataBase.AssessorService;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.MainPage;
 import pages.ProtocolPage;
 import pages.StatementPage;
@@ -16,7 +11,6 @@ import pages.window.WindowCreateStatement;
 import pages.window.WindowUploadFile;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;

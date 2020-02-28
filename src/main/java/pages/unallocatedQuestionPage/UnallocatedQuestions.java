@@ -28,7 +28,7 @@ public class UnallocatedQuestions {
     }
 
     public PlanningTabPage clickButtonBack() {
-        actions.moveToElement(buttonBack).click().perform();
+        buttonBack.click();
         return new PlanningTabPage(webDriver);
     }
 
