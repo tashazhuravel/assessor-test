@@ -16,7 +16,7 @@ public class UnallocatedQuestions {
     @FindBy(xpath = "//textarea[@id='planningCommittee']")
     WebElement statusField;
 
-    @FindBy(css = ".btnSittingBack")
+    @FindBy(xpath = "//button[@class=' x-btn-text btnSittingBack']")
     WebElement buttonBack;
 
     //todo дописать все элементы  и методы к ним
@@ -27,8 +27,8 @@ public class UnallocatedQuestions {
         PageFactory.initElements(webDriver, this);
     }
 
-    public PlanningTabPage clickButtonBack() {
-        buttonBack.click();
+    public PlanningTabPage clickBackOnListSitting() {
+        actions.moveToElement(buttonBack).click().perform();
         return new PlanningTabPage(webDriver);
     }
 

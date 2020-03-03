@@ -32,27 +32,27 @@ public class AgendaPageTest extends BaseWebDriverTest {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
-        assertEquals("Неверный логин/пароль.", authorizationPage.getElementsFromMainPage().size(), 1);
+        assertEquals("authorization.wrong.login.or.login", authorizationPage.getElementsFromMainPage().size(), 1);
         log.info("Authorization complete");
     }
 
     @Test
     @Ignore
     public void openAndCloseAgenda() {
-        log.info("Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
+        log.info("test.case.go.to.agenda.page.and.return");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
         log.info(numberCommitteeButton);
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
-        assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
+        assertThat("the.meeting.number.on.the.button.does.not.match.the.number.in.the.info.board", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
-        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        assertEquals("the.title.agenda.not.found.or.open.wrong.form", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickBackFromQuestionListButton();
-        assertEquals("Не осуществлен переход к форме Текущее заседание", "Список вопросов", currentMeettingPage.getHeaderQuestionListText());
+        assertEquals("no.return.to.current.meeting.form", "Список вопросов", currentMeettingPage.getHeaderQuestionListText());
         currentMeettingPage.clickBackOnListSitting();
-        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+        assertFalse("meeting.not.found.in.meeting.list", isElementVisible(planningTabPage.getNameCommittee()));
 
     }
 
