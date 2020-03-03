@@ -26,3 +26,15 @@ dependencies {
 test {
     useJUnit()
 }
+
+task sampleTest(type: Test) {
+    filter { includeTestsMatching '*MainPageTest' }
+    ignoreFailures = true
+    testLogging.exceptionFormat = 'full'
+    systemProperties = [
+            'file.encoding'   : 'UTF-8'
+    ]
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

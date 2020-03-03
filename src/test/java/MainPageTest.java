@@ -30,19 +30,19 @@ public class MainPageTest extends BaseWebDriverTest {
         authorizationPage = assessorSite.getAuthorizationPage();
         log.info("Authorization begin");
         MainPage mainPage = authorizationPage.setLogin(login).setPassword(password).clickLoginButton();
-        assertTrue("authorization.wrong.login.or.login", isElementFind(mainPage.getDivMainPage()));
+        assertTrue("Неверный логин/пароль", isElementFind(mainPage.getDivMainPage()));
         log.info("Authorization complete");
     }
 
     @Test
     //@Ignore
     public void checkWindowAboutSystemTest() {
-        log.info("test.case.checking.the.about.system.modal.window");
+        log.info("Тест-кейс. Проверка модального окна 'О системе'");
         MainPage mainPage = assessorSite.getMainPage();
         waitWhileElementPresent(mainPage.getAboutSystemButton());
         sleepAnyTime(1000L);
         WindowAboutSystem windowAboutSystem = mainPage.clickButtonAboutSystem();
-        assertTrue("the.title.was.not.found.or.the.about.system.dialog.box.did.not.open", isElementFind(windowAboutSystem.getHeaderWindowAboutSystem()));
+        assertTrue("Заголовок не найден или не открылось диалоговое окно 'О системе'", isElementFind(windowAboutSystem.getHeaderWindowAboutSystem()));
         windowAboutSystem.closeWindowAboutSystemByX();
         mainPage.clickButtonAboutSystem();
         windowAboutSystem.closeWindowAboutSystemByButton();
@@ -52,14 +52,14 @@ public class MainPageTest extends BaseWebDriverTest {
     @Test
     //@Ignore
     public void checkWindowUserAccountTest() {
-        log.info("test.case.checking.the.user.account.modal.window");
+        log.info("Тест-кейс. Проверка модального окна 'Учетная запись пользователя'");
         MainPage mainPage = assessorSite.getMainPage();
         waitWhileElementPresent(mainPage.getUserFIOButton());
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
         assertTrue("Не открылось диалоговое окно или не найден заголовок окна.", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
-        assertThat("Заголовок Диалогового окна не 'Учётная запись пользователя'.", windowUserAccount.getHeaderWindowUserAccountText(), containsString("Учётна запись пользователя"));
-        assertThat("invalid.user.name", windowUserAccount.getUserFIOFieldText().getText(), containsString(fioUserAccount));
+        assertEquals("Заголовок Диалогового окна не 'Учётная запись пользователя'.", windowUserAccount.getHeaderWindowUserAccountText(), "Учётная запись пользователя");
+        assertThat("Неверное ФИО пользователя", windowUserAccount.getUserFIOFieldText().getText(), containsString(fioUserAccount));
         windowUserAccount.saveUserAccount();
 
         mainPage.clickButtonUserAccount();
@@ -72,38 +72,37 @@ public class MainPageTest extends BaseWebDriverTest {
     @Test
     //@Ignore
     public void checkWindowNotification() {
-        log.info("test.case.checking.the.alerts.modal.window");
+        log.info("Тест-кейс.Проверка модального окна 'Оповещения'");
         MainPage mainPage = assessorSite.getMainPage();
         WindowNotification windowNotification;
-        assertFalse("notification.button.not.found", mainPage.isNotificationMessageButtonDisplay());
+        assertFalse("Не найдена кнопка 'Уведомления'.", mainPage.isNotificationMessageButtonDisplay());
         sleepAnyTime(1000L);
 
         if (isElementFind(mainPage.getNotificationMessageButton())) {
             windowNotification = mainPage.clickButtonNotification();
-            assertTrue("the.alerts.dialog.box.did.not.open.or.this.functionality.is.not.enabled.in.main.php.settings", isElementVisible(mainPage.getNotificationWindow()));
+            assertTrue("Не открылось диалоговое окно 'Оповещения' или данный функционал не включен в настройках main.php", isElementVisible(mainPage.getNotificationWindow()));
             windowNotification.closeWindowNotificationByX();
         } else if (isElementVisible(mainPage.getNotificationButtonHaveMessage())) {
-            assertTrue("no.new.posts", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
+            assertTrue("Нет новых сообщений", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
             windowNotification = mainPage.clickNotificationButtonHaveNewMessage();
 
             assertTrue(isElementFind(windowNotification.getHaveNewAnyNotificationMessage()));
-            assertTrue("failed.to.open.the.notifications.dialog.box,or.no.new.notifications", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
+            assertTrue("Не удалось открыть диалоговое окно 'Уведомления', либо нет новых уведомлений", isElementPresent(windowNotification.getHaveNewAnyNotificationMessage()));
             windowNotification.clickAnyNewNotificationMessage();
 
             assertTrue(isElementFind(windowNotification.getHaveOldAnyNotificationMessage()));
-            assertTrue("failed.to.open.the.notifications.dialog.box,or.no.new.notifications", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
+            assertTrue("Не удалось открыть диалоговое окно 'Уведомления', либо нет новых уведомлений", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
             String textOldNotificationMessage = windowNotification.getNumberSittingFromNottificationMessage();
             System.out.println(textOldNotificationMessage);
             CurrentMeettingPage currentMeettingPage = windowNotification.clickLinkSittingNotificationMessage();
-            // assertEquals("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", textOldNotificationMessage, currentMeetingPage.getPartOfTextStatusField(textOldNotificationMessage));
-            assertThat("the.meeting.was.created.or.the.transition.to.the.form.of.the.planned.meeting.is.not.carried.out", currentMeettingPage.getTextInformationField(), containsString(textOldNotificationMessage));
+            assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeettingPage.getTextInformationField(), containsString(textOldNotificationMessage));
             currentMeettingPage.clickBackOnListSitting();
 
             mainPage.clickNotificationButtonHaveNewMessage();
             windowNotification.clickClearButton();
-            assertFalse("failed.to.open.notifications.or.the.list.contains.notifications", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
+            assertFalse("Не удалось открыть Уведомления, либо список содержит уведомления", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));
             windowNotification.clickCloseButton();
-            assertEquals("notification.window.not.closed", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
+            assertEquals("Не закрыто окно уведомления.", "hidden", mainPage.getNotificationWindow().getCssValue("visibility"));
         }
 
 
@@ -112,11 +111,11 @@ public class MainPageTest extends BaseWebDriverTest {
     @Test
     //@Ignore
     public void checkUnallocatedQuestionsTest() {
-        log.info("test.case.check.button.unassigned.questions");
+        log.info("Тест-кейс.Проверка кнопки 'Нераспределенные вопросы'");
         PlanningTabPage planningTabPage = assessorSite.getPlanningPage();
         UnallocatedQuestions unallocatedQuestions = planningTabPage.clickUnallocatedQuestionsButton();
 
-        assertEquals("the.transition.to.the.unassigned.questions.form.has.not.been.completed.invalid.text.in.the.info.board", unallocatedQuestionsStatusField, unallocatedQuestions.getTextStatusField());
+        assertEquals("Не осуществлен переход на форму 'Нераспределенные вопросы'.Неверный текст в Инф табло.", unallocatedQuestionsStatusField, unallocatedQuestions.getTextStatusField());
         unallocatedQuestions.clickBackOnListSitting();
     }
 
