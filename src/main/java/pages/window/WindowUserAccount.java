@@ -14,20 +14,20 @@ public class WindowUserAccount {
 
     private Actions actions;
 
-    private By headerWindowUserAccount = By.xpath("//div[@class = ' x-window x-resizable-pinned']//span[@class = 'x-window-header-text']");
+    private By headerWindowUserAccount = By.xpath("//div[@class = ' x-window']//span[@class = 'x-window-header-text']");
 
     private By labelEnableNotifications = By.xpath("//label[text()='Включить уведомления:']");
 
     @FindBy(xpath = "//div[@id='editTypeForm']//fieldset//div[text()]")
     private WebElement userFIOFieldText;
 
-    @FindBy(xpath = "//div[@class = ' x-window x-resizable-pinned']//button[text()='Сохранить']")
+    @FindBy(xpath = "//div[@class = ' x-window']//button[text()='Сохранить']")
     private WebElement saveButton;
 
-    @FindBy(xpath = "//div[@class = ' x-window x-resizable-pinned']//button[text()='Закрыть']")
+    @FindBy(xpath = "//div[@class = ' x-window']//button[text()='Закрыть']")
     private WebElement closeButton;
 
-    @FindBy(xpath = "//div[@class = ' x-window x-resizable-pinned']//div[@class='x-tool x-tool-close']")
+    @FindBy(xpath = "//div[@class = ' x-window']//div[@class='x-tool x-tool-close']")
     private WebElement closeWindowButton;
 
     @FindBy(xpath = "//input[@id='checkboxNotifications']")

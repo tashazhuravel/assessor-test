@@ -57,8 +57,8 @@ public class MainPageTest extends BaseWebDriverTest {
         waitWhileElementPresent(mainPage.getUserFIOButton());
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
-        assertTrue("the.title.was.not.found.or.the.dialog.did.not.open", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
-        assertThat("the.dialog.box.title.is.not.user.account", windowUserAccount.getHeaderWindowUserAccountText(), containsString("Учётная запись пользователя"));
+        assertTrue("Не открылось диалоговое окно или не найден заголовок окна.", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
+        assertThat("Заголовок Диалогового окна не 'Учётная запись пользователя'.", windowUserAccount.getHeaderWindowUserAccountText(), containsString("Учётна запись пользователя"));
         assertThat("invalid.user.name", windowUserAccount.getUserFIOFieldText().getText(), containsString(fioUserAccount));
         windowUserAccount.saveUserAccount();
 
