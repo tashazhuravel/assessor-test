@@ -15,24 +15,44 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:'3.141.59'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.9'
-    compile group: 'junit', name: 'junit', version:'4.12'
-    compile group: 'commons-io', name: 'commons-io', version:'2.6'
-    compile group: 'mysql', name: 'mysql-connector-java', version:'8.0.18'
-    compile group: 'log4j', name: 'log4j', version:'1.2.17'
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version:'3.7-beta3'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    compile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.7-beta3'
 }
 test {
     useJUnit()
 }
 
 task sampleTest(type: Test) {
-    filter { includeTestsMatching '*MainPageTest' }
+    filter {
+        includeTestsMatching '*MainPageTest'
+        includeTestsMatching '*OnOffWindowNotification'
+        includeTestsMatching '*PlaningSittingTest'
+    }
     ignoreFailures = true
     testLogging.exceptionFormat = 'full'
     systemProperties = [
-            'file.encoding'   : 'UTF-8'
+            'file.encoding': 'UTF-8'
+    ]
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task runAgendaTest(type: Test) {
+    filter {
+        includeTestsMatching '*SendPreliminaryAcquaintanceWithAgendaTest'
+        includeTestsMatching '*AgendaPageTest'
+        includeTestsMatching '*SendMailingNotificationInvitationsTest'
+    }
+    ignoreFailures = true
+    testLogging.exceptionFormat = 'full'
+    systemProperties = [
+            'file.encoding': 'UTF-8'
     ]
     testLogging {
         events "passed", "skipped", "failed"

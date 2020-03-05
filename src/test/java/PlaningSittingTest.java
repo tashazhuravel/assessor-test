@@ -4,6 +4,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.WebElement;
 import pages.MainPage;
 import pages.window.WindowSittingPlanning;
 import pages.sittingPage.CurrentMeettingPage;
@@ -86,8 +87,9 @@ public class PlaningSittingTest extends BaseWebDriverTest {
         //--Список участников
         List<String> selectParticipant = assessorService.getFIOParticipantSitting();
         log.info(selectParticipant);
-        Collections.swap(selectParticipant, 1,3);
-        Collections.swap(selectParticipant, 2,3);
+        Collections.swap(selectParticipant, 2,4);
+        Collections.swap(selectParticipant, 1,5);
+        Collections.swap(selectParticipant, 4,5);
         log.info(selectParticipant);
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowSittingPlanning.getParticipantsList()), selectParticipant);
 

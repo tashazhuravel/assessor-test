@@ -71,12 +71,12 @@ public class WindowNotification {
     }
 
     public WindowNotification clickClearButton() {
-        actions.moveToElement(clearWindowButton).click().perform();
+        clearWindowButton.click();
         return this;
     }
 
     public PlanningTabPage clickCloseButton() {
-        actions.moveToElement(closeButton).click().perform();
+        closeButton.click();
         return new PlanningTabPage(webDriver);
     }
 

@@ -98,6 +98,7 @@ public class MainPageTest extends BaseWebDriverTest {
             assertThat("Заседание на созданно, либо не осуществлен переход на форму запланированного заседания", currentMeettingPage.getTextInformationField(), containsString(textOldNotificationMessage));
             currentMeettingPage.clickBackOnListSitting();
 
+            assertTrue("Нет новых сообщений", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
             mainPage.clickNotificationButtonHaveNewMessage();
             windowNotification.clickClearButton();
             assertFalse("Не удалось открыть Уведомления, либо список содержит уведомления", isElementPresent(windowNotification.getHaveOldAnyNotificationMessage()));

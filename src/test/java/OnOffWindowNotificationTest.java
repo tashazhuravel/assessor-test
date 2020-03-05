@@ -31,11 +31,12 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
     @Test
     // @Ignore
     public void checkWindowUserAccountWithWindowNotification() {
+        log.info("Тест-кейс. Проверка диалогового окна 'Уведомлений'. Когад в Учетной запииси пользователя снят чек-бокс Показывать уведомления о новых сообщениях или Включить уведомления");
         MainPage mainPage = assessorSite.getMainPage();
         waitWhileElementPresent(mainPage.getUserFIOButton());
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();
 
-        assertTrue("Не открылось диалоговое окно", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
+        assertTrue("Не открылось диалоговое окно или не найден заголовок 'Учетная запись пользователя'", isElementFind(windowUserAccount.getHeaderWindowUserAccount()));
         WebElement checkboxEnabledShowNewNotificationsMessages = windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages();
 
         // Todo---провекрка нажат чекбокс Показывать уведомления о новых сообщениях
@@ -66,20 +67,21 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
         windowNotification.clickCloseButton();
 
         mainPage.clickButtonUserAccount();
-        WebElement checkboxEnabledNotificationsMessages = windowUserAccount.getCheckboxEnabledNotifications();
 
+        WebElement checkboxEnabledNotificationsMessages = windowUserAccount.getCheckboxEnabledNotifications();
 
         if (isCheckboxSelected(checkboxEnabledNotificationsMessages)) {
             windowUserAccount.clickCheckboxEnabledNotifications();
-            sleepAnyTime(500L);
-            assertFalse("Активен чекбокс 'Показывать уведомления о новых сообщениях:'", windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages().isEnabled());
+            sleepAnyTime(2000L);
+            windowUserAccount.getCheckboxEnabledShowNewNotificationsMessages().isEnabled();
+            assertTrue("Активен чекбокс 'Включить уведомления'", windowUserAccount.getCheckboxEnabledNotifications().isEnabled());
 
             windowUserAccount.saveUserAccount();
         } else {
             windowUserAccount.saveUserAccount();
         }
-        assertFalse("Активна кнопка уведомления", mainPage.isNotificationMessageButtonDisplay());
-        assertFalse("Активна кнопка Есть новые уведомления", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
+        assertFalse("Активна кнопка 'Уведомления'", mainPage.isNotificationMessageButtonDisplay());
+        assertTrue("Активна кнопка 'Есть новые Уведомления'", isElementVisible(mainPage.getNotificationButtonHaveMessage()));
     }
 
 }

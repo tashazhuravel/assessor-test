@@ -37,7 +37,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void openAndCloseAgenda() {
         log.info("Тест-кейс. Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -57,7 +57,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+   // @Ignore
     public void downloadFile() {
         log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -84,7 +84,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+   // @Ignore
     public void uploadFile() {
         log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -119,7 +119,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void setStatusAgendaApproval() {
         log.info("Уставновить статус 'Повестка дня согласована'");
         assessorService = new AssessorService(dataBaseConnection.stmt);

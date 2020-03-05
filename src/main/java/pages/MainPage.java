@@ -78,7 +78,7 @@ public class MainPage {
 
     // Кнопка Учетная запись пользователя
     public WindowUserAccount clickButtonUserAccount() {
-        actions.moveToElement(userFIOButton).click().perform();
+        userFIOButton.click();
         return new WindowUserAccount(webDriver);
     }
 
@@ -88,7 +88,7 @@ public class MainPage {
     }
 
     public WindowNotification clickNotificationButtonHaveNewMessage() {
-        actions.moveToElement(notificationButtonHaveMessage).click().perform();
+        notificationButtonHaveMessage.click();
         return new WindowNotification(webDriver);
     }
 

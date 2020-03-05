@@ -16,34 +16,34 @@ public class PlanningTabPage extends MainPage {
 
     private By windowCreatePlanning = By.cssSelector(".x-window-header-text");
 
-    @FindBy(xpath = "//div[@id=64]")
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//div[@id=64]/parent::span")
     private WebElement nameCommittee;
 
-    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//span[@class='btnSittingNum']")
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingNum']")
     private List<WebElement> allNumberCommitteeButton;
 
-    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//span[@class='btnSittingState']")
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingState']")
     private List<WebElement> allStateCommitteeButton;
 
-    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]")
+    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingDate'])[last()]")
     private WebElement committeeButton;
 
-    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDate']")
+    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingDate'])[last()]")
     private WebElement day;
 
-    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDateMonth']")
+    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingDateMonth'])[last()]")
     private WebElement month;
 
-    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingDateYear']")
+    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingDateYear'])[last()]")
     private WebElement year;
 
-    @FindBy(xpath = "(//div[@id=64]/parent::span/parent::legend/parent::fieldset//table)[last()-2]//span[@class='btnSittingNum']")
+    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingNum'])[last()]")
     private WebElement numberCommitteeLastButton;
 
-    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//button[contains(@class ,'btnSittingUndistributed')]")
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[contains(@class ,'btnSittingUndistributed')]")
     private WebElement unllocatedQuestions;
 
-    @FindBy(xpath = "//div[@id=64]/parent::span/parent::legend/parent::fieldset//button[contains(@class ,'btnSittingNew')]")
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[contains(@class ,'btnSittingNew')]")
     private WebElement planningEventButton;
 
     public PlanningTabPage(WebDriver webDriver) {
