@@ -18,6 +18,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.Statement;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,10 +36,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -69,9 +67,16 @@ public class BaseWebDriverTest {
 
     @Parameters
     public static Collection authorizationData() {
+        Properties obj = new Properties();
+        try {
+            FileInputStream objFile = new FileInputStream(System.getProperty("user.dir")+"/src/resources/application.properties");
+            obj.load(objFile);
+        } catch (IOException e) {
+            log.error(e);
+        }
         return Arrays.asList(
                 new Object[][]{
-                        {"krug", "krug", "Секретарева И.О.", "Тестовая комиссия autoTests. Нераспределённые вопросы", "переговорная 1"}
+                        {obj.getProperty("login"), obj.getProperty("password"), "Секретарева И.О.", "Тестовая комиссия autoTests. Нераспределённые вопросы", "переговорная 1"}
                 }
         );
     }
