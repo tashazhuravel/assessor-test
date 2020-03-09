@@ -12,6 +12,12 @@ public class DataBaseConnection extends TestWatcher {
     private Connection conn = null;
     public Statement stmt = null;
 
+    private String db_url;
+
+    public DataBaseConnection(String db_url) {
+        this.db_url = db_url;
+    }
+
     @Override
     protected void starting(Description description) {
         final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -23,7 +29,7 @@ public class DataBaseConnection extends TestWatcher {
         try {
             Class.forName(JDBC_DRIVER);
             try {
-                conn = DriverManager.getConnection(DB_URL, user, password);
+                conn = DriverManager.getConnection(db_url, user, password);
                 stmt = conn.createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();

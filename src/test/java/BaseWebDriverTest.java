@@ -58,6 +58,7 @@ public class BaseWebDriverTest {
     String fioUserAccount;
     String unallocatedQuestionsStatusField;
     String sittingPlace;
+    static Properties obj;
     static AuthorizationPage authorizationPage;
     static AssessorSite assessorSite;
     static Logger log = EventHandler.LOG;
@@ -67,7 +68,7 @@ public class BaseWebDriverTest {
 
     @Parameters
     public static Collection authorizationData() {
-        Properties obj = new Properties();
+        obj = new Properties();
         try {
             FileInputStream objFile = new FileInputStream(System.getProperty("user.dir")+"/src/resources/application.properties");
             obj.load(objFile);
@@ -85,7 +86,7 @@ public class BaseWebDriverTest {
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     @Rule
-    public DataBaseConnection dataBaseConnection = new DataBaseConnection();
+    public DataBaseConnection dataBaseConnection = new DataBaseConnection(obj.getProperty("dbUrl"));
 
     @Rule
     public TestWatcher watchman = new TestWatcher() {
