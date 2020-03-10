@@ -4,6 +4,7 @@ import log.EventHandler;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.junit.AfterClass;
@@ -62,9 +63,6 @@ public class BaseWebDriverTest {
     static AuthorizationPage authorizationPage;
     static AssessorSite assessorSite;
     static Logger log = EventHandler.LOG;
-    //protected static final String PATH_UPLOAD_FILE;
-   // protected static final String PATH_DOWNLOAD_FILE;
-
 
     @Parameters
     public static Collection authorizationData() {
@@ -73,7 +71,7 @@ public class BaseWebDriverTest {
             FileInputStream objFile = new FileInputStream(System.getProperty("user.dir")+"/src/resources/application.properties");
             obj.load(objFile);
         } catch (IOException e) {
-            log.error(e);
+            e.printStackTrace();
         }
         return Arrays.asList(
                 new Object[][]{
@@ -104,6 +102,7 @@ public class BaseWebDriverTest {
 
     @BeforeClass
     public static void initWebDriver() throws Exception {
+        PropertyConfigurator.configure(System.getProperty("user.dir")+"/src/resources/log4j.properties");
         seleniumAssessor = new SeleniumAssessor();
         driver = seleniumAssessor.getEventDriver();
         driver.get(seleniumAssessor.getUrl());

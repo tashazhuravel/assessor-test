@@ -39,7 +39,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
     @Test
     //@Ignore
     public void createPlanning() {
-        log.info("Проверка модального окна 'Планирование заседания'");
+        log.info("Тест-кейс. Проверка модального окна 'Планирование заседания'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -103,6 +103,7 @@ public class PlaningSittingTest extends BaseWebDriverTest {
     @Test
     @Ignore
     public void checkCancelAndCloseButtonPlanning() {
+        log.info("Тест-кейс.Проверка кнопок открыть, закрыть, отмена 'Планирование заседания'");
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
         WindowSittingPlanning windowSittingPlanning = planningTabPage.clickPlanningEventButton();

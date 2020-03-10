@@ -70,7 +70,7 @@ public class StatementPageTest extends BaseWebDriverTest {
         String idSitting = assessorService.getIDSittingForExtract().get(0);
         downloadFile(String.format("Extract_%s_1.docx", idSitting));
         WindowUploadFile windowUploadFile = statementPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
 
@@ -147,7 +147,7 @@ public class StatementPageTest extends BaseWebDriverTest {
         String idSitting = assessorService.getIDSittingForExtract().get(0);
         downloadFile(String.format("Extract_%s_1.docx", idSitting));
         WindowUploadFile windowUploadFile = statementPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         //TODO дописать
