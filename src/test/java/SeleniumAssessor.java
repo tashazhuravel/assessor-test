@@ -5,7 +5,7 @@ public class SeleniumAssessor {
     private SeleniumConfig config;
     private WebDriver webDriver;
     private EventFiringWebDriver eventDriver;
-    private String url = "http://assessor-demo.isida.by/assessor_nbrb";
+    private String url = BaseWebDriverTest.obj.getProperty("url");
 
     public SeleniumAssessor() {
         config = new SeleniumConfig();

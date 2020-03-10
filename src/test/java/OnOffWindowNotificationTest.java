@@ -31,7 +31,7 @@ public class OnOffWindowNotificationTest extends BaseWebDriverTest{
     @Test
     // @Ignore
     public void checkWindowUserAccountWithWindowNotification() {
-        log.info("Тест-кейс. Проверка диалогового окна 'Уведомлений'. Когад в Учетной запииси пользователя снят чек-бокс Показывать уведомления о новых сообщениях или Включить уведомления");
+        log.info("Тест-кейс. Проверка диалогового окна 'Уведомлений'. Когда в Учетной запииси пользователя снят чек-бокс Показывать уведомления о новых сообщениях или Включить уведомления");
         MainPage mainPage = assessorSite.getMainPage();
         waitWhileElementPresent(mainPage.getUserFIOButton());
         WindowUserAccount windowUserAccount = mainPage.clickButtonUserAccount();

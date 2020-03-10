@@ -59,7 +59,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     @Test
   // @Ignore
     public void downloadFile() {
-        log.info("Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
+        log.info("Тест-кейс. Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -87,7 +87,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     @Test
    @Ignore
     public void uploadFile() {
-        log.info("Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
+        log.info("Тест-кейс. Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -122,7 +122,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     @Test
     @Ignore
     public void setStatusAgendaApproval() {
-        log.info("Уставновить статус 'Повестка дня согласована'");
+        log.info("Тест-кейс. Уставновить статус 'Повестка дня согласована'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
@@ -195,7 +195,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     @Ignore
     public void reformatAgenda() {
 
-        log.info("'Повестка дня', переформировать повестки дня");
+        log.info("Тест-кейс.'Повестка дня', переформировать повестки дня");
         assessorService = new AssessorService(dataBaseConnection.stmt);
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
