@@ -62,8 +62,8 @@ public class BaseWebDriverTest {
     static AuthorizationPage authorizationPage;
     static AssessorSite assessorSite;
     static Logger log = EventHandler.LOG;
-    protected static final String PATH_UPLOAD_FILE = "user.dir/Temp/UploadFile/Testauto.docx";
-    protected static final String PATH_DOWNLOAD_FILE = "user.dir/Temp/Download/";
+    //protected static final String PATH_UPLOAD_FILE;
+   // protected static final String PATH_DOWNLOAD_FILE;
 
 
     @Parameters
@@ -77,7 +77,7 @@ public class BaseWebDriverTest {
         }
         return Arrays.asList(
                 new Object[][]{
-                        {obj.getProperty("login"), obj.getProperty("password"), "Секретарева И.О.", "Тестовая комиссия autoTests. Нераспределённые вопросы", "переговорная 1"}
+                        {obj.getProperty("login"), obj.getProperty("password"), obj.getProperty("userFIOAccount"), obj.getProperty("infoTabUnlocQuestions"), obj.getProperty("location")}
                 }
         );
     }
@@ -86,7 +86,7 @@ public class BaseWebDriverTest {
     public ScreenshotRule screenshotRule = new ScreenshotRule();
 
     @Rule
-    public DataBaseConnection dataBaseConnection = new DataBaseConnection(obj.getProperty("dbUrl"));
+    public DataBaseConnection dataBaseConnection = new DataBaseConnection(obj.getProperty("dbUrl"),obj.getProperty("user"),obj.getProperty("pass"));
 
     @Rule
     public TestWatcher watchman = new TestWatcher() {
@@ -341,7 +341,7 @@ public class BaseWebDriverTest {
 
     //Загрузка файлов
     void downloadFile(String file) {
-        File folder = new File(System.getProperty("user.dir"));
+        File folder = new File(obj.getProperty("PATH_DOWNLOAD_FILE"));
         File[] listOfFiles = folder.listFiles();
         boolean found = false;
         File f = null;

@@ -102,12 +102,12 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L); //ждем пока файл скачается
-        String textFileBeforeUpload = readDocxFile(PATH_UPLOAD_FILE);
+        String textFileBeforeUpload = readDocxFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         assertEquals("Файл не загружен", textFileBeforeUpload, textAfterUpload);
@@ -218,7 +218,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         //--Читаем документ по параграфам перед помещением в систему.Помещаем новый документ, ждем завершения, ждем пока отобразится новый текст.
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L);//ждем помещение файла в систему и перезагрузку страницы
 

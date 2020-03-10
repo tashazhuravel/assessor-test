@@ -14,9 +14,6 @@ public class SeleniumConfig {
     private WebDriver webDriver;
     private EventFiringWebDriver eventDriver;
     private DriverType driverType = DriverType.CHROME;
-    private String CHROME_PATH = "C:/Install/chromedriver/chromedriver.exe";
-    private String FIREFOX_PATH = "C:/Install/chromedriver/geckodriver.exe";
-    private String IE_PATH = "C:/Install/chromedriver/MicrosoftWebDriver.exe";
 
 
     public SeleniumConfig() {
@@ -29,21 +26,21 @@ public class SeleniumConfig {
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
                 chromeOptions.setExperimentalOption("prefs",chromePrefs);
-                System.setProperty("webdriver.chrome.driver", CHROME_PATH);
+                System.setProperty("webdriver.chrome.driver", BaseWebDriverTest.obj.getProperty("CHROME_PATH"));
                 webDriver = new ChromeDriver(chromeOptions);
                 eventDriver = new EventFiringWebDriver(webDriver);
                 eventDriver.register(new EventHandler());
                 break;
             case IE:
                 InternetExplorerOptions iEOptions = new InternetExplorerOptions();
-                System.setProperty("webdriver.MicrosoftWebDriver.driver", IE_PATH);
+                System.setProperty("webdriver.MicrosoftWebDriver.driver",BaseWebDriverTest.obj.getProperty("IE_PATH"));
                 webDriver = new InternetExplorerDriver(iEOptions);
                 eventDriver = new EventFiringWebDriver(webDriver);
                 eventDriver.register(new EventHandler());
                 break;
             case FIREFOX:
                 FirefoxOptions fFOptions = new FirefoxOptions();
-                System.setProperty("webdriver.geckodriver.driver", FIREFOX_PATH);
+                System.setProperty("webdriver.geckodriver.driver", BaseWebDriverTest.obj.getProperty("FIREFOX_PATH"));
                 webDriver = new FirefoxDriver(fFOptions);
                 eventDriver = new EventFiringWebDriver(webDriver);
                 eventDriver.register(new EventHandler());

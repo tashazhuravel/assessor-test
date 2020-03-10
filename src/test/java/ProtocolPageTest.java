@@ -96,12 +96,12 @@ public class ProtocolPageTest extends BaseWebDriverTest {
 
         ProtocolPage protocolPage = currentMeettingPage.clickOpenProtocol();
         WindowUploadFile windowUploadFile = protocolPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         protocolPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L); //ждем пока файл скачается
-        String textBeforeUploadFile = readDocxFile(PATH_UPLOAD_FILE);
+        String textBeforeUploadFile = readDocxFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         downloadFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
         String textAfterDownloadFile = readDocxFile(String.format("ПРОТОКОЛ %s_%s.docx", deleteSymbolInPhrase(numberCommittee).trim(), dateCommittee));
         assertEquals("Файл не загружен", textBeforeUploadFile, textAfterDownloadFile);
@@ -206,7 +206,7 @@ public class ProtocolPageTest extends BaseWebDriverTest {
 
         //--Читаем документ по параграфам перед помещением в систему.Помещаем новый документ, ждем завершения, ждем пока отобразится новый текст.
         WindowUploadFile windowUploadFile = protocolPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(PATH_UPLOAD_FILE);
+        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L);//ждем помещение файла в систему и перезагрузку страницы
 

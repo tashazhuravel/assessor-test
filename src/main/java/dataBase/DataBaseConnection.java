@@ -13,23 +13,21 @@ public class DataBaseConnection extends TestWatcher {
     public Statement stmt = null;
 
     private String db_url;
-
-    public DataBaseConnection(String db_url) {
+    final String user;
+    final String pass;
+    public DataBaseConnection(String db_url, String user, String pass) {
         this.db_url = db_url;
+        this.user = user;
+        this.pass = pass;
     }
 
     @Override
     protected void starting(Description description) {
         final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-        final String DB_URL = "jdbc:mysql://assessor-demo.isida.by:3306/assessor_nbrb";
-
-        final String user = "root";
-        final String password = "1";
-
         try {
             Class.forName(JDBC_DRIVER);
             try {
-                conn = DriverManager.getConnection(db_url, user, password);
+                conn = DriverManager.getConnection(db_url, user, pass);
                 stmt = conn.createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();
