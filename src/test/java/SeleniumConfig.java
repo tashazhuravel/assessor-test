@@ -21,7 +21,7 @@ public class SeleniumConfig {
             case CHROME:
                 HashMap<String,Object> chromePrefs = new HashMap<String, Object>();
                 chromePrefs.put("profile.default_content_settings.popups", 0);
-                chromePrefs.put("download.default_directory", System.getProperty("user.dir"));
+                chromePrefs.put("download.default_directory", BaseWebDriverTest.obj.getProperty("PATH_DOWNLOAD_FILE"));
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--no-sandbox");
                 chromeOptions.addArguments("--disable-dev-shm-usage");
