@@ -225,7 +225,7 @@ public class BaseWebDriverTest {
         }
         return true;
     }
-
+    @SuppressWarnings("unchecked")
     boolean isElementHaveTitle(WebElement element) {
         try {
             wait.until(ExpectedConditions.attributeToBeNotEmpty(element, "title"));
@@ -235,6 +235,7 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     boolean isCheckboxSelected(WebElement my_element) {
         try {
             wait.until(ExpectedConditions.elementToBeSelected(my_element));
@@ -244,6 +245,7 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     boolean isCheckboxDisabled(WebElement my_element) {
         try {
             wait.until(ExpectedConditions.attributeToBe(my_element, "disabled", "true"));
@@ -253,6 +255,7 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     boolean isAllCheckboxSelected(List<WebElement> my_element) {
         // WebElement element = my_element.iterator().next();
         try {
@@ -263,6 +266,7 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     boolean isAllCheckboxDisabled(List<WebElement> my_element) {
         try {
             wait.until(ExpectedConditions.attributeToBe(my_element.iterator().next(), "disabled", "true"));
@@ -282,6 +286,7 @@ public class BaseWebDriverTest {
         }
     }
 
+    @SuppressWarnings("unchecked")
     boolean isButtonDisabled(WebElement my_element) {
         try {
             wait.until(ExpectedConditions.attributeToBe(my_element, "disabled", "true"));
@@ -291,6 +296,7 @@ public class BaseWebDriverTest {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     void waitWhileElementPresent(By myElement) {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(myElement));
@@ -299,15 +305,16 @@ public class BaseWebDriverTest {
         }
     }
 
+    @SuppressWarnings("unchecked")
     void waitWhileElementPresent(WebElement myElement) {
         try {
             wait.until(ExpectedConditions.visibilityOf(myElement));
-
         } catch (TimeoutException exception) {
             log.error(myElement, exception);
         }
     }
 
+    @SuppressWarnings("unchecked")
     void waitToTextChanged(final WebElement webElement) {
         final String currentText = webElement.getText();
         try {
@@ -317,6 +324,7 @@ public class BaseWebDriverTest {
         }
     }
 
+    @SuppressWarnings("unchecked")
     boolean isTextChanged(final WebElement element) {
         final String currentText = element.getText();
         try {
@@ -340,7 +348,7 @@ public class BaseWebDriverTest {
 
     //Загрузка файлов
     void downloadFile(String file) {
-        File folder = new File(obj.getProperty("PATH_DOWNLOAD_FILE"));
+        File folder = new File(System.getProperty("user.dir"));
         File[] listOfFiles = folder.listFiles();
         boolean found = false;
         File f = null;
