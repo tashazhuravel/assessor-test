@@ -352,19 +352,23 @@ public class BaseWebDriverTest {
         File[] listOfFiles = folder.listFiles();
         boolean found = false;
         File f = null;
-        for (File listOfFile : listOfFiles) {
-            if (listOfFile.isFile()) {
-                String fileName = listOfFile.getName();
-                log.info("File:" + " " + listOfFile.getName());
-                if (fileName.equals(file)) {
-                    f = new File(fileName);
-                    found = true;
+        if (listOfFiles == null) {
+            log.info("Файлы не найдены. Каталог для Download файлов пуст");
+            return;
+        }
+            for (File listOfFile : listOfFiles) {
+                if (listOfFile.isFile()) {
+                    String fileName = listOfFile.getName();
+                    log.info("File:" + " " + listOfFile.getName());
+                    if (fileName.equals(file)) {
+                        f = new File(fileName);
+                        found = true;
+                    }
                 }
             }
+            Assert.assertTrue("Downloaded document is not found", found);
+            f.delete();
         }
-        Assert.assertTrue("Downloaded document is not found", found);
-        f.delete();
-    }
 
     //чтение docx файлов
     String readDocxFile(String fileName) {

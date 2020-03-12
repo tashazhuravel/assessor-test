@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AgendaPageTest extends BaseWebDriverTest {
 
-    protected static final String STATUS = "Формируется повестка дня";
+    private static final String STATUS = "Формируется повестка дня";
 
 
     public AgendaPageTest(String login, String password, String fioUserAccount, String unallocatedQuestionsStatusField, String sittingPlace) {
@@ -37,7 +37,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-    @Ignore
+   // @Ignore
     public void openAndCloseAgenda() {
         log.info("Тест-кейс. Перейти на форму 'Повестка дня' и вернуться к текущем заседанию");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -57,7 +57,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-  // @Ignore
+  //@Ignore
     public void downloadFile() {
         log.info("Тест-кейс. Повестка дня, проверка загрузки файла по кнопке 'Скачать данный текст'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -74,7 +74,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);// ожидаем загрузки файла
         String fileName = String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton);
-        downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
+        downloadFile( fileName);
 
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
@@ -85,7 +85,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
     }
 
     @Test
-   @Ignore
+    //@Ignore
     public void uploadFile() {
         log.info("Тест-кейс. Повестка дня. Проверка помещения файла в систему по кнопке 'Поместить измененный текст' ");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -102,12 +102,12 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
+        windowUploadFile.setInputFile(System.getProperty("user.dir")+BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L); //долгая загрузка файла и перезагрузка страницы
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L); //ждем пока файл скачается
-        String textFileBeforeUpload = readDocxFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
+        String textFileBeforeUpload = readDocxFile(System.getProperty("user.dir")+BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         String textAfterUpload = readDocxFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         downloadFile(String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton));
         assertEquals("Файл не загружен", textFileBeforeUpload, textAfterUpload);
@@ -115,12 +115,12 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
-        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+        assertTrue("Не найдено заседание в списке заседаний", isElementVisible(planningTabPage.getNameCommittee()));
 
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void setStatusAgendaApproval() {
         log.info("Тест-кейс. Уставновить статус 'Повестка дня согласована'");
         assessorService = new AssessorService(dataBaseConnection.stmt);
@@ -188,11 +188,11 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
-        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
+        assertTrue("Не найдено заседание в списке заседаний", isElementVisible(planningTabPage.getNameCommittee()));
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void reformatAgenda() {
 
         log.info("Тест-кейс.'Повестка дня', переформировать повестки дня");
@@ -209,6 +209,12 @@ public class AgendaPageTest extends BaseWebDriverTest {
         sleepAnyTime(10000L);
         assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
+        agendaPage.clickReformAgendaButton();// переформировываем текст повестки дня, перед тем как начать проверку
+        attentionWindow = assessorSite.getAttentionWindow();
+        assertEquals(AttentionType.REFORMAT_AGENDA_TEXT.getLabel(), attentionWindow.getTextAttention());
+        attentionWindow.clickYesAttentionButton();
+        sleepAnyTime(5000L);// ждем переформирование текста и обновление странцы
+
         //--Скачиваем текст, который отображен в повестке при открытии формы "Повестка дня" и читаем его по параграфам.
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);//ждем загрузку файла
@@ -218,7 +224,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         //--Читаем документ по параграфам перед помещением в систему.Помещаем новый документ, ждем завершения, ждем пока отобразится новый текст.
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
-        windowUploadFile.setInputFile(BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
+        windowUploadFile.setInputFile(System.getProperty("user.dir")+BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
         windowUploadFile.clickUploadFileButton();
         sleepAnyTime(5000L);//ждем помещение файла в систему и перезагрузку страницы
 
@@ -233,7 +239,6 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         //Нажимаем Переформировать повестку дня, в появившемся алерте жмем Нет и проверяем что текст не изменился.
         agendaPage.clickReformAgendaButton();
-        attentionWindow = assessorSite.getAttentionWindow();
         assertEquals(AttentionType.REFORMAT_AGENDA_TEXT.getLabel(), attentionWindow.getTextAttention());
         attentionWindow.clickNoAttentionButton();
         sleepAnyTime(5000L);// ждем переформирование текста и обновление странцы
@@ -263,9 +268,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         agendaPage.clickBackFromQuestionListButton();
         currentMeettingPage.clickBackOnListSitting();
-        assertFalse("/", isElementVisible(planningTabPage.getNameCommittee()));
-
-
+        assertTrue("Не найдено заседание в списке заседаний", isElementVisible(planningTabPage.getNameCommittee()));
     }
 
 }
