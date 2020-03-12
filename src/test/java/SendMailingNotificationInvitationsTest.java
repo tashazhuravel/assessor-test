@@ -47,14 +47,16 @@ public class SendMailingNotificationInvitationsTest extends BaseWebDriverTest {
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
-        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        assertEquals("Заголовок 'Повестка дня' не найден или открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         WindowMailingNotificationInvitations windowMailingNotificationInvitations = agendaPage.clickSendInvitationButton();
-        assertEquals("Ой, открыта не то окно", "Рассылка приглашений-уведомлений о проведении заседания",windowMailingNotificationInvitations.getHeaderNotificationInvitations());
+        assertEquals("Заголовок 'Рассылка приглашений-уведомлений о проведении заседания' не найден или открыта не та форма", "Рассылка приглашений-уведомлений о проведении заседания",windowMailingNotificationInvitations.getHeaderNotificationInvitations());
 
         String fioRecipient = assessorService.getFIOAllParticipant().get(0);
         log.info(fioRecipient);
         List<String> fioRecipientList = Stream.of(fioRecipient.split(",")).collect(Collectors.toList());
+        Collections.swap(fioRecipientList, 1, 3);
+        Collections.swap(fioRecipientList, 2, 4);
         Collections.swap(fioRecipientList, 0, 2);
         verifyAutocompleteOptionsText(changeWordPressSymbol(windowMailingNotificationInvitations.getFIOParticipantText()), fioRecipientList);
 

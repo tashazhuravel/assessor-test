@@ -70,7 +70,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
 
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
-        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        assertEquals("Заголовок 'Повестка дня' не найден или открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
         agendaPage.clickDownloadThisTextButton();
         sleepAnyTime(5000L);// ожидаем загрузки файла
         String fileName = String.format("ПОВЕСТКА%s_%s.docx", deleteSymbolInPhrase(numberCommitteeButton.trim()), dateCommitteeButton);
@@ -99,7 +99,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
 
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), numberSitting);
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
-        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        assertEquals("Заголовок 'Повестка дня' не найден или открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         WindowUploadFile windowUploadFile = agendaPage.clickUploadEditedTextButton();
         windowUploadFile.setInputFile(System.getProperty("user.dir")+BaseWebDriverTest.obj.getProperty("PATH_UPLOAD_FILE"));
@@ -132,7 +132,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         sleepAnyTime(5000L);//ждем формирования текста повестки, при первом переходе есть задержка
-        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        assertEquals("Заголовок 'Повестка дня' не найден или открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         if (STATUS.equals(currentMeettingPage.getTextStatusField())) {
 
@@ -207,7 +207,7 @@ public class AgendaPageTest extends BaseWebDriverTest {
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
         AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
         sleepAnyTime(10000L);
-        assertEquals("Ой, открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
+        assertEquals("Заголовок 'Повестка дня' не найден или открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
 
         agendaPage.clickReformAgendaButton();// переформировываем текст повестки дня, перед тем как начать проверку
         attentionWindow = assessorSite.getAttentionWindow();
