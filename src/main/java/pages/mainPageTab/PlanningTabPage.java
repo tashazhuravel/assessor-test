@@ -25,7 +25,7 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingState']")
     private List<WebElement> allStateCommitteeButton;
 
-    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingDate'])[last()]")
+    @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//table)[last()-2]")
     private WebElement committeeButton;
 
     @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingDate'])[last()]")
