@@ -40,6 +40,18 @@ public class PlanningTabPage extends MainPage {
     @FindBy(xpath = "(//fieldset[@id='fieldset-committees-64']//span[@class='btnSittingNum'])[last()]")
     private WebElement numberCommitteeLastButton;
 
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[@class=' x-btn-text btnSittingInList btnSittingAgendaApproved btnSittingInListSecretary ']")
+    private List<WebElement> committeePreparedButton;
+
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[@class=' x-btn-text btnSittingInList btnSittingAgendaForming btnSittingInListSecretary ']")
+    private List<WebElement> committeePreparingButton;
+
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[@class=' x-btn-text btnSittingInList btnSittingOpen btnSittingInListSecretary ']")
+    private List<WebElement> committeeOpenButton;
+
+    @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[@class=' x-btn-text btnSittingInList btnSittingProtocolForming btnSittingInListSecretary ']")
+    private List<WebElement> committeeCloseButton;
+
     @FindBy(xpath = "//fieldset[@id='fieldset-committees-64']//button[contains(@class ,'btnSittingUndistributed')]")
     private WebElement unllocatedQuestions;
 
@@ -62,6 +74,11 @@ public class PlanningTabPage extends MainPage {
 
     public CurrentMeettingPage clickCommitteeButton() {
         actions.moveToElement(committeeButton).click().perform();
+        return new CurrentMeettingPage(webDriver);
+    }
+
+    public CurrentMeettingPage clickPreparingCommitteeButton(){
+        committeePreparingButton.iterator().next().click();
         return new CurrentMeettingPage(webDriver);
     }
 
