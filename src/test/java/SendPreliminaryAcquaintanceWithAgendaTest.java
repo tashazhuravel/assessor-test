@@ -45,10 +45,12 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
         planningTabPage = assessorSite.getPlanningPage();
         planningTabPage.clickTab(MainPage.ETab.PLANNING);
 
-        if (planningTabPage.getAllStateCommitteeButton().stream().anyMatch(a -> a.getText().equals("Готовится"))) {
+        String stateCommitteeButton = planningTabPage.getState().getText();
+
+        if (stateCommitteeButton.equals("Готовится")) {
             String numberCommitteeButton = planningTabPage.getNumberCommitteeLastButtonText();
             log.info(numberCommitteeButton);
-            CurrentMeettingPage currentMeettingPage = planningTabPage.clickPreparingCommitteeButton();
+            CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
             assertThat("Номер заседания на кнопке не совпадает с номером в поле Инф.табло", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommitteeButton)));
             AgendaPage agendaPage = currentMeettingPage.clickAgendaButton();
             assertEquals("Заголовок 'Повестка дня' не найден или открыта не та форма", "Повестка дня", agendaPage.getHeaderAgenda());
@@ -71,10 +73,14 @@ public class SendPreliminaryAcquaintanceWithAgendaTest extends BaseWebDriverTest
             messageWindow = assessorSite.getMessageWindow();
             assertEquals(MessageType.MAILING_HAS_BEEN_SUCCESSFULLY_RESIEVED.getLabel(), messageWindow.getMessage());
             messageWindow.clickMessageOkButton();
+        } else {
+            log.info("Заседание со статусом 'Подготовлено', 'Идет' или 'Закрыто'.");
         }
-    }else{
-
     }
-
-
 }
+
+
+
+
+
+

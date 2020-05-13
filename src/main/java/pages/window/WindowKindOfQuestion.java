@@ -15,7 +15,10 @@ public class WindowKindOfQuestion {
 
     private Actions actions;
 
-    @FindBy (xpath = "//div[@class='x-grid3-row x-grid3-row-first x-grid3-row-selected']")
+    @FindBy (xpath = "//div[@id='popupWindowCreateQuestion']//span")
+    private WebElement header;
+
+    @FindBy (xpath = "//div[@id='questionsTypesChooseListId']//div[@class='x-grid3-row x-grid3-row-first x-grid3-row-selected']")
     private WebElement selectedQuestion;
 
     @FindBy(xpath = "//div[@class='x-grid3-row x-grid3-row-alt']")
@@ -26,7 +29,7 @@ public class WindowKindOfQuestion {
 
     @FindBy(xpath = "//button[text()='Отмена']")
     private WebElement cancelButton;
-
+//форма Вид вопроса, которая открывается принажать добавить новый вопрос
 
     public WindowKindOfQuestion(WebDriver webDriver) {
         this.webDriver = webDriver;

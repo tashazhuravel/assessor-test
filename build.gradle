@@ -47,7 +47,7 @@ task runAgendaTest(type: Test) {
     filter {
         includeTestsMatching '*SendPreliminaryAcquaintanceWithAgendaTest'
         includeTestsMatching '*AgendaPageTest'
-        ;includeTestsMatching '*SendMailingNotificationInvitationsTest'
+        includeTestsMatching '*SendMailingNotificationInvitationsTest'
     }
     ignoreFailures = true
     testLogging.exceptionFormat = 'full'
