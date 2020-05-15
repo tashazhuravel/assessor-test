@@ -42,6 +42,10 @@ public class WindowKindOfQuestion {
         return new WindowKindOfQuestion(webDriver);
     }
 
+    public String getTextSelectKindOfQuestion(){
+        return selectedQuestion.getText();
+    }
+
     public WindowKindOfQuestion clickUnSelectKindOfQuestion(){
         allUnselectedQuestion.iterator().next().click();
         return new WindowKindOfQuestion(webDriver);
@@ -57,4 +61,7 @@ public class WindowKindOfQuestion {
         return new CurrentMeettingPage(webDriver);
     }
 
+    public WebElement getHeader() {
+        return header;
+    }
 }

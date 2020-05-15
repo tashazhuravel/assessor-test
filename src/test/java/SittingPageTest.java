@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import pages.MainPage;
 import pages.sittingPage.CurrentMeettingPage;
+import pages.sittingPage.QuestionList;
+import pages.window.WindowKindOfQuestion;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
@@ -40,6 +42,16 @@ public class SittingPageTest extends BaseWebDriverTest {
         log.info(numberCommittee + " " + dateCommittee);
         CurrentMeettingPage currentMeettingPage = planningTabPage.clickCommitteeButton();
         assertThat("Номер заседания на кнопке не совпадает с номером в статусе", currentMeettingPage.getTextInformationField(), containsString(deleteSpaceBetweenWords(numberCommittee)));
-        //WindowcurrentMeettingPage.clickCreateNewQuestion();
+
+        WindowKindOfQuestion windowKindOfQuestion = currentMeettingPage.clickCreateNewQuestion();
+        assertEquals("не открыта форма 'Вид вопроса'", "Вид вопроса", windowKindOfQuestion.getHeader().getText());
+
+        String selectedQuestion = windowKindOfQuestion.getTextSelectKindOfQuestion();
+        windowKindOfQuestion.clickSelectKindOfQuestion().clickCreateButton();
+        QuestionList questionList = currentMeettingPage.QuestionList();
+        assertEquals("Вопрос не добавлен",questionList.getQuestionListText(), selectedQuestion);
+
+
+
     }
 }
